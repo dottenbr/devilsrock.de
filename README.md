@@ -40,6 +40,10 @@ devilsrock.de/
    - Wähle "Deploy from a branch" aus
    - Wähle "main" Branch und "/ (root)" Ordner
    - Klicke "Save"
+4. **Custom Domain konfigurieren**:
+   - Die `CNAME` Datei ist bereits erstellt
+   - Konfiguriere DNS-Einstellungen bei deinem Domain-Provider
+   - GitHub Pages erkennt automatisch die Domain `devilsrock.de`
 
 ### Manuelles Deployment
 
