@@ -114,19 +114,14 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('assets/trail-bild.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     overflow: hidden;
 }
 
-.hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.15"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="120" fill="url(%23a)"/><circle cx="800" cy="300" r="180" fill="url(%23a)"/><circle cx="400" cy="700" r="150" fill="url(%23a)"/><circle cx="600" cy="500" r="100" fill="url(%23a)"/></svg>');
-    opacity: 0.4;
-}
+
 
 .hero-content {
     text-align: center;
@@ -292,6 +287,8 @@ body {
     color: var(--light-text);
     line-height: 1.6;
 }
+
+
 
 /* Community Section */
 .community-section {
