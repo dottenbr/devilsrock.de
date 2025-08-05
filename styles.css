@@ -6,16 +6,16 @@
 }
 
 :root {
-    --primary-color: #e74c3c;
-    --secondary-color: #2c3e50;
-    --accent-color: #f39c12;
-    --text-color: #2c3e50;
-    --light-text: #7f8c8d;
-    --background-color: #ffffff;
-    --light-bg: #f8f9fa;
-    --border-color: #e9ecef;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.15);
+    --primary-color: #8b5cf6;
+    --secondary-color: #1e1b4b;
+    --accent-color: #a855f7;
+    --text-color: #ffffff;
+    --light-text: #cbd5e1;
+    --background-color: #0f0f23;
+    --light-bg: #1a1a2e;
+    --border-color: #312e81;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    --shadow-hover: 0 8px 30px rgba(139, 92, 246, 0.15);
     --border-radius: 12px;
     --transition: all 0.3s ease;
 }
@@ -38,12 +38,12 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(15, 15, 35, 0.7);
+    backdrop-filter: blur(15px);
     z-index: 1000;
-    padding: 1rem 0;
+    padding: 1.5rem 0;
     transition: var(--transition);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(139, 92, 246, 0.1);
 }
 
 .nav-container {
@@ -126,7 +126,7 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('assets/trail-bild.jpg');
+    background: linear-gradient(135deg, rgba(15, 15, 35, 0.8), rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.1)), url('assets/trail-bild.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -144,21 +144,26 @@ body {
 }
 
 .hero h1 {
-    font-size: 4rem;
-    font-weight: 700;
+    font-size: 5rem;
+    font-weight: 800;
     margin-bottom: 1rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    color: white;
+    text-shadow: 
+        -4px -4px 0px rgba(139, 92, 246, 0.9),
+        4px 4px 0px rgba(236, 72, 153, 0.9);
 }
 
 .hero-subtitle {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    color: white;
     opacity: 0.9;
 }
 
 .hero-description {
     font-size: 1.2rem;
     margin-bottom: 2rem;
+    color: white;
     opacity: 0.8;
 }
 
@@ -185,12 +190,32 @@ body {
 }
 
 .btn-primary {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
     color: white;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
 }
 
 .btn-primary:hover {
-    background: #c0392b;
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
     transform: translateY(-2px);
     box-shadow: var(--shadow-hover);
 }
@@ -203,7 +228,7 @@ body {
 
 .btn-secondary:hover {
     background: white;
-    color: var(--text-color);
+    color: var(--background-color);
     transform: translateY(-2px);
 }
 
@@ -226,8 +251,8 @@ body {
 }
 
 .status-card {
-    background: white;
-    padding: 2rem;
+    background: rgba(139, 92, 246, 0.05);
+    padding: 3rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     display: flex;
@@ -235,11 +260,28 @@ body {
     gap: 2rem;
     max-width: 800px;
     margin: 0 auto;
+    border: 1px solid rgba(139, 92, 246, 0.1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.status-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
 }
 
 .status-icon {
     font-size: 3rem;
-    color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .status-content h3 {
@@ -271,12 +313,38 @@ body {
 }
 
 .trail-card {
-    background: white;
-    padding: 2rem;
+    background: rgba(139, 92, 246, 0.05);
+    padding: 2.5rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     transition: var(--transition);
     text-align: center;
+    border: 1px solid rgba(139, 92, 246, 0.1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.trail-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.trail-card:hover::before {
+    transform: scaleX(1);
+}
+
+.trail-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(139, 92, 246, 0.3);
 }
 
 .trail-card:hover {
@@ -285,9 +353,12 @@ body {
 }
 
 .card-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
+    font-size: 3rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
 }
 
 .trail-card h3 {
@@ -322,12 +393,14 @@ body {
 }
 
 .community-card {
-    background: white;
+    background: rgba(139, 92, 246, 0.05);
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     transition: var(--transition);
     text-align: center;
+    border: 1px solid rgba(139, 92, 246, 0.1);
+    backdrop-filter: blur(10px);
 }
 
 .community-card:hover {
@@ -369,10 +442,12 @@ body {
     align-items: flex-start;
     gap: 1rem;
     padding: 1.5rem;
-    background: white;
+    background: rgba(139, 92, 246, 0.05);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     transition: var(--transition);
+    border: 1px solid rgba(139, 92, 246, 0.1);
+    backdrop-filter: blur(10px);
 }
 
 .rule-item:hover {
@@ -412,11 +487,13 @@ body {
 }
 
 .contact-card {
-    background: white;
+    background: rgba(139, 92, 246, 0.05);
     padding: 2rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     transition: var(--transition);
+    border: 1px solid rgba(139, 92, 246, 0.1);
+    backdrop-filter: blur(10px);
 }
 
 .contact-card:hover {
@@ -459,7 +536,7 @@ body {
 
 /* Footer */
 .footer {
-    background: var(--secondary-color);
+    background: #0a0a0a;
     color: white;
     padding: 4rem 0 2rem;
 }

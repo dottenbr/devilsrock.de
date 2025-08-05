@@ -21,11 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Navbar background on scroll
     window.addEventListener('scroll', function() {
         if (window.scrollY > 100) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            navbar.style.background = 'rgba(15, 15, 35, 0.8)';
+            navbar.style.boxShadow = '0 4px 20px rgba(139, 92, 246, 0.1)';
         } else {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-            navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            navbar.style.background = 'rgba(15, 15, 35, 0.7)';
+            navbar.style.boxShadow = '0 4px 20px rgba(139, 92, 246, 0.1)';
         }
     });
 
@@ -173,26 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(mobileStyles);
 
-    // Add scroll progress indicator
-    const progressBar = document.createElement('div');
-    progressBar.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 3px;
-        background: linear-gradient(90deg, #e74c3c, #f39c12);
-        z-index: 1001;
-        transition: width 0.1s ease;
-    `;
-    document.body.appendChild(progressBar);
 
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset;
-        const docHeight = document.body.offsetHeight - window.innerHeight;
-        const scrollPercent = (scrollTop / docHeight) * 100;
-        progressBar.style.width = scrollPercent + '%';
-    });
 
     // Add lazy loading for images
     const imageObserver = new IntersectionObserver((entries, observer) => {
