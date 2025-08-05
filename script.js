@@ -5,29 +5,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.querySelector('.navbar');
 
     // Mobile menu toggle
-    navToggle.addEventListener('click', function() {
-        navLinks.classList.toggle('active');
-        navToggle.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            navToggle.classList.remove('active');
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
         });
-    });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+    }
 
     // Navbar background on scroll
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            navbar.style.background = 'rgba(15, 15, 35, 0.8)';
-            navbar.style.boxShadow = '0 4px 20px rgba(139, 92, 246, 0.1)';
-        } else {
-            navbar.style.background = 'rgba(15, 15, 35, 0.7)';
-            navbar.style.boxShadow = '0 4px 20px rgba(139, 92, 246, 0.1)';
-        }
-    });
+    if (navbar) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(15, 15, 35, 0.8)';
+                navbar.style.boxShadow = '0 4px 20px rgba(139, 92, 246, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(15, 15, 35, 0.7)';
+                navbar.style.boxShadow = '0 4px 20px rgba(139, 92, 246, 0.1)';
+            }
+        });
+    }
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
