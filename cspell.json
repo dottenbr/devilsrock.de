@@ -1,0 +1,60 @@
+{
+  "version": "0.2",
+  "language": "en,de",
+  "words": [
+    "Biken",
+    "Bruschied",
+    "devilsrock",
+    "DIMB",
+    "dominik-ottenbreit",
+    "florian-bauer",
+    "flowige",
+    "hennweiler",
+    "Hennweiler",
+    "julian-fritz",
+    "Kirner",
+    "Lützelsoon",
+    "minmax",
+    "nutzungsbestimmungen",
+    "ottenbreit",
+    "rgba",
+    "Sobernheim",
+    "Teufelshütte",
+    "trail-bild",
+    "Trailbau",
+    "Trailrules",
+    "Viktoria"
+  ],
+  "ignoreWords": [],
+  "patterns": [
+    {
+      "name": "HTML files",
+      "pattern": "**/*.html",
+      "description": "HTML files"
+    },
+    {
+      "name": "Markdown files",
+      "pattern": "**/*.md",
+      "description": "Markdown files"
+    },
+    {
+      "name": "JavaScript files",
+      "pattern": "**/*.js",
+      "description": "JavaScript files"
+    },
+    {
+      "name": "CSS files",
+      "pattern": "**/*.css",
+      "description": "CSS files"
+    }
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    ".git/**",
+    "dist/**",
+    "build/**",
+    "*.min.js",
+    "*.min.css",
+    ".DS_Store"
+  ]
+}

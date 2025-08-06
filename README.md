@@ -11,7 +11,7 @@ Die offizielle Website für die Devils Rock Trails in Hennweiler, Rheinland-Pfal
 
 ## 📁 Struktur
 
-```
+```text
 devilsrock.de/
 ├── index.html                    # Hauptseite
 ├── components.js                 # Komponenten-System
@@ -39,6 +39,7 @@ devilsrock.de/
 ## 🔧 Komponenten
 
 Bearbeite die HTML-Dateien in `components/`:
+
 - `nav.html` - Navigation
 - `footer.html` - Footer
 - `head.html` - Head-Sektion
@@ -46,6 +47,7 @@ Bearbeite die HTML-Dateien in `components/`:
 ## 🚴 Trail-Status
 
 Automatische Anzeige basierend auf der Jahreszeit:
+
 - **Geöffnet**: 1. April - 31. Oktober
 - **Geschlossen**: 1. November - 31. März
 
@@ -57,10 +59,10 @@ Automatische Anzeige basierend auf der Jahreszeit:
 
 ## 👥 Team
 
-- **Julian Fritz** - Vorsitzender Radsport (julian@devilsrock.de)
-- **Florian Bauer** - Jugendtrainer Radsport (flo@devilsrock.de)
-- **Dominik Ottenbreit** - Koordination Trailbau (dom@devilsrock.de)
+- **Julian Fritz** - Vorsitzender Radsport (<julian@devilsrock.de>)
+- **Florian Bauer** - Jugendtrainer Radsport (<flo@devilsrock.de>)
+- **Dominik Ottenbreit** - Koordination Trailbau (<dom@devilsrock.de>)
 
 ---
 
-**Devils Rock Trails** - Mountainbike Trails in Hennweiler, Rheinland-Pfalz 
+**Devils Rock Trails** - Mountainbike Trails in Hennweiler, Rheinland-Pfalz
