@@ -138,44 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 
-    // Add mobile menu styles
-    const mobileStyles = document.createElement('style');
-    mobileStyles.textContent = `
-        @media (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                padding: 2rem;
-                transform: translateY(-100%);
-                opacity: 0;
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            }
-            
-            .nav-links.active {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            
-            .nav-toggle.active span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-            
-            .nav-toggle.active span:nth-child(2) {
-                opacity: 0;
-            }
-            
-            .nav-toggle.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(7px, -6px);
-            }
-        }
-    `;
-    document.head.appendChild(mobileStyles);
+
 
 
 

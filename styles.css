@@ -133,6 +133,32 @@ body {
     overflow: hidden;
 }
 
+/* Mobile-specific hero background */
+@media (max-width: 768px) {
+    .hero {
+        background-attachment: scroll;
+        background-position: center center;
+        background-size: cover;
+        min-height: 100vh;
+        height: 100vh;
+    }
+    
+    .hero-content {
+        padding: 0 15px;
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+    .hero {
+        background-position: center 20%;
+    }
+    
+    .hero-content {
+        padding: 0 10px;
+    }
+}
+
 
 
 .hero-content {
@@ -607,7 +633,49 @@ body {
     }
     
     .nav-links {
-        display: none;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(15, 15, 35, 0.95);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        padding: 2rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+    }
+    
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .nav-links a {
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav-links a:last-child {
+        border-bottom: none;
+    }
+    
+    .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
     }
     
     .nav-toggle {
@@ -640,12 +708,30 @@ body {
     .community-section h2,
     .safety-section h2,
     .services-section h2,
-    .contact-section h2 {
+    .contact-section h2,
+    .page-header h1 {
         font-size: 2rem;
+        word-wrap: break-word;
+        hyphens: auto;
+        padding: 0 15px;
+    }
+    
+    .page-header {
+        padding: 7rem 0 3.5rem;
+    }
+    
+    .header-subtitle {
+        font-size: 1.1rem;
+        padding: 0 15px;
     }
     
     .container {
         padding: 0 15px;
+    }
+    
+    .content-card {
+        padding: 2.5rem;
+        margin: 0 15px;
     }
     
     .trail-grid,
@@ -661,6 +747,22 @@ body {
         font-size: 2rem;
     }
     
+    .page-header h1 {
+        font-size: 1.5rem;
+        word-wrap: break-word;
+        hyphens: auto;
+        padding: 0 10px;
+    }
+    
+    .page-header {
+        padding: 6rem 0 3rem;
+    }
+    
+    .header-subtitle {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+    
     .btn {
         padding: 0.8rem 1.5rem;
         font-size: 0.9rem;
@@ -670,6 +772,11 @@ body {
     .community-card,
     .contact-card {
         padding: 1.5rem;
+    }
+    
+    .content-card {
+        padding: 2rem;
+        margin: 0 10px;
     }
     
     .services-card {
