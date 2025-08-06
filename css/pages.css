@@ -1,0 +1,285 @@
+/* Section Headers */
+.trail-section h2,
+.community-section h2,
+.safety-section h2,
+.team-section h2,
+.contact-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--text-color);
+}
+
+/* Trail Section */
+.trail-card h3 {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.trail-card p {
+    color: var(--light-text);
+    line-height: 1.6;
+}
+
+/* Community Section */
+.community-card h3 {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.community-card p {
+    color: var(--light-text);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* Safety Section */
+.rule-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba(139, 92, 246, 0.05);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(139, 92, 246, 0.1);
+    transition: var(--transition);
+}
+
+.rule-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(139, 92, 246, 0.3);
+}
+
+.rule-item i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    min-width: 24px;
+}
+
+.rule-item p {
+    color: var(--light-text);
+    margin: 0;
+}
+
+.safety-footer {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+/* Team Section */
+.team-description {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--light-text);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.team-member {
+    text-align: center;
+    transition: var(--transition);
+}
+
+.team-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border: 3px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.team-member:hover .team-photo {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.team-member h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.team-role {
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.team-email {
+    color: var(--light-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.team-email:hover {
+    color: var(--primary-color);
+    background: rgba(139, 92, 246, 0.2);
+    border-color: var(--primary-color);
+}
+
+/* Contact Section */
+.contact-card h3 {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.social-links, .info-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.social-link, .info-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--light-bg);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+.social-link:hover, .info-link:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateX(5px);
+}
+
+.social-link i, .info-link i {
+    font-size: 1.2rem;
+}
+
+/* Footer */
+.footer-section h3, .footer-section h4 {
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.footer-section p {
+    color: #bdc3c7;
+    line-height: 1.6;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #34495e;
+    color: #bdc3c7;
+}
+
+/* Status Content */
+.status-content h3 {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.status-content p {
+    color: var(--light-text);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* Nutzungsbestimmungen Page */
+.intro-text {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.intro-text p {
+    font-size: 1.1rem;
+    color: var(--light-text);
+    line-height: 1.8;
+}
+
+.rules-list {
+    margin-bottom: 3rem;
+}
+
+.rule-item-detailed {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+.rule-item-detailed:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.rule-item-detailed h3 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.rule-item-detailed p {
+    color: var(--light-text);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.dimb-rules {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.dimb-rules li {
+    padding: 0.5rem 0;
+    color: var(--light-text);
+    position: relative;
+    padding-left: 2rem;
+}
+
+.dimb-rules li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.footer-note {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+.footer-note p {
+    margin-bottom: 1.5rem;
+    color: var(--light-text);
+}
+
+/* Mobile Responsive for Pages */
+@media (max-width: 768px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .team-photo {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .team-section h2 {
+        font-size: 2rem;
+    }
+} 

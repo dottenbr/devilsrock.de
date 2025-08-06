@@ -1,101 +1,66 @@
-# Devils Rock Trails - Landing Page
+# Devils Rock Trails Website
 
-Eine moderne, responsive Landing Page für die Devils Rock Trails in Hennweiler, Rheinland-Pfalz.
+Die offizielle Website für die Devils Rock Trails in Hennweiler, Rheinland-Pfalz.
 
 ## 🚀 Features
 
-- **Modernes Design**: Sauberes, responsives Design mit modernen Webtechnologien
-- **Mobile-First**: Optimiert für alle Geräte (Desktop, Tablet, Smartphone)
-- **Performance**: Schnelle Ladezeiten durch optimierte Assets
-- **Accessibility**: Barrierefreie Gestaltung mit Keyboard-Navigation
-- **SEO-Optimiert**: Meta-Tags und strukturierte Daten für bessere Suchmaschinen-Auffindbarkeit
+- Responsive Design für alle Geräte
+- Wiederverwendbare Komponenten (Navigation, Footer)
+- Automatischer Trail-Status
+- Community-Integration
 
-## 📱 Technologien
-
-- **HTML5**: Semantische Struktur
-- **CSS3**: Moderne Styling mit CSS Grid, Flexbox und Custom Properties
-- **JavaScript**: Interaktive Features und mobile Navigation
-- **Font Awesome**: Icons für bessere Benutzererfahrung
-- **Google Fonts**: Inter Font für moderne Typografie
-
-## 🏗️ Projektstruktur
+## 📁 Struktur
 
 ```
 devilsrock.de/
-├── index.html          # Haupt-HTML-Datei
-├── styles.css          # CSS-Styles
-├── script.js           # JavaScript-Funktionalität
-└── README.md           # Diese Datei
+├── index.html                    # Hauptseite
+├── components.js                 # Komponenten-System
+├── css/                          # Stylesheets
+│   ├── base.css                  # Reset, Variablen, Basis-Styles
+│   ├── components.css            # Navigation, Buttons, Cards
+│   ├── layout.css                # Grid, Sections, Container
+│   └── pages.css                 # Seiten-spezifische Styles
+├── js/                           # JavaScript
+│   ├── navigation.js             # Navigation & Mobile Menu
+│   ├── animations.js             # Scroll & Animationen
+│   └── trail-status.js          # Trail-Status Logik
+├── components/                   # HTML-Komponenten
+│   ├── nav.html                  # Navigation
+│   ├── footer.html               # Footer
+│   └── head.html                 # Head-Sektion
+├── pages/                        # Weitere Seiten
+│   └── nutzungsbestimmungen.html # Nutzungsbestimmungen
+└── assets/                       # Assets
+    ├── images/                   # Bilder
+    ├── icons/                    # Icons
+    └── team/                     # Team-Fotos
 ```
 
-## 🌐 GitHub Pages Hosting
+## 🔧 Komponenten
 
-### Automatisches Deployment
+Bearbeite die HTML-Dateien in `components/`:
+- `nav.html` - Navigation
+- `footer.html` - Footer
+- `head.html` - Head-Sektion
 
-1. **Repository erstellen**: Erstelle ein neues GitHub Repository namens `devilsrock.de`
-2. **Dateien hochladen**: Lade alle Projektdateien in das Repository hoch
-3. **GitHub Pages aktivieren**:
-   - Gehe zu Repository Settings
-   - Scrolle zu "Pages" im linken Menü
-   - Wähle "Deploy from a branch" aus
-   - Wähle "main" Branch und "/ (root)" Ordner
-   - Klicke "Save"
-4. **Custom Domain konfigurieren**:
-   - Die `CNAME` Datei ist bereits erstellt
-   - Konfiguriere DNS-Einstellungen bei deinem Domain-Provider
-   - GitHub Pages erkennt automatisch die Domain `devilsrock.de`
+## 🚴 Trail-Status
 
-### Manuelles Deployment
+Automatische Anzeige basierend auf der Jahreszeit:
+- **Geöffnet**: 1. April - 31. Oktober
+- **Geschlossen**: 1. November - 31. März
 
-```bash
-# Repository klonen
-git clone https://github.com/yourusername/devilsrock.de.git
-cd devilsrock.de
+## 🔗 Links
 
-# Dateien hinzufügen
-git add .
-git commit -m "Initial commit: Devils Rock Trails Landing Page"
-git push origin main
-```
+- **Facebook**: [Devils Rock Trails](https://www.facebook.com/profile.php?id=100076197633953)
+- **WhatsApp**: [Community](https://chat.whatsapp.com/CEPt7TiijKc3xoyRv0TyBc?mode=ac_t)
+- **Instagram**: [@devils_rock_trail_hennweiler](https://www.instagram.com/devils_rock_trail_hennweiler)
 
-## 📋 Inhalt
+## 👥 Team
 
-Die Website enthält alle wichtigen Informationen über die Devils Rock Trails:
-
-- **Trail-Informationen**: Lage, Streckenverlauf, Technikniveau, Öffnungszeiten
-- **Community-Links**: Facebook und WhatsApp Community
-- **Sicherheitsregeln**: Wichtige Verhaltensregeln für Trail-Nutzer
-- **Zusätzliche Angebote**: Trailacademy und weitere Services
-- **Kontakt & Links**: Alle relevanten Links und Kontaktmöglichkeiten
-
-## 🎨 Design-Features
-
-- **Responsive Grid-Layout**: Automatische Anpassung an verschiedene Bildschirmgrößen
-- **Smooth Animations**: Sanfte Übergänge und Hover-Effekte
-- **Modern Color Scheme**: Rot-Orange Farbpalette passend zum Mountainbike-Thema
-- **Card-based Layout**: Übersichtliche Darstellung der Informationen
-- **Fixed Navigation**: Immer sichtbare Navigation mit Blur-Effekt
-
-## 🔧 Anpassungen
-
-### Farben ändern
-
-Die Hauptfarben können in der `styles.css` Datei angepasst werden:
-
-```css
-:root {
-    --primary-color: #e74c3c;    /* Hauptfarbe */
-    --secondary-color: #2c3e50;  /* Sekundärfarbe */
-    --accent-color: #f39c12;     /* Akzentfarbe */
-}
-```
-
-### Inhalte bearbeiten
-
-Alle Inhalte können direkt in der `index.html` Datei bearbeitet werden. Die Struktur ist semantisch aufgebaut und leicht zu verstehen.
+- **Julian Fritz** - Vorsitzender Radsport (julian@devilsrock.de)
+- **Florian Bauer** - Jugendtrainer Radsport (flo@devilsrock.de)
+- **Dominik Ottenbreit** - Koordination Trailbau (dom@devilsrock.de)
 
 ---
 
-**Devils Rock Trails** - Mountainbike Trail in Hennweiler, Rheinland-Pfalz
-
-*Erstellt mit ❤️ für die Mountainbike Community* 
+**Devils Rock Trails** - Mountainbike Trails in Hennweiler, Rheinland-Pfalz 
