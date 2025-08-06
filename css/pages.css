@@ -164,6 +164,16 @@
     font-size: 1.2rem;
 }
 
+.social-link .komoot-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
+.social-link:hover .komoot-icon {
+    filter: brightness(0) invert(1);
+}
+
 /* Footer */
 .footer-section h3, .footer-section h4 {
     margin-bottom: 1rem;

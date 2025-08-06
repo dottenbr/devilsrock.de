@@ -148,6 +148,27 @@
     color: white;
 }
 
+.btn-komoot {
+    background: transparent;
+    color: #4CAF50;
+    border: 2px solid #4CAF50;
+}
+
+.btn-komoot:hover {
+    background: #4CAF50;
+    color: white;
+}
+
+.komoot-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(86deg) brightness(118%) contrast(119%);
+}
+
+.btn-komoot:hover .komoot-icon {
+    filter: brightness(0) invert(1);
+}
+
 /* Cards */
 .trail-card,
 .community-card,
