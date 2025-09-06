@@ -14,11 +14,12 @@ const Components = {
                 
                 // Update paths in the HTML based on current location
                 if (isInPages) {
-                                    // Update asset paths for pages subdirectory
-                html = html.replace(/src="assets\/images\//g, 'src="../assets/images/');
-                html = html.replace(/src="assets\/logo\.png/g, 'src="../assets/images/logo.png');
-                html = html.replace(/href="index\.html/g, 'href="../index.html');
-                html = html.replace(/href="pages\//g, 'href="../pages/');
+                    // Update asset paths for pages subdirectory
+                    html = html.replace(/src="assets\/images\//g, 'src="../assets/images/');
+                    html = html.replace(/src="assets\/logo\//g, 'src="../assets/logo/');
+                    html = html.replace(/src="assets\/logo\.png/g, 'src="../assets/images/logo.png');
+                    html = html.replace(/href="index\.html/g, 'href="../index.html');
+                    html = html.replace(/href="pages\//g, 'href="../pages/');
                 }
                 
                 return html;

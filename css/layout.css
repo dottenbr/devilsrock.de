@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(15, 15, 35, 0.8), rgba(26, 26, 46, 0.8)), url('/assets/images/trail-bild.jpg') center/cover no-repeat;
+    background: linear-gradient(135deg, rgba(0, 57, 71, 0.5), rgba(0, 104, 123, 0.5)), url('/assets/images/trail-bild.jpg') center/cover no-repeat;
     background-attachment: fixed;
     position: relative;
     overflow: hidden;
@@ -17,12 +17,15 @@
     z-index: 1;
 }
 
-.hero h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: white;
-    text-shadow: -4px -4px 0px rgba(139, 92, 246, 0.9), 4px 4px 0px rgba(236, 72, 153, 0.9);
+.hero-logo {
+    margin-bottom: 2rem;
+}
+
+.hero-logo-img {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .hero-subtitle {
@@ -99,16 +102,17 @@
 }
 
 .footer {
-    background: #0a0a0a;
+    background: #000000;
     color: white;
     padding: 4rem 0 2rem;
 }
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: auto 1fr 1fr;
     gap: 2rem;
     margin-bottom: 2rem;
+    align-items: start;
 }
 
 /* Page Header */
@@ -123,7 +127,7 @@
     font-weight: 700;
     margin-bottom: 1rem;
     color: white;
-    text-shadow: -4px -4px 0px rgba(139, 92, 246, 0.9), 4px 4px 0px rgba(236, 72, 153, 0.9);
+    text-shadow: -4px -4px 0px rgba(107, 179, 191, 0.9), 4px 4px 0px rgba(213, 141, 71, 0.9);
 }
 
 .header-subtitle {
@@ -138,11 +142,11 @@
 }
 
 .content-card {
-    background: rgba(139, 92, 246, 0.05);
+    background: rgba(107, 179, 191, 0.05);
     padding: 3rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    border: 1px solid rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(107, 179, 191, 0.1);
     backdrop-filter: blur(10px);
 }
 
@@ -150,12 +154,11 @@
 @media (max-width: 768px) {
     .hero {
         background-attachment: scroll;
-        background: linear-gradient(135deg, rgba(15, 15, 35, 0.9), rgba(26, 26, 46, 0.9)), url('/assets/images/trail-bild.jpg') center/cover no-repeat;
+        background: linear-gradient(135deg, rgba(0, 57, 71, 0.6), rgba(0, 104, 123, 0.6)), url('/assets/images/trail-bild.jpg') center/cover no-repeat;
     }
     
-    .hero h1 {
-        font-size: 2.5rem;
-        text-shadow: -2px -2px 0px rgba(139, 92, 246, 0.9), 2px 2px 0px rgba(236, 72, 153, 0.9);
+    .hero-logo-img {
+        max-width: 280px;
     }
     
     .hero-subtitle {
@@ -210,17 +213,16 @@
 
 @media (max-width: 480px) {
     .hero {
-        background: linear-gradient(135deg, rgba(15, 15, 35, 0.95), rgba(26, 26, 46, 0.95)), url('/assets/images/trail-bild.jpg') center/cover no-repeat;
+        background: linear-gradient(135deg, rgba(0, 57, 71, 0.7), rgba(0, 104, 123, 0.7)), url('/assets/images/trail-bild.jpg') center/cover no-repeat;
     }
     
-    .hero h1 {
-        font-size: 2rem;
-        text-shadow: -1px -1px 0px rgba(139, 92, 246, 0.9), 1px 1px 0px rgba(236, 72, 153, 0.9);
+    .hero-logo-img {
+        max-width: 220px;
     }
     
     .page-header h1 {
         font-size: 2rem;
-        text-shadow: -1px -1px 0px rgba(139, 92, 246, 0.9), 1px 1px 0px rgba(236, 72, 153, 0.9);
+        text-shadow: -1px -1px 0px rgba(107, 179, 191, 0.9), 1px 1px 0px rgba(213, 141, 71, 0.9);
     }
     
     .page-header {
