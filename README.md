@@ -9,6 +9,14 @@ Die offizielle Website für die Devils Rock Trails in Hennweiler, Rheinland-Pfal
 - Automatischer Trail-Status
 - Community-Integration
 
+## 🛠️ Lokale Entwicklung
+
+Um die Website lokal zu testen, kannst du einen einfachen HTTP-Server starten:
+
+```bash
+npx serve .
+```
+
 ## 📁 Struktur
 
 ```text

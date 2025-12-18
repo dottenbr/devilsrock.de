@@ -11,6 +11,25 @@
 }
 
 /* Trail Section */
+.trail-intro {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--light-text);
+    margin-bottom: 3rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+}
+
+.trail-intro p {
+    margin-bottom: 1.5rem;
+}
+
+.trail-intro p:last-child {
+    margin-bottom: 0;
+}
+
 .trail-card h3 {
     margin-bottom: 1rem;
     color: var(--text-color);
