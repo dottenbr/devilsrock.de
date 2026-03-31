@@ -30,6 +30,44 @@
     margin-bottom: 0;
 }
 
+.tour-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 0 0 4rem 0;
+}
+
+.tour-card {
+    background: rgba(107, 179, 191, 0.05);
+    border: 1px solid rgba(107, 179, 191, 0.15);
+    border-radius: var(--border-radius);
+    padding: 1.75rem;
+    box-shadow: var(--shadow);
+}
+
+.tour-card h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+.tour-meta {
+    margin-bottom: 1rem;
+    color: var(--mustard-color);
+    font-weight: 600;
+}
+
+.tour-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.tour-links .btn {
+    flex: 1 1 180px;
+    justify-content: center;
+}
+
 .trail-card h3 {
     margin-bottom: 1rem;
     color: var(--text-color);
@@ -492,5 +530,9 @@
     .guidelines-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+    }
+
+    .tour-grid {
+        grid-template-columns: 1fr;
     }
 } 
