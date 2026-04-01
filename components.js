@@ -5,21 +5,26 @@ const Components = {
     // Load component from HTML file
     loadComponent: async function(componentName) {
         try {
-            // Determine the correct path based on current page location
-            const isInPages = window.location.pathname.includes('/pages/');
-            const basePath = isInPages ? '../' : './';
+            // Determine component path from current URL depth (supports nested routes)
+            const currentPath = window.location.pathname;
+            const normalizedPath = currentPath.endsWith('/') && currentPath !== '/'
+                ? currentPath.slice(0, -1)
+                : currentPath;
+            const segments = normalizedPath.split('/').filter(Boolean);
+            const lastSegment = segments[segments.length - 1] || '';
+            const isFilePath = lastSegment.includes('.');
+            const depth = segments.length === 0 ? 0 : (isFilePath ? segments.length - 1 : segments.length);
+            const basePath = depth === 0 ? './' : '../'.repeat(depth);
             const response = await fetch(`${basePath}components/${componentName}.html`);
             if (response.ok) {
                 let html = await response.text();
                 
-                // Update paths in the HTML based on current location
-                if (isInPages) {
-                    // Update asset paths for pages subdirectory
-                    html = html.replace(/src="assets\/images\//g, 'src="../assets/images/');
-                    html = html.replace(/src="assets\/logo\//g, 'src="../assets/logo/');
-                    html = html.replace(/src="assets\/logo\.png/g, 'src="../assets/images/logo.png');
-                    html = html.replace(/href="index\.html/g, 'href="../index.html');
-                    html = html.replace(/href="pages\//g, 'href="../pages/');
+                // Backward-compatible path rewriting for relative links in nested routes
+                if (depth > 0) {
+                    const pathPrefix = '../'.repeat(depth);
+                    html = html.replace(/src="assets\//g, `src="${pathPrefix}assets/`);
+                    html = html.replace(/href="index\.html/g, `href="${pathPrefix}index.html`);
+                    html = html.replace(/href="pages\//g, `href="${pathPrefix}pages/`);
                 }
                 
                 return html;
@@ -70,7 +75,7 @@ const Components = {
         }, 200);
     },
 
-    // Page header component (for nutzungsbestimmungen.html)
+    // Page header component (for subpages)
     pageHeader: (title, subtitle) => `
         <section class="page-header">
             <div class="container">

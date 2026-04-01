@@ -344,6 +344,104 @@
     color: var(--light-text);
 }
 
+.damage-form {
+    display: grid;
+    gap: 0.75rem;
+    text-align: left;
+    margin-top: 1.5rem;
+}
+
+.damage-form label {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.damage-form input,
+.damage-form textarea {
+    width: 100%;
+    border: 1px solid rgba(107, 179, 191, 0.3);
+    border-radius: var(--border-radius);
+    padding: 0.75rem 0.9rem;
+    background: rgba(107, 179, 191, 0.04);
+    color: var(--text-color);
+    font: inherit;
+}
+
+.damage-form input:focus,
+.damage-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(107, 179, 191, 0.2);
+}
+
+.damage-form .btn {
+    margin-top: 0.75rem;
+    justify-content: center;
+}
+
+/* Unified layout for all standalone subpages */
+.subpage {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.subpage .page-header {
+    padding: 6.5rem 0 2.25rem;
+}
+
+.subpage .content-section {
+    flex: 1;
+    padding: 2.5rem 0 3.5rem;
+}
+
+.subpage .content-card {
+    padding: 2rem;
+}
+
+.subpage .header-subtitle {
+    margin: 0;
+}
+
+/* Nutzungsbestimmungen specific adjustments */
+.legal-page .intro-text {
+    text-align: left;
+}
+
+.legal-page .intro-text p {
+    margin: 0;
+    text-indent: 0;
+}
+
+.legal-page .rule-item-detailed {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 2rem;
+}
+
+.legal-page .rule-item-detailed:last-child {
+    margin-bottom: 0;
+}
+
+.legal-page .footer-note {
+    border-top: none;
+    padding-top: 0;
+}
+
+@media (max-width: 768px) {
+    .subpage .page-header {
+        padding: 5.5rem 0 1.75rem;
+    }
+
+    .subpage .content-section {
+        padding: 1.75rem 0 2.25rem;
+    }
+
+    .subpage .content-card {
+        padding: 1.25rem;
+    }
+}
+
 /* Design Page Styles */
 .logo-grid {
     display: grid;

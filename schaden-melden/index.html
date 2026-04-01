@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schaden melden - Devils Rock Trails</title>
+    <meta name="description" content="Schäden und sicherheitsrelevante Stellen auf den Devils Rock Trails melden.">
+    <link rel="canonical" href="https://www.devilsrock.de/schaden-melden">
+    <link rel="icon" type="image/png" href="../assets/icons/icon.png">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="subpage">
+    <div id="nav-placeholder"></div>
+
+    <div id="header-placeholder" data-title="Schaden melden" data-subtitle="Hilf uns, die Trails sicher zu halten"></div>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="content-card">
+                <div class="intro-text">
+                    <p>Bitte melde Schäden, Gefahrenstellen oder blockierte Abschnitte so genau wie möglich. Dein E-Mail-Programm wird mit den Daten vorbereitet geöffnet.</p>
+                </div>
+
+                <form id="damage-form" class="damage-form" action="mailto:dottenbr@me.com" method="post" enctype="text/plain">
+                    <label for="name">Name</label>
+                    <input id="name" name="name" type="text" required>
+
+                    <label for="contact">E-Mail oder Telefonnummer</label>
+                    <input id="contact" name="contact" type="text" required>
+
+                    <label for="location">Ort / Abschnitt</label>
+                    <input id="location" name="location" type="text" required>
+
+                    <label for="description">Beschreibung des Schadens</label>
+                    <textarea id="description" name="description" rows="6" required></textarea>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Meldung per E-Mail senden
+                    </button>
+                </form>
+
+                <div class="footer-note">
+                    <p><strong>Wichtig:</strong> Bei akuter Gefahr oder Unfall sofort den Notruf <strong>112</strong> wählen.</p>
+                    <p>Falls kein E-Mail-Programm geöffnet wird, bitte direkt an <a href="mailto:dottenbr@me.com">dottenbr@me.com</a> schreiben.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="../components.js"></script>
+    <script src="../js/navigation.js"></script>
+    <script src="../js/animations.js"></script>
+    <script src="../js/trail-status.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('damage-form');
+            if (!form) return;
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const name = document.getElementById('name')?.value.trim() || '';
+                const contact = document.getElementById('contact')?.value.trim() || '';
+                const location = document.getElementById('location')?.value.trim() || '';
+                const description = document.getElementById('description')?.value.trim() || '';
+
+                const subject = encodeURIComponent('Schadenmeldung Devils Rock Trails');
+                const body = encodeURIComponent(
+                    'Name: ' + name + '\n' +
+                    'Kontakt: ' + contact + '\n' +
+                    'Ort/Abschnitt: ' + location + '\n\n' +
+                    'Beschreibung:\n' + description + '\n'
+                );
+
+                window.location.assign('mailto:dottenbr@me.com?subject=' + subject + '&body=' + body);
+            });
+        });
+    </script>
+</body>
+</html>
