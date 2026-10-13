@@ -1,37 +1,57 @@
 // Trail Status Logic
-document.addEventListener('DOMContentLoaded', function() {
-    function updateTrailStatus() {
-        const now = new Date();
-        const currentMonth = now.getMonth() + 1; // 1-12
-        const currentDay = now.getDate();
-        
-        // Trail is closed from November 1st to March 31st
-        const isClosed = (currentMonth === 11 || currentMonth === 12 || currentMonth === 1 || currentMonth === 2 || currentMonth === 3);
-        
-        const statusCard = document.getElementById('trail-status');
-        const statusIcon = document.getElementById('status-icon');
-        const statusMessage = document.getElementById('status-message');
-        const statusButton = document.getElementById('status-button');
-        
-        if (isClosed) {
-            // Trail is closed
-            statusCard.classList.add('closed');
-            statusCard.classList.remove('open');
-            statusIcon.className = 'fas fa-ban';
-            statusMessage.textContent = `Trail ist geschlossen (1. November - 31. März). Aktuelle Informationen über Wetterbedingungen und Wiedereröffnung.`;
-            statusButton.innerHTML = '<i class="fab fa-facebook"></i> Facebook für Updates';
-        } else {
-            // Trail is open
-            statusCard.classList.add('open');
-            statusCard.classList.remove('closed');
-            statusIcon.className = 'fas fa-bicycle';
-            statusMessage.textContent = 'Trail ist grundsätzlich geöffnet (1. April - 31. Oktober). Temporäre Sperrungen werden auf Facebook veröffentlicht - bitte vor dem Besuch prüfen.';
-            statusButton.innerHTML = '<i class="fab fa-facebook"></i> Facebook für aktuelle Updates';
+//
+// By default the status follows the season (open 1 April - 31 October).
+// /status.json can override it, e.g. to close the trails after a storm:
+//   { "mode": "closed", "message": "Sturmschäden – Trails bis auf Weiteres gesperrt.", "updated": "2026-10-13" }
+// "mode" is "auto", "open" or "closed"; "message" is optional.
+document.addEventListener('DOMContentLoaded', async function() {
+    const statusCard = document.getElementById('trail-status');
+    if (!statusCard) return;
+
+    const statusIcon = statusCard.querySelector('#status-icon use');
+    const statusMessage = document.getElementById('status-message');
+    const statusUpdated = document.getElementById('status-updated');
+
+    const render = (isClosed, message, updated) => {
+        statusCard.classList.toggle('closed', isClosed);
+        statusCard.classList.toggle('open', !isClosed);
+        // Full paths written out so scripts/build.mjs picks both icons up for the sprite
+        statusIcon.setAttribute('href', isClosed ? '/assets/icons/icons.svg#ban' : '/assets/icons/icons.svg#bicycle');
+        statusMessage.textContent = message;
+        if (statusUpdated) {
+            statusUpdated.hidden = !updated;
+            statusUpdated.textContent = updated ? `Stand: ${updated}` : '';
         }
+    };
+
+    // Seasonal default: closed from November 1st to March 31st
+    const currentMonth = new Date().getMonth() + 1; // 1-12
+    const seasonClosed = currentMonth >= 11 || currentMonth <= 3;
+    const seasonMessage = seasonClosed
+        ? 'Trail ist geschlossen (1. November - 31. März). Aktuelle Informationen über Wetterbedingungen und Wiedereröffnung auf Facebook.'
+        : 'Trail ist grundsätzlich geöffnet (1. April - 31. Oktober). Temporäre Sperrungen werden auf Facebook veröffentlicht - bitte vor dem Besuch prüfen.';
+
+    render(seasonClosed, seasonMessage, null);
+
+    try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 4000);
+        const response = await fetch(`/status.json?t=${Date.now()}`, { signal: controller.signal });
+        clearTimeout(timeout);
+        if (!response.ok) return;
+
+        const status = await response.json();
+        if (status.mode !== 'open' && status.mode !== 'closed') return;
+
+        const isClosed = status.mode === 'closed';
+        const fallback = isClosed
+            ? 'Die Trails sind aktuell gesperrt. Bitte respektiere die Sperrung.'
+            : 'Die Trails sind aktuell geöffnet. Viel Spaß und fahrt vorsichtig!';
+        const updated = status.updated
+            ? new Date(status.updated).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })
+            : null;
+        render(isClosed, status.message || fallback, updated);
+    } catch (error) {
+        // Keep the seasonal status if status.json is unreachable
     }
-    
-    // Update trail status on page load
-    updateTrailStatus();
-    
-    console.log('Devils Rock Trails Website loaded successfully!');
-}); 
+});

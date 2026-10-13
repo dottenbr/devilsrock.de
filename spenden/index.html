@@ -7,20 +7,65 @@
     <meta name="description" content="Unterstütze die Devils Rock Trails mit einer Spende. Weiterleitung zu PayPal.">
     <meta http-equiv="refresh" content="4; url=https://www.paypal.com/donate/?hosted_button_id=ER7GHR4A3NDCC&source=qr">
     <link rel="canonical" href="https://www.devilsrock.de/spenden">
-    <link rel="icon" type="image/png" href="../assets/icons/icon.png">
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/pages.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- @head -->
+    <meta name="theme-color" content="#003947">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="Devils Rock Trails">
+    <meta property="og:title" content="Spenden - Devils Rock Trails">
+    <meta property="og:description" content="Unterstütze die Devils Rock Trails mit einer Spende. Weiterleitung zu PayPal.">
+    <meta property="og:url" content="https://www.devilsrock.de/spenden">
+    <meta property="og:image" content="https://www.devilsrock.de/assets/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Devils Rock Trails Logo vor einem Mountainbiker im Wald">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/assets/icons/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" href="/assets/icons/icon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <!-- /@head -->
 </head>
 <body class="subpage">
-    <div id="nav-placeholder"></div>
+    <!-- @nav -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="/" aria-label="Devils Rock Trails Startseite">
+                    <img src="/assets/logo/logo-name/drt-logo-name-weiss.svg" alt="Devils Rock Trails Logo" class="nav-logo-img">
+                </a>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="/">Home</a>
+                <a href="/#trail">Trails</a>
+                <a href="/#community">Community</a>
+                <a href="/crew">Crew</a>
+                <a href="/#team">Kontakt</a>
+                <a href="/nutzungsbestimmungen">Nutzungsbestimmungen</a>
+                <a href="/spenden" aria-current="page">Spenden</a>
+                <a href="/schaden-melden">Schaden melden</a>
+            </div>
+            <button type="button" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    <!-- /@nav -->
 
-    <div id="header-placeholder" data-title="Spenden" data-subtitle="Danke für deine Unterstützung"></div>
+    <section class="page-header">
+        <div class="container">
+            <h1>Spenden</h1>
+            <p class="header-subtitle">Danke für deine Unterstützung</p>
+        </div>
+    </section>
 
     <section class="content-section">
         <div class="container">
@@ -30,7 +75,7 @@
                 </div>
                 <div class="safety-footer">
                     <a href="https://www.paypal.com/donate/?hosted_button_id=ER7GHR4A3NDCC&source=qr" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                        <i class="fab fa-paypal"></i>
+                        <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#paypal"></use></svg>
                         Jetzt bei PayPal spenden
                     </a>
                 </div>
@@ -38,11 +83,39 @@
         </div>
     </section>
 
-    <div id="footer-placeholder"></div>
+    <!-- @footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/assets/logo/logo-komplett/drt-logo-schwarzer-hintergrund.svg" alt="Devils Rock Trails Logo" class="footer-logo-img" width="120" height="102" loading="lazy">
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <p>Die Trails wurden 2022 in gemeinschaftlicher ehrenamtlicher Arbeit errichtet.</p>
+                </div>
+                <div class="footer-section">
+                    <p>Die Trails stehen kostenfrei zur Verfügung und werden in Abstimmung mit Gemeinde, Forstamt und Naturschutzbehörde betrieben.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span class="footer-year">2026</span> Devils Rock Trails</p>
+                <nav class="footer-links" aria-label="Footer">
+                    <a href="/crew">Crew</a>
+                    <a href="https://fchennweiler.de/impressum/" target="_blank" rel="noopener">Impressum</a>
+                    <a href="/datenschutz">Datenschutz</a>
+                    <a href="/pages/design.html">Design</a>
+                    <a href="https://github.com/dottenbr/devilsrock.de" target="_blank" rel="noopener">
+                        <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#github"></use></svg> GitHub
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+    <!-- /@footer -->
 
-    <script src="../components.js"></script>
-    <script src="../js/navigation.js"></script>
-    <script src="../js/animations.js"></script>
-    <script src="../js/trail-status.js"></script>
+    <script src="/js/site.js" defer></script>
+    <script src="/js/animations.js" defer></script>
 </body>
 </html>

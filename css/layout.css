@@ -1,13 +1,27 @@
 /* Hero Section */
 .hero {
     min-height: 100vh;
+    min-height: 100svh;
+    padding: calc(var(--nav-height) + 2rem) 0 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(0, 57, 71, 0.5), rgba(0, 104, 123, 0.5)), url('/assets/images/trail-bild.jpg') center/cover no-repeat;
-    background-attachment: fixed;
+    --hero-overlay: linear-gradient(135deg, rgba(0, 57, 71, 0.5), rgba(0, 104, 123, 0.5));
+    background-color: var(--background-color);
+    background-image: var(--hero-overlay), url('/assets/images/trail-bild.jpg');
+    background-image: var(--hero-overlay), image-set(url('/assets/images/trail-bild.webp') type('image/webp'), url('/assets/images/trail-bild.jpg') type('image/jpeg'));
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
+}
+
+/* Parallax only where it is supported well (iOS ignores/breaks fixed backgrounds) */
+@media (hover: hover) and (min-width: 1025px) {
+    .hero {
+        background-attachment: fixed;
+    }
 }
 
 .hero-content {
@@ -56,20 +70,20 @@
 .community-grid,
 .contact-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: 2rem;
 }
 
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
     gap: 2rem;
     margin-top: 2rem;
 }
 
 .rules-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
@@ -117,13 +131,14 @@
 
 /* Page Header */
 .page-header {
-    padding: 8rem 0 4rem;
+    padding: calc(var(--nav-height) + 3rem) 0 4rem;
     background: linear-gradient(135deg, var(--background-color), var(--light-bg));
     text-align: center;
 }
 
 .page-header h1 {
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    line-height: 1.2;
     font-weight: 700;
     margin-bottom: 1rem;
     color: white;
@@ -153,10 +168,11 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero {
-        background-attachment: scroll;
-        background: linear-gradient(135deg, rgba(0, 57, 71, 0.6), rgba(0, 104, 123, 0.6)), url('/assets/images/trail-bild.jpg') center/cover no-repeat;
+        --hero-overlay: linear-gradient(135deg, rgba(0, 57, 71, 0.6), rgba(0, 104, 123, 0.6));
+        background-image: var(--hero-overlay), url('/assets/images/trail-bild.jpg');
+        background-image: var(--hero-overlay), image-set(url('/assets/images/trail-bild-mobile.webp') type('image/webp'), url('/assets/images/trail-bild.jpg') type('image/jpeg'));
     }
-    
+
     .hero-logo-img {
         max-width: 280px;
     }
@@ -171,32 +187,25 @@
     
     .hero-buttons {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    .hero-buttons .btn {
+        justify-content: center;
     }
     
     .status-card {
         padding: 1.5rem;
     }
     
-    .trail-section h2,
-    .community-section h2,
-    .safety-section h2,
-    .team-section h2,
-    .contact-section h2 {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-    }
-    
     .page-header {
-        padding: 6rem 0 3rem;
+        padding: calc(var(--nav-height) + 2rem) 0 3rem;
     }
     
     .header-subtitle {
         font-size: 1rem;
-    }
-    
-    .container {
-        padding: 0 15px;
     }
     
     .content-card {
@@ -213,7 +222,7 @@
 
 @media (max-width: 480px) {
     .hero {
-        background: linear-gradient(135deg, rgba(0, 57, 71, 0.7), rgba(0, 104, 123, 0.7)), url('/assets/images/trail-bild.jpg') center/cover no-repeat;
+        --hero-overlay: linear-gradient(135deg, rgba(0, 57, 71, 0.7), rgba(0, 104, 123, 0.7));
     }
     
     .hero-logo-img {
@@ -221,12 +230,11 @@
     }
     
     .page-header h1 {
-        font-size: 2rem;
         text-shadow: -1px -1px 0px rgba(107, 179, 191, 0.9), 1px 1px 0px rgba(213, 141, 71, 0.9);
     }
     
     .page-header {
-        padding: 5rem 0 2rem;
+        padding: calc(var(--nav-height) + 1.5rem) 0 2rem;
     }
     
     .header-subtitle {

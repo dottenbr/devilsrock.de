@@ -6,85 +6,159 @@
     <title>Schaden melden - Devils Rock Trails</title>
     <meta name="description" content="Schäden und sicherheitsrelevante Stellen auf den Devils Rock Trails melden.">
     <link rel="canonical" href="https://www.devilsrock.de/schaden-melden">
-    <link rel="icon" type="image/png" href="../assets/icons/icon.png">
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/pages.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- @head -->
+    <meta name="theme-color" content="#003947">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="Devils Rock Trails">
+    <meta property="og:title" content="Schaden melden - Devils Rock Trails">
+    <meta property="og:description" content="Schäden und sicherheitsrelevante Stellen auf den Devils Rock Trails melden.">
+    <meta property="og:url" content="https://www.devilsrock.de/schaden-melden">
+    <meta property="og:image" content="https://www.devilsrock.de/assets/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Devils Rock Trails Logo vor einem Mountainbiker im Wald">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/assets/icons/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" href="/assets/icons/icon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <!-- /@head -->
 </head>
 <body class="subpage">
-    <div id="nav-placeholder"></div>
+    <!-- @nav -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="/" aria-label="Devils Rock Trails Startseite">
+                    <img src="/assets/logo/logo-name/drt-logo-name-weiss.svg" alt="Devils Rock Trails Logo" class="nav-logo-img">
+                </a>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="/">Home</a>
+                <a href="/#trail">Trails</a>
+                <a href="/#community">Community</a>
+                <a href="/crew">Crew</a>
+                <a href="/#team">Kontakt</a>
+                <a href="/nutzungsbestimmungen">Nutzungsbestimmungen</a>
+                <a href="/spenden">Spenden</a>
+                <a href="/schaden-melden" aria-current="page">Schaden melden</a>
+            </div>
+            <button type="button" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    <!-- /@nav -->
 
-    <div id="header-placeholder" data-title="Schaden melden" data-subtitle="Hilf uns, die Trails sicher zu halten"></div>
+    <section class="page-header">
+        <div class="container">
+            <h1>Schaden melden</h1>
+            <p class="header-subtitle">Hilf uns, die Trails sicher zu halten</p>
+        </div>
+    </section>
 
     <section class="content-section">
         <div class="container">
             <div class="content-card">
-                <div class="intro-text">
-                    <p>Bitte melde Schäden, Gefahrenstellen oder blockierte Abschnitte so genau wie möglich. Dein E-Mail-Programm wird mit den Daten vorbereitet geöffnet.</p>
+                <div class="form-result form-success" id="gesendet" role="status">
+                    <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#circle-check"></use></svg>
+                    <div>
+                        <strong>Danke für deine Meldung!</strong>
+                        <p>Wir haben sie erhalten und kümmern uns darum. Bei Rückfragen melden wir uns bei dir.</p>
+                    </div>
+                </div>
+                <div class="form-result form-error" id="fehler" role="alert">
+                    <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#triangle-exclamation"></use></svg>
+                    <div>
+                        <strong>Das hat leider nicht geklappt.</strong>
+                        <p>Bitte versuche es erneut oder schreib direkt an <a href="mailto:dottenbr@me.com?subject=Schadenmeldung%20Devils%20Rock%20Trails">dottenbr@me.com</a>.</p>
+                    </div>
                 </div>
 
-                <form id="damage-form" class="damage-form" action="mailto:dottenbr@me.com" method="post" enctype="text/plain">
+                <div class="intro-text">
+                    <p>Bitte melde Schäden, Gefahrenstellen oder blockierte Abschnitte so genau wie möglich. Fotos helfen uns, die Stelle schnell zu finden und einzuschätzen.</p>
+                </div>
+
+                <form id="damage-form" class="damage-form" action="/api/schaden-melden" method="post" enctype="multipart/form-data">
                     <label for="name">Name</label>
-                    <input id="name" name="name" type="text" required>
+                    <input id="name" name="name" type="text" autocomplete="name" maxlength="100" required>
 
                     <label for="contact">E-Mail oder Telefonnummer</label>
-                    <input id="contact" name="contact" type="text" required>
+                    <input id="contact" name="contact" type="text" autocomplete="email" maxlength="200" required>
 
                     <label for="location">Ort / Abschnitt</label>
-                    <input id="location" name="location" type="text" required>
+                    <input id="location" name="location" type="text" maxlength="300" placeholder="z. B. XC-Trail Bruschied, kurz nach der Teufelsfelshütte" required>
 
                     <label for="description">Beschreibung des Schadens</label>
-                    <textarea id="description" name="description" rows="6" required></textarea>
+                    <textarea id="description" name="description" rows="6" maxlength="5000" required></textarea>
+
+                    <label for="photos">Fotos <span class="label-hint">(optional, bis zu 3)</span></label>
+                    <input id="photos" name="photos" type="file" accept="image/*" multiple>
+
+                    <div class="hp-field" aria-hidden="true">
+                        <label for="website">Website</label>
+                        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <p class="form-privacy">Deine Angaben werden per E-Mail an das Trailbau-Team übermittelt und nur zur Bearbeitung der Meldung verwendet. Mehr dazu in der <a href="/datenschutz">Datenschutzerklärung</a>.</p>
 
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-paper-plane"></i>
-                        Meldung per E-Mail senden
+                        <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#paper-plane"></use></svg>
+                        <span class="btn-label">Meldung senden</span>
                     </button>
+                    <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
                 </form>
 
                 <div class="footer-note">
-                    <p><strong>Wichtig:</strong> Bei akuter Gefahr oder Unfall sofort den Notruf <strong>112</strong> wählen.</p>
-                    <p>Falls kein E-Mail-Programm geöffnet wird, bitte direkt an <a href="mailto:dottenbr@me.com">dottenbr@me.com</a> schreiben.</p>
+                    <p><strong>Wichtig:</strong> Bei akuter Gefahr oder Unfall sofort den Notruf <a href="tel:112"><strong>112</strong></a> wählen.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <div id="footer-placeholder"></div>
+    <!-- @footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/assets/logo/logo-komplett/drt-logo-schwarzer-hintergrund.svg" alt="Devils Rock Trails Logo" class="footer-logo-img" width="120" height="102" loading="lazy">
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <p>Die Trails wurden 2022 in gemeinschaftlicher ehrenamtlicher Arbeit errichtet.</p>
+                </div>
+                <div class="footer-section">
+                    <p>Die Trails stehen kostenfrei zur Verfügung und werden in Abstimmung mit Gemeinde, Forstamt und Naturschutzbehörde betrieben.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span class="footer-year">2026</span> Devils Rock Trails</p>
+                <nav class="footer-links" aria-label="Footer">
+                    <a href="/crew">Crew</a>
+                    <a href="https://fchennweiler.de/impressum/" target="_blank" rel="noopener">Impressum</a>
+                    <a href="/datenschutz">Datenschutz</a>
+                    <a href="/pages/design.html">Design</a>
+                    <a href="https://github.com/dottenbr/devilsrock.de" target="_blank" rel="noopener">
+                        <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#github"></use></svg> GitHub
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+    <!-- /@footer -->
 
-    <script src="../components.js"></script>
-    <script src="../js/navigation.js"></script>
-    <script src="../js/animations.js"></script>
-    <script src="../js/trail-status.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const form = document.getElementById('damage-form');
-            if (!form) return;
-
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-
-                const name = document.getElementById('name')?.value.trim() || '';
-                const contact = document.getElementById('contact')?.value.trim() || '';
-                const location = document.getElementById('location')?.value.trim() || '';
-                const description = document.getElementById('description')?.value.trim() || '';
-
-                const subject = encodeURIComponent('Schadenmeldung Devils Rock Trails');
-                const body = encodeURIComponent(
-                    'Name: ' + name + '\n' +
-                    'Kontakt: ' + contact + '\n' +
-                    'Ort/Abschnitt: ' + location + '\n\n' +
-                    'Beschreibung:\n' + description + '\n'
-                );
-
-                window.location.assign('mailto:dottenbr@me.com?subject=' + subject + '&body=' + body);
-            });
-        });
-    </script>
+    <script src="/js/site.js" defer></script>
+    <script src="/js/animations.js" defer></script>
+    <script src="/js/damage-form.js" defer></script>
 </body>
 </html>

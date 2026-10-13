@@ -66,3 +66,6 @@ build/
 
 # Local development files
 *.local 
+# Cloudflare Wrangler
+.wrangler/
+.dev.vars

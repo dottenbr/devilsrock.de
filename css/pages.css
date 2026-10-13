@@ -3,10 +3,12 @@
 .community-section h2,
 .safety-section h2,
 .team-section h2,
-.contact-section h2 {
+.contact-section h2,
+.crew-heading {
     text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    line-height: 1.25;
+    margin-bottom: clamp(2rem, 5vw, 3rem);
     color: var(--text-color);
 }
 
@@ -32,7 +34,7 @@
 
 .tour-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: 1.5rem;
     margin: 0 0 4rem 0;
 }
@@ -108,7 +110,7 @@
     border-color: rgba(107, 179, 191, 0.3);
 }
 
-.rule-item i {
+.rule-item .icon {
     font-size: 1.5rem;
     color: var(--primary-color);
     min-width: 24px;
@@ -217,7 +219,7 @@
     transform: translateX(5px);
 }
 
-.social-link i, .info-link i {
+.social-link .icon, .info-link .icon {
     font-size: 1.2rem;
 }
 
@@ -259,6 +261,23 @@
     color: #bdc3c7;
 }
 
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.25rem;
+    margin-top: 0.75rem;
+}
+
+.footer-links a {
+    color: #bdc3c7;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+}
+
 /* Status Content */
 .status-content h3 {
     margin-bottom: 1rem;
@@ -269,6 +288,12 @@
     color: var(--light-text);
     line-height: 1.6;
     margin-bottom: 1.5rem;
+}
+
+.status-content .status-updated {
+    margin-top: -1rem;
+    font-size: 0.9rem;
+    color: var(--mustard-color);
 }
 
 /* Nutzungsbestimmungen Page */
@@ -379,6 +404,120 @@
     justify-content: center;
 }
 
+/* Crew teaser (homepage community section) */
+.crew-teaser {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem 2rem;
+    margin-top: 2rem;
+    padding: 2rem 2.5rem;
+    border-radius: var(--border-radius);
+    background: rgba(0, 57, 71, 0.55);
+    border: 1px solid rgba(107, 179, 191, 0.3);
+    box-shadow: var(--shadow);
+}
+
+.crew-teaser h3 {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.crew-teaser p {
+    color: var(--light-text);
+}
+
+.crew-teaser .btn {
+    flex-shrink: 0;
+}
+
+/* Crew page */
+.crew-tagline {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--mustard-color);
+    margin-bottom: 1.25rem;
+}
+
+.crew-intro p,
+.crew-why p,
+#mitglied-werden > p {
+    color: var(--light-text);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.crew-heading {
+    margin-top: 3.5rem;
+}
+
+.crew-page .trail-grid + .content-card {
+    margin-top: 3.5rem;
+}
+
+.crew-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.steps-list {
+    list-style: none;
+    counter-reset: step;
+    display: grid;
+    gap: 1rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+}
+
+.steps-list li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 3.25rem;
+    min-height: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.steps-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.steps-list strong {
+    color: var(--text-color);
+}
+
+.steps-list span {
+    color: var(--light-text);
+}
+
+.crew-flyer {
+    margin-top: 1.5rem;
+}
+
+.crew-flyer a {
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.crew-flyer a:hover {
+    text-decoration: underline;
+}
+
 /* Unified layout for all standalone subpages */
 .subpage {
     min-height: 100vh;
@@ -397,6 +536,14 @@
 
 .subpage .content-card {
     padding: 2rem;
+}
+
+.content-card + .content-card {
+    margin-top: 2rem;
+}
+
+.content-card h2 {
+    margin-bottom: 1rem;
 }
 
 .subpage .header-subtitle {
@@ -445,7 +592,7 @@
 /* Design Page Styles */
 .logo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
     gap: 2rem;
     margin-top: 2rem;
 }
@@ -489,7 +636,7 @@
 
 .color-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
 }
@@ -547,7 +694,7 @@
 
 .guidelines-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
     gap: 2rem;
     margin-top: 2rem;
 }
@@ -559,7 +706,7 @@
     background: rgba(107, 179, 191, 0.02);
 }
 
-.guideline-item i {
+.guideline-item .icon {
     font-size: 1.5rem;
     margin-bottom: 1rem;
 }
@@ -606,10 +753,6 @@
         height: 100px;
     }
     
-    .team-section h2 {
-        font-size: 2rem;
-    }
-    
     .logo-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -633,4 +776,122 @@
     .tour-grid {
         grid-template-columns: 1fr;
     }
+
+    .crew-teaser {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    .crew-teaser .btn,
+    .crew-actions .btn {
+        justify-content: center;
+    }
+
+    .crew-actions {
+        flex-direction: column;
+    }
+
+    .crew-heading,
+    .crew-page .trail-grid + .content-card {
+        margin-top: 2.5rem;
+    }
 } 
+/* 404 page */
+.not-found p {
+    color: var(--light-text);
+    font-size: 1.1rem;
+}
+
+/* Damage report form */
+.damage-form input[type="file"] {
+    padding: 0.6rem;
+    cursor: pointer;
+}
+
+.damage-form input[type="file"]::file-selector-button {
+    margin-right: 0.75rem;
+    padding: 0.4rem 0.9rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.damage-form .btn[disabled] {
+    opacity: 0.7;
+    cursor: progress;
+}
+
+.label-hint {
+    font-weight: 400;
+    color: var(--light-text);
+}
+
+.hp-field {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.form-privacy {
+    font-size: 0.9rem;
+    color: var(--light-text);
+}
+
+.form-status {
+    color: var(--light-text);
+}
+
+.form-status.is-error {
+    color: #fca5a5;
+}
+
+/* Shown via #gesendet / #fehler (no-JS redirect) or .is-shown (JS) */
+.form-result {
+    display: none;
+    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--border-radius);
+    scroll-margin-top: calc(var(--nav-height) + 1rem);
+}
+
+.form-result:target,
+.form-result.is-shown {
+    display: flex;
+}
+
+.form-result .icon {
+    font-size: 1.5rem;
+    margin-top: 0.15rem;
+}
+
+.form-result p {
+    margin: 0.25rem 0 0;
+}
+
+.form-success {
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
+.form-success .icon {
+    color: #10b981;
+}
+
+.form-error {
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+.form-error .icon {
+    color: #ef4444;
+}

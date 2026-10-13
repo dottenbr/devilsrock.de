@@ -1,0 +1,14 @@
+{
+  "name": "devilsrock.de",
+  "private": true,
+  "type": "module",
+  "description": "Devils Rock Trails website (static, served by GitHub Pages)",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "serve": "python3 -m http.server 8000"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "6.4.0"
+  }
+}

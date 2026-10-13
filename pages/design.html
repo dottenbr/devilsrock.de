@@ -5,21 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Design Guidelines - Devils Rock Trails</title>
     <meta name="description" content="Brand Guidelines, Logos und Farbschema der Devils Rock Trails">
-    <link rel="icon" type="image/png" href="../assets/icons/icon.png">
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/layout.css">
-    <link rel="stylesheet" href="../css/pages.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="canonical" href="https://www.devilsrock.de/pages/design.html">
+    <!-- @head -->
+    <meta name="theme-color" content="#003947">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="Devils Rock Trails">
+    <meta property="og:title" content="Design Guidelines - Devils Rock Trails">
+    <meta property="og:description" content="Brand Guidelines, Logos und Farbschema der Devils Rock Trails">
+    <meta property="og:url" content="https://www.devilsrock.de/pages/design.html">
+    <meta property="og:image" content="https://www.devilsrock.de/assets/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Devils Rock Trails Logo vor einem Mountainbiker im Wald">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/assets/icons/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" href="/assets/icons/icon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <!-- /@head -->
 </head>
-<body>
+<body class="subpage">
     <!-- Navigation -->
-    <div id="nav-placeholder"></div>
+    <!-- @nav -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="/" aria-label="Devils Rock Trails Startseite">
+                    <img src="/assets/logo/logo-name/drt-logo-name-weiss.svg" alt="Devils Rock Trails Logo" class="nav-logo-img">
+                </a>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="/">Home</a>
+                <a href="/#trail">Trails</a>
+                <a href="/#community">Community</a>
+                <a href="/crew">Crew</a>
+                <a href="/#team">Kontakt</a>
+                <a href="/nutzungsbestimmungen">Nutzungsbestimmungen</a>
+                <a href="/spenden">Spenden</a>
+                <a href="/schaden-melden">Schaden melden</a>
+            </div>
+            <button type="button" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    <!-- /@nav -->
 
-    <!-- Page Header -->
     <section class="page-header">
         <div class="container">
             <h1>Design Guidelines</h1>
@@ -39,16 +79,16 @@
                     <!-- Complete Logo -->
                     <div class="logo-item">
                         <div class="logo-preview">
-                            <img src="../assets/logo/logo-komplett/drt-logo.svg" alt="DRT Complete Logo" class="logo-preview-img">
+                            <img src="/assets/logo/logo-komplett/drt-logo.svg" alt="DRT Complete Logo" class="logo-preview-img">
                         </div>
                         <h3>Komplettes Logo</h3>
                         <p>Hauptlogo mit Grafik und Text</p>
                         <div class="logo-downloads">
-                            <a href="../assets/logo/logo-komplett/drt-logo.svg" download class="btn btn-primary">
-                                <i class="fas fa-download"></i> SVG
+                            <a href="/assets/logo/logo-komplett/drt-logo.svg" download class="btn btn-primary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> SVG
                             </a>
-                            <a href="../assets/logo/logo-komplett/drt-logo.png" download class="btn btn-secondary">
-                                <i class="fas fa-download"></i> PNG
+                            <a href="/assets/logo/logo-komplett/drt-logo.png" download class="btn btn-secondary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> PNG
                             </a>
                         </div>
                     </div>
@@ -56,16 +96,16 @@
                     <!-- Complete Logo Black Background -->
                     <div class="logo-item">
                         <div class="logo-preview dark">
-                            <img src="../assets/logo/logo-komplett/drt-logo-schwarzer-hintergrund.svg" alt="DRT Logo Black Background" class="logo-preview-img">
+                            <img src="/assets/logo/logo-komplett/drt-logo-schwarzer-hintergrund.svg" alt="DRT Logo Black Background" class="logo-preview-img">
                         </div>
                         <h3>Logo (Schwarzer Hintergrund)</h3>
                         <p>Für dunkle Hintergründe optimiert</p>
                         <div class="logo-downloads">
-                            <a href="../assets/logo/logo-komplett/drt-logo-schwarzer-hintergrund.svg" download class="btn btn-primary">
-                                <i class="fas fa-download"></i> SVG
+                            <a href="/assets/logo/logo-komplett/drt-logo-schwarzer-hintergrund.svg" download class="btn btn-primary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> SVG
                             </a>
-                            <a href="../assets/logo/logo-komplett/drt-logo-schwarzer-hintergrund.png" download class="btn btn-secondary">
-                                <i class="fas fa-download"></i> PNG
+                            <a href="/assets/logo/logo-komplett/drt-logo-schwarzer-hintergrund.png" download class="btn btn-secondary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> PNG
                             </a>
                         </div>
                     </div>
@@ -73,16 +113,16 @@
                     <!-- Logo with Name -->
                     <div class="logo-item">
                         <div class="logo-preview">
-                            <img src="../assets/logo/logo-name/drt-logo-name.svg" alt="DRT Logo with Name" class="logo-preview-img">
+                            <img src="/assets/logo/logo-name/drt-logo-name.svg" alt="DRT Logo with Name" class="logo-preview-img">
                         </div>
                         <h3>Logo mit Name</h3>
                         <p>Horizontales Logo mit Schriftzug</p>
                         <div class="logo-downloads">
-                            <a href="../assets/logo/logo-name/drt-logo-name.svg" download class="btn btn-primary">
-                                <i class="fas fa-download"></i> SVG
+                            <a href="/assets/logo/logo-name/drt-logo-name.svg" download class="btn btn-primary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> SVG
                             </a>
-                            <a href="../assets/logo/logo-name/drt-logo-name.png" download class="btn btn-secondary">
-                                <i class="fas fa-download"></i> PNG
+                            <a href="/assets/logo/logo-name/drt-logo-name.png" download class="btn btn-secondary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> PNG
                             </a>
                         </div>
                     </div>
@@ -90,16 +130,16 @@
                     <!-- Logo with Name White -->
                     <div class="logo-item">
                         <div class="logo-preview dark">
-                            <img src="../assets/logo/logo-name/drt-logo-name-weiss.svg" alt="DRT Logo with Name White" class="logo-preview-img">
+                            <img src="/assets/logo/logo-name/drt-logo-name-weiss.svg" alt="DRT Logo with Name White" class="logo-preview-img">
                         </div>
                         <h3>Logo mit Name (Weiß)</h3>
                         <p>Weiße Version für dunkle Hintergründe</p>
                         <div class="logo-downloads">
-                            <a href="../assets/logo/logo-name/drt-logo-name-weiss.svg" download class="btn btn-primary">
-                                <i class="fas fa-download"></i> SVG
+                            <a href="/assets/logo/logo-name/drt-logo-name-weiss.svg" download class="btn btn-primary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> SVG
                             </a>
-                            <a href="../assets/logo/logo-name/drt-logo-name-weiss.png" download class="btn btn-secondary">
-                                <i class="fas fa-download"></i> PNG
+                            <a href="/assets/logo/logo-name/drt-logo-name-weiss.png" download class="btn btn-secondary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> PNG
                             </a>
                         </div>
                     </div>
@@ -107,16 +147,16 @@
                     <!-- Logo with Name Red-Black -->
                     <div class="logo-item">
                         <div class="logo-preview">
-                            <img src="../assets/logo/logo-name/drt-logo-name-rot-schwarz.svg" alt="DRT Logo with Name Red-Black" class="logo-preview-img">
+                            <img src="/assets/logo/logo-name/drt-logo-name-rot-schwarz.svg" alt="DRT Logo with Name Red-Black" class="logo-preview-img">
                         </div>
                         <h3>Logo mit Name (Rot-Schwarz)</h3>
                         <p>Rot-schwarze Variante mit Akzentfarbe</p>
                         <div class="logo-downloads">
-                            <a href="../assets/logo/logo-name/drt-logo-name-rot-schwarz.svg" download class="btn btn-primary">
-                                <i class="fas fa-download"></i> SVG
+                            <a href="/assets/logo/logo-name/drt-logo-name-rot-schwarz.svg" download class="btn btn-primary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> SVG
                             </a>
-                            <a href="../assets/logo/logo-name/drt-logo-name-rot-schwarz.png" download class="btn btn-secondary">
-                                <i class="fas fa-download"></i> PNG
+                            <a href="/assets/logo/logo-name/drt-logo-name-rot-schwarz.png" download class="btn btn-secondary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> PNG
                             </a>
                         </div>
                     </div>
@@ -132,16 +172,16 @@
                     <!-- Ride Wild Standard -->
                     <div class="logo-item">
                         <div class="logo-preview">
-                            <img src="../assets/logo/ride-wild/drt-ride-wild.svg" alt="DRT Ride Wild Logo" class="logo-preview-img">
+                            <img src="/assets/logo/ride-wild/drt-ride-wild.svg" alt="DRT Ride Wild Logo" class="logo-preview-img">
                         </div>
                         <h3>Ride Wild</h3>
                         <p>Standard "Ride Wild" Logo</p>
                         <div class="logo-downloads">
-                            <a href="../assets/logo/ride-wild/drt-ride-wild.svg" download class="btn btn-primary">
-                                <i class="fas fa-download"></i> SVG
+                            <a href="/assets/logo/ride-wild/drt-ride-wild.svg" download class="btn btn-primary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> SVG
                             </a>
-                            <a href="../assets/logo/ride-wild/drt-ride-wild.png" download class="btn btn-secondary">
-                                <i class="fas fa-download"></i> PNG
+                            <a href="/assets/logo/ride-wild/drt-ride-wild.png" download class="btn btn-secondary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> PNG
                             </a>
                         </div>
                     </div>
@@ -149,16 +189,16 @@
                     <!-- Ride Wild White -->
                     <div class="logo-item">
                         <div class="logo-preview dark">
-                            <img src="../assets/logo/ride-wild/drt-ride-wild-weiss.svg" alt="DRT Ride Wild White Logo" class="logo-preview-img">
+                            <img src="/assets/logo/ride-wild/drt-ride-wild-weiss.svg" alt="DRT Ride Wild White Logo" class="logo-preview-img">
                         </div>
                         <h3>Ride Wild (Weiß)</h3>
                         <p>Weiße Version für dunkle Hintergründe</p>
                         <div class="logo-downloads">
-                            <a href="../assets/logo/ride-wild/drt-ride-wild-weiss.svg" download class="btn btn-primary">
-                                <i class="fas fa-download"></i> SVG
+                            <a href="/assets/logo/ride-wild/drt-ride-wild-weiss.svg" download class="btn btn-primary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> SVG
                             </a>
-                            <a href="../assets/logo/ride-wild/drt-ride-wild-weiss.png" download class="btn btn-secondary">
-                                <i class="fas fa-download"></i> PNG
+                            <a href="/assets/logo/ride-wild/drt-ride-wild-weiss.png" download class="btn btn-secondary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> PNG
                             </a>
                         </div>
                     </div>
@@ -166,16 +206,16 @@
                     <!-- Ride Wild Black -->
                     <div class="logo-item">
                         <div class="logo-preview">
-                            <img src="../assets/logo/ride-wild/drt-ride-wild-schwarz.svg" alt="DRT Ride Wild Black Logo" class="logo-preview-img">
+                            <img src="/assets/logo/ride-wild/drt-ride-wild-schwarz.svg" alt="DRT Ride Wild Black Logo" class="logo-preview-img">
                         </div>
                         <h3>Ride Wild (Schwarz)</h3>
                         <p>Schwarze Version für helle Hintergründe</p>
                         <div class="logo-downloads">
-                            <a href="../assets/logo/ride-wild/drt-ride-wild-schwarz.svg" download class="btn btn-primary">
-                                <i class="fas fa-download"></i> SVG
+                            <a href="/assets/logo/ride-wild/drt-ride-wild-schwarz.svg" download class="btn btn-primary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> SVG
                             </a>
-                            <a href="../assets/logo/ride-wild/drt-ride-wild-schwarz.png" download class="btn btn-secondary">
-                                <i class="fas fa-download"></i> PNG
+                            <a href="/assets/logo/ride-wild/drt-ride-wild-schwarz.png" download class="btn btn-secondary">
+                                <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#download"></use></svg> PNG
                             </a>
                         </div>
                     </div>
@@ -246,8 +286,8 @@
                 </div>
                 
                 <div class="font-link">
-                    <a href="https://fonts.google.com/specimen/Roboto" target="_blank" class="btn btn-outline">
-                        <i class="fas fa-external-link-alt"></i>
+                    <a href="https://fonts.google.com/specimen/Roboto" target="_blank" rel="noopener" class="btn btn-outline">
+                        <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#arrow-up-right-from-square"></use></svg>
                         Roboto auf Google Fonts
                     </a>
                 </div>
@@ -258,7 +298,7 @@
                 <h2>Verwendungsrichtlinien</h2>
                 <div class="guidelines-grid">
                     <div class="guideline-item">
-                        <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                        <svg class="icon" aria-hidden="true" style="color: #10b981;"><use href="/assets/icons/icons.svg#circle-check"></use></svg>
                         <h4>Erlaubt</h4>
                         <ul>
                             <li>Verwendung in Absprache mit dem Team</li>
@@ -269,7 +309,7 @@
                     </div>
                     
                     <div class="guideline-item">
-                        <i class="fas fa-times-circle" style="color: #ef4444;"></i>
+                        <svg class="icon" aria-hidden="true" style="color: #ef4444;"><use href="/assets/icons/icons.svg#circle-xmark"></use></svg>
                         <h4>Nicht erlaubt</h4>
                         <ul>
                             <li>Verzerrung oder Streckung des Logos</li>
@@ -284,9 +324,38 @@
     </section>
 
     <!-- Footer -->
-    <div id="footer-placeholder"></div>
+    <!-- @footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/assets/logo/logo-komplett/drt-logo-schwarzer-hintergrund.svg" alt="Devils Rock Trails Logo" class="footer-logo-img" width="120" height="102" loading="lazy">
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <p>Die Trails wurden 2022 in gemeinschaftlicher ehrenamtlicher Arbeit errichtet.</p>
+                </div>
+                <div class="footer-section">
+                    <p>Die Trails stehen kostenfrei zur Verfügung und werden in Abstimmung mit Gemeinde, Forstamt und Naturschutzbehörde betrieben.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span class="footer-year">2026</span> Devils Rock Trails</p>
+                <nav class="footer-links" aria-label="Footer">
+                    <a href="/crew">Crew</a>
+                    <a href="https://fchennweiler.de/impressum/" target="_blank" rel="noopener">Impressum</a>
+                    <a href="/datenschutz">Datenschutz</a>
+                    <a href="/pages/design.html">Design</a>
+                    <a href="https://github.com/dottenbr/devilsrock.de" target="_blank" rel="noopener">
+                        <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#github"></use></svg> GitHub
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+    <!-- /@footer -->
 
-    <script src="../components.js"></script>
-    <script src="../js/navigation.js"></script>
+    <script src="/js/site.js" defer></script>
 </body>
 </html>

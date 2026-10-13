@@ -1,0 +1,22 @@
+{
+  "name": "devilsrock-forms",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-01",
+  // Only /api/* is handled by the Worker; everything else stays on GitHub Pages
+  "routes": [
+    { "pattern": "www.devilsrock.de/api/*", "zone_name": "devilsrock.de" }
+  ],
+  // Sends from send.devilsrock.de (onboarded to Cloudflare Email Sending).
+  // The root domain keeps its iCloud MX/SPF records untouched.
+  "send_email": [{ "name": "EMAIL" }],
+  "vars": {
+    "REPORT_TO": "dottenbr@me.com",
+    "REPORT_FROM": "trails@send.devilsrock.de",
+    "ALLOWED_ORIGINS": "https://www.devilsrock.de,https://devilsrock.de"
+  },
+  // 5 reports per minute per IP
+  "ratelimits": [
+    { "name": "REPORT_LIMITER", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } }
+  ],
+  "observability": { "enabled": true }
+}
