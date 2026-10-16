@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "check": "node scripts/build.mjs --check",
+    "test": "node --test worker/test/*.test.js",
     "serve": "python3 -m http.server 8000"
   },
   "devDependencies": {
