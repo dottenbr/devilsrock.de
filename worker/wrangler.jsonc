@@ -16,7 +16,7 @@
   "workers_dev": false,
   "preview_urls": false,
   // Sends from send.devilsrock.de (onboarded to Cloudflare Email Sending).
-  // The root domain keeps its iCloud MX/SPF records untouched.
+  // The root domain receives mail through Cloudflare Email Routing.
   "send_email": [{ "name": "EMAIL" }],
   "vars": {
     "TURNSTILE_SITE_KEY": "0x4AAAAAAFb0zkdZ2vEXsFct",
