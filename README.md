@@ -5,9 +5,10 @@ Die offizielle Website für die Devils Rock Trails in Hennweiler, Rheinland-Pfal
 ## 🚀 Features
 
 - Responsive Design für alle Geräte, Burger-Menü unter 1100px
-- Statische Seiten ohne externe Abhängigkeiten (Schriften und Icons lokal, keine Cookies, kein Tracking)
+- Statische Seiten auf Cloudflare Workers (Schriften und Icons lokal, kein Tracking)
 - Trail-Status nach Saison, manuell überschreibbar über `status.json`
 - Schadensmeldung mit Foto-Upload über einen Cloudflare Worker
+- WhatsApp-Zugang mit Cloudflare Turnstile und serverseitiger Prüfung
 - Open-Graph-Vorschau, `sitemap.xml`, `robots.txt`, 404-Seite
 
 ## 🛠️ Lokale Entwicklung
@@ -21,11 +22,13 @@ Die Seite muss über einen HTTP-Server am Domain-Root laufen (alle Pfade sind ab
 
 ## 🧱 Build: Navigation, Footer und Head
 
-Navigation, Footer und der gemeinsame `<head>`-Block werden **nicht** per JavaScript geladen, sondern von `scripts/build.mjs` direkt in jede Seite geschrieben. GitHub Pages liefert die Dateien danach unverändert aus.
+Navigation, Footer und der gemeinsame `<head>`-Block werden **nicht** per JavaScript geladen, sondern von `scripts/build.mjs` direkt in jede Seite geschrieben. Cloudflare Workers liefert die Dateien als Static Assets aus.
 
 1. `components/nav.html` oder `components/footer.html` bearbeiten (oder eine Seite)
 2. `npm run build`
-3. Geänderte Dateien committen
+3. `npm run check && npm test`
+4. `npm run deploy` veröffentlicht die gesamte Website inklusive Worker
+5. Geänderte Dateien committen und nach GitHub pushen (Quellcode und CI)
 
 In den Seiten markieren Kommentare die generierten Bereiche – dazwischen nichts von Hand ändern:
 
@@ -78,9 +81,9 @@ Nach dem Commit dauert es durch Caching bis zu ca. 10 Minuten, bis alle Besucher
 
 ## 📮 Schadensmeldung (Cloudflare Worker)
 
-Das Formular auf `/schaden-melden` sendet an `https://www.devilsrock.de/api/schaden-melden`. Diese Route bedient der Worker in `worker/`; alle anderen Pfade kommen weiter von GitHub Pages. Der Worker schickt die Meldung inkl. bis zu 3 Fotos per Cloudflare Email Sending an `REPORT_TO` und speichert nichts.
+Das Formular auf `/schaden-melden` sendet an `https://www.devilsrock.de/api/schaden-melden`. Diese Route und die statische Website bedient der Worker `devilsrock-forms` in `worker/`. Der Worker schickt die Meldung inkl. bis zu 3 Fotos per Cloudflare Email Sending an `REPORT_TO` und speichert nichts.
 
-- Absender: `trails@send.devilsrock.de`. Nur die Subdomain `send.devilsrock.de` ist für Email Sending eingerichtet; die iCloud-MX/SPF-Einträge der Hauptdomain bleiben unberührt. **Email Routing nicht auf devilsrock.de aktivieren** – das würde die iCloud-Postfächer (julian@, flo@, dom@) abschalten.
+- Absender: `trails@send.devilsrock.de`. Nur die Subdomain `send.devilsrock.de` ist für Email Sending eingerichtet; die iCloud-MX/SPF-Einträge der Hauptdomain bleiben unberührt. Eine Umstellung auf Email Routing ersetzt den bisherigen iCloud-Empfang. Erst alle Weiterleitungsziele verifizieren und Regeln vorbereiten, dann MX umstellen.
 - Empfänger und Absender stehen als `vars` in `worker/wrangler.jsonc`.
 - Spam-Schutz: Honeypot-Feld, Origin-Prüfung, max. 5 Meldungen pro Minute und IP.
 - Fotos werden im Browser auf max. 1600px verkleinert (entfernt auch GPS-Metadaten). Eine E-Mail darf inkl. Anhängen höchstens 5 MiB groß sein; zu große Fotos werden weggelassen und in der Mail aufgelistet.
@@ -89,18 +92,36 @@ Das Formular auf `/schaden-melden` sendet an `https://www.devilsrock.de/api/scha
 ```bash
 cd worker
 wrangler dev       # lokal testen, E-Mails werden nur simuliert
-wrangler deploy    # veröffentlichen
+cd .. && npm run deploy  # gesamte Website veröffentlichen
 wrangler tail      # Live-Logs
 ```
 
 Einmalige Einrichtung (erledigt am 13.10.2026): `wrangler email sending enable send.devilsrock.de`.
+
+## ☁️ Hosting und Veröffentlichung
+
+Die Website wird vollständig durch Cloudflare Workers Static Assets ausgeliefert. `www.devilsrock.de` und `devilsrock.de` sind Custom Domains des Workers; die Hauptdomain leitet auf `www` weiter. GitHub ist nur Quellcode-Repository und führt die CI-Prüfungen aus. Ein Push allein veröffentlicht keine Website; zum Deploy `npm run deploy` mit angemeldetem Wrangler ausführen.
+
+`scripts/package-site.mjs` kopiert nur ausdrücklich freigegebene Website-Dateien nach `dist/`. Repository-Dateien, Worker-Quellcode, Tests und Secrets werden niemals als Assets veröffentlicht. `worker/wrangler.jsonc` enthält die Deployment-Konfiguration. Der Worker behält seinen vorhandenen Namen `devilsrock-forms`, damit die E-Mail-Bindung und Secrets erhalten bleiben.
+
+## 🛡️ WhatsApp-Community
+
+Alle Website-Links führen nach `/community/`. Nur diese Seite lädt Cloudflare Turnstile (Managed-Modus, ohne Pre-Clearance). Der öffentliche Sitekey kommt von `GET /api/community`. Das Formular sendet das Einmaltoken an `POST /api/community`; der Worker prüft es mit Cloudflares Siteverify, einschließlich Hostname und Aktion `community`, und leitet erst danach zu WhatsApp weiter.
+
+- Cloudflare-Secrets: `TURNSTILE_SECRET`, `WHATSAPP_INVITE_URL`. Den Einladungslink niemals in HTML, JavaScript, README oder öffentliche Konfiguration schreiben.
+- Neuen Einladungslink setzen: `wrangler secret put WHATSAPP_INVITE_URL --config worker/wrangler.jsonc` und den Wert interaktiv eingeben.
+- Maximal 10 Versuche pro Minute/IP; keine Freigabe bei fehlender Konfiguration, ungültigem Token oder Ausfall von Cloudflare.
+- API-Antworten und Weiterleitung sind nicht cachebar; der Einladungslink wird nicht geloggt.
+- `npm test` prüft unter anderem Tokenfehler, Wiederverwendung, falschen Hostnamen/Aktion, Rate Limit und erfolgreiche Weiterleitung.
+- Ein einmal freigegebener WhatsApp-Link kann weitergegeben werden. Das Captcha schützt den Zugang über die Website, nicht den direkten Beitritt mit bereits bekanntem Link.
 
 ## 📁 Struktur
 
 ```text
 devilsrock.de/
 ├── index.html                    # Startseite
-├── 404.html                      # Fehlerseite (GitHub Pages)
+├── 404.html                      # Fehlerseite (Cloudflare)
+├── community/index.html          # Captcha → /api/community
 ├── crew/index.html               # /crew – Mitglied werden
 ├── datenschutz/index.html        # /datenschutz
 ├── nutzungsbestimmungen/index.html
@@ -118,14 +139,15 @@ devilsrock.de/
 │   ├── trail-status.js           # Trail-Status (nur Startseite)
 │   └── damage-form.js            # Schadensmeldung
 ├── scripts/build.mjs             # statischer Build (s. o.)
-├── worker/                       # Cloudflare Worker für /api/*
+├── worker/                       # Cloudflare Worker und Sicherheitstests
+├── dist/                         # generierte, veröffentlichbare Dateien (ignoriert)
 └── assets/                       # docs, fonts, gpx, icons, images, logo, team
 ```
 
 ## 🔗 Links
 
 - **Facebook**: [Devils Rock Trails](https://www.facebook.com/profile.php?id=100076197633953)
-- **WhatsApp**: [Community](https://chat.whatsapp.com/CEPt7TiijKc3xoyRv0TyBc?mode=ac_t)
+- **WhatsApp**: [Community](https://www.devilsrock.de/community/)
 - **Instagram**: [@devils_rock_trail_hennweiler](https://www.instagram.com/devils_rock_trail_hennweiler)
 
 ## 👥 Team

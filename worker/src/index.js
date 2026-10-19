@@ -7,6 +7,8 @@
 // Requests from fetch() (Accept: application/json) get JSON back; plain form
 // posts (no JavaScript) are redirected back to the page with #gesendet / #fehler.
 
+import { community } from './community.js';
+
 const MAX_PHOTOS = 3;
 // Email Sending caps a message at 5 MiB including attachments. Attachments are
 // base64-encoded in the message (+33%), so keep the raw photo budget well below.
@@ -18,7 +20,15 @@ export default {
     async fetch(request, env) {
         const url = new URL(request.url);
 
+        if (url.hostname === 'devilsrock.de') {
+            url.hostname = 'www.devilsrock.de';
+            return Response.redirect(url.toString(), 308);
+        }
+
+        if (url.pathname === '/api/community') return community(request, env);
+
         if (url.pathname !== '/api/schaden-melden') {
+            if (!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
             return json({ ok: false, error: 'Nicht gefunden.' }, 404);
         }
         if (request.method !== 'POST') {

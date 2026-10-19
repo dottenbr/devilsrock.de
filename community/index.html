@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Community - Devils Rock Trails</title>
+    <meta name="description" content="Tritt der WhatsApp Community der Devils Rock Trails bei. Eine kurze Sicherheitsprüfung schützt unsere Gruppen vor Bots.">
+    <link rel="canonical" href="https://www.devilsrock.de/community">
+    <meta name="referrer" content="no-referrer">
+    <!-- @head -->
+    <meta name="theme-color" content="#003947">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="Devils Rock Trails">
+    <meta property="og:title" content="WhatsApp Community - Devils Rock Trails">
+    <meta property="og:description" content="Tritt der WhatsApp Community der Devils Rock Trails bei. Eine kurze Sicherheitsprüfung schützt unsere Gruppen vor Bots.">
+    <meta property="og:url" content="https://www.devilsrock.de/community">
+    <meta property="og:image" content="https://www.devilsrock.de/assets/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Devils Rock Trails Logo vor einem Mountainbiker im Wald">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/assets/icons/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" href="/assets/icons/icon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages.css">
+    <!-- /@head -->
+    <link rel="stylesheet" href="/css/community.css">
+</head>
+<body class="subpage">
+    <!-- @nav -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="/" aria-label="Devils Rock Trails Startseite">
+                    <img src="/assets/logo/logo-name/drt-logo-name-weiss.svg" alt="Devils Rock Trails Logo" class="nav-logo-img">
+                </a>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="/">Home</a>
+                <a href="/#trail">Trails</a>
+                <a href="/#community">Community</a>
+                <a href="/crew">Crew</a>
+                <a href="/#team">Kontakt</a>
+                <a href="/nutzungsbestimmungen">Nutzungsbestimmungen</a>
+                <a href="/spenden">Spenden</a>
+                <a href="/schaden-melden">Schaden melden</a>
+            </div>
+            <button type="button" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    <!-- /@nav -->
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Ab in die Community</h1>
+                <p class="header-subtitle">Gemeinsam biken, verabreden und auf dem Laufenden bleiben.</p>
+            </div>
+        </section>
+        <section class="content-section">
+            <div class="container">
+                <div class="content-card community-gate">
+                    <h2>Ein kurzer Check, dann geht’s los</h2>
+                    <p>Damit unsere WhatsApp-Gruppen von Bots verschont bleiben, prüfen wir kurz deinen Zugang.</p>
+                    <form id="community-form" action="/api/community" method="post">
+                        <div id="community-captcha"></div>
+                        <p id="community-status" role="status" aria-live="polite">Bitte aktiviere JavaScript für die Sicherheitsprüfung.</p>
+                        <button type="submit" class="btn btn-primary" disabled>
+                            <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#whatsapp"></use></svg>
+                            Weiter zu WhatsApp
+                        </button>
+                    </form>
+                    <p class="community-privacy">Für die Prüfung verwenden wir Cloudflare Turnstile. Mehr dazu im <a href="/datenschutz#turnstile">Datenschutz</a>.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- @footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/assets/logo/logo-komplett/drt-logo-schwarzer-hintergrund.svg" alt="Devils Rock Trails Logo" class="footer-logo-img" width="120" height="102" loading="lazy">
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <p>Die Trails wurden 2022 in gemeinschaftlicher ehrenamtlicher Arbeit errichtet.</p>
+                </div>
+                <div class="footer-section">
+                    <p>Die Trails stehen kostenfrei zur Verfügung und werden in Abstimmung mit Gemeinde, Forstamt und Naturschutzbehörde betrieben.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span class="footer-year">2026</span> Devils Rock Trails</p>
+                <nav class="footer-links" aria-label="Footer">
+                    <a href="/crew">Crew</a>
+                    <a href="https://fchennweiler.de/impressum/" target="_blank" rel="noopener">Impressum</a>
+                    <a href="/datenschutz">Datenschutz</a>
+                    <a href="/pages/design.html">Design</a>
+                    <a href="https://github.com/dottenbr/devilsrock.de" target="_blank" rel="noopener">
+                        <svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#github"></use></svg> GitHub
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+    <!-- /@footer -->
+    <script src="/js/site.js" defer></script>
+    <script src="/js/community.js" defer></script>
+</body>
+</html>

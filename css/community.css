@@ -1,0 +1,11 @@
+/* Protected community invitation */
+.community-gate { max-width: 640px; margin-inline: auto; }
+.community-gate h2, .community-gate p { margin-bottom: 1.25rem; }
+#community-captcha { min-height: 65px; margin-block: 1.5rem; }
+#community-status { min-height: 3em; }
+.community-gate button:disabled { opacity: .55; cursor: wait; }
+.community-privacy { margin-top: 1.5rem; font-size: .9rem; }
+
+@media (max-width: 420px) {
+    .subpage .community-gate { padding: 1rem; }
+}

@@ -70,7 +70,7 @@
         <div class="container">
             <div class="content-card">
                 <div class="intro-text">
-                    <p>Wir freuen uns über deinen Besuch. Diese Website kommt ohne Cookies, Tracking und Analyse-Tools aus. Schriften und Icons werden direkt von unserem Server geladen, nicht von Drittanbietern. Im Folgenden erklären wir, welche Daten trotzdem anfallen und was mit ihnen passiert.</p>
+                    <p>Wir freuen uns über deinen Besuch. Diese Website verwendet keine Analyse- oder Werbe-Tracking-Dienste. Schriften und Icons werden direkt von unserem Server geladen, nicht von Drittanbietern. Im Folgenden erklären wir, welche Daten trotzdem anfallen und was mit ihnen passiert.</p>
                 </div>
 
                 <div class="rules-list">
@@ -87,13 +87,19 @@
 
                     <div class="rule-item-detailed">
                         <h3>2. Hosting und Server-Logfiles</h3>
-                        <p>Diese Website wird über GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA) bereitgestellt und über das Netzwerk von Cloudflare (Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA) ausgeliefert. Beim Aufruf einer Seite werden technisch notwendige Daten verarbeitet: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, übertragene Datenmenge, Referrer-URL sowie Browser und Betriebssystem.</p>
-                        <p>Die Verarbeitung ist erforderlich, um die Website sicher und stabil auszuliefern und Angriffe abzuwehren. Rechtsgrundlage ist unser berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO. Beide Anbieter können Daten in den USA verarbeiten; sie sind nach dem EU-US Data Privacy Framework zertifiziert, auf dessen Grundlage die EU-Kommission ein angemessenes Datenschutzniveau festgestellt hat (Art. 45 DSGVO). Wir selbst werten diese Logdaten nicht aus.</p>
+                        <p>Diese Website wird über Cloudflare Workers (Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA) bereitgestellt und ausgeliefert. Beim Aufruf einer Seite werden technisch notwendige Daten verarbeitet: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, übertragene Datenmenge, Referrer-URL sowie Browser und Betriebssystem.</p>
+                        <p>Die Verarbeitung ist erforderlich, um die Website sicher und stabil auszuliefern und Angriffe abzuwehren. Rechtsgrundlage ist unser berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO. Cloudflare kann Daten in den USA verarbeiten und ist nach dem EU-US Data Privacy Framework zertifiziert, auf dessen Grundlage die EU-Kommission ein angemessenes Datenschutzniveau festgestellt hat (Art. 45 DSGVO). Wir selbst werten diese Logdaten nicht aus.</p>
                     </div>
 
                     <div class="rule-item-detailed">
                         <h3>3. Cookies, Tracking und externe Inhalte</h3>
-                        <p>Wir setzen keine Cookies und verwenden keine Analyse-, Tracking- oder Werbedienste. Schriftarten (Roboto) und Icons sind lokal eingebunden, es werden beim Seitenaufruf keine Inhalte von Google oder anderen Drittanbietern nachgeladen.</p>
+                        <p>Wir setzen keine Cookies und verwenden keine Analyse-, Tracking- oder Werbedienste. Schriftarten (Roboto) und Icons sind lokal eingebunden, auf der Community-Zugangsseite wird zusätzlich Cloudflare Turnstile für die Sicherheitsprüfung geladen.</p>
+                    </div>
+
+                    <div class="rule-item-detailed" id="turnstile">
+                        <h3>Sicherheitsprüfung vor WhatsApp</h3>
+                        <p>Auf der <a href="/community/">Community-Zugangsseite</a> verwenden wir Cloudflare Turnstile zum Schutz vor automatisierten Zugriffen und Spam. Dabei werden unter anderem die IP-Adresse sowie Browser- und Gerätesignale an Cloudflare übermittelt und für die Sicherheitsprüfung verarbeitet. Turnstile wird erst beim Aufruf dieser Zugangsseite geladen. Die Website prüft das Ergebnis serverseitig, bevor sie zu WhatsApp weiterleitet.</p>
+                        <p>Die Verarbeitung dient unserem berechtigten Interesse am Schutz unserer Community vor Missbrauch (Art. 6 Abs. 1 lit. f DSGVO). Weitere Informationen bietet <a href="https://www.cloudflare.com/turnstile-privacy-policy/" target="_blank" rel="noopener">Cloudflares Datenschutzhinweis zu Turnstile</a>.</p>
                     </div>
 
                     <div class="rule-item-detailed">

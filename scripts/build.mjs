@@ -1,6 +1,6 @@
 // Static build for devilsrock.de
 //
-// The site is served as-is by GitHub Pages, so there is no build on deploy.
+// The site is packaged as static assets and served by Cloudflare Workers.
 // This script is run locally after editing a page or a component and the
 // output is committed:
 //
@@ -20,7 +20,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE_URL = 'https://www.devilsrock.de';
 const CHECK = process.argv.includes('--check');
-const SKIP_DIRS = new Set(['.git', 'node_modules', 'components', 'scripts', 'worker', 'assets', 'css', 'js', '.github']);
+const SKIP_DIRS = new Set(['dist', '.wrangler', '.git', 'node_modules', 'components', 'scripts', 'worker', 'assets', 'css', 'js', '.github']);
 
 const stale = [];
 
