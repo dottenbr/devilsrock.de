@@ -83,7 +83,7 @@ Nach dem Commit dauert es durch Caching bis zu ca. 10 Minuten, bis alle Besucher
 
 Das Formular auf `/schaden-melden` sendet an `https://www.devilsrock.de/api/schaden-melden`. Diese Route und die statische Website bedient der Worker `devilsrock-forms` in `worker/`. Der Worker schickt die Meldung inkl. bis zu 3 Fotos per Cloudflare Email Sending an `REPORT_TO` und speichert nichts.
 
-- Absender: `trails@send.devilsrock.de`. Die Subdomain `send.devilsrock.de` ist für Email Sending eingerichtet. Der Empfang auf der Hauptdomain läuft seit dem 19.10.2026 über Cloudflare Email Routing; die bisherigen iCloud-MX/SPF-Einträge wurden ersetzt. Weiterleitungen benötigen bestätigte Zieladressen. `dom@` und `julian@` sind eingerichtet; für `flo@` fehlt noch die Bestätigung der Zieladresse und anschließend die Routing-Regel. Der Catch-all ist deaktiviert.
+- Absender: `trails@send.devilsrock.de`. Die Subdomain `send.devilsrock.de` ist für Email Sending eingerichtet. Der Empfang auf der Hauptdomain läuft seit dem 19.10.2026 über Cloudflare Email Routing; die bisherigen iCloud-MX/SPF-Einträge wurden ersetzt. Weiterleitungen benötigen bestätigte Zieladressen. Die Weiterleitungen für `dom@`, `julian@` und `flo@` sind eingerichtet; Flos Zieladresse wurde am 21.10.2026 bestätigt und seine Regel aktiviert. Der Catch-all ist deaktiviert.
 - Empfänger und Absender stehen als `vars` in `worker/wrangler.jsonc`.
 - Spam-Schutz: Honeypot-Feld, Origin-Prüfung, max. 5 Meldungen pro Minute und IP.
 - Fotos werden im Browser auf max. 1600px verkleinert (entfernt auch GPS-Metadaten). Eine E-Mail darf inkl. Anhängen höchstens 5 MiB groß sein; zu große Fotos werden weggelassen und in der Mail aufgelistet.
