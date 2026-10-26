@@ -15,6 +15,8 @@ const MAX_PHOTOS = 3;
 const PHOTO_BUDGET_BYTES = 3.3 * 1024 * 1024;
 const LIMITS = { name: 100, contact: 200, location: 300, description: 5000 };
 const PAGE_URL = 'https://www.devilsrock.de/schaden-melden/';
+// Short links that point to a page under a different path
+const REDIRECTS = { '/ctf2026': '/ctf2027' };
 
 export default {
     async fetch(request, env) {
@@ -23,6 +25,12 @@ export default {
         if (url.hostname === 'devilsrock.de') {
             url.hostname = 'www.devilsrock.de';
             return Response.redirect(url.toString(), 308);
+        }
+
+        const redirect = REDIRECTS[url.pathname.replace(/\/$/, '').toLowerCase()];
+        if (redirect) {
+            url.pathname = redirect;
+            return Response.redirect(url.toString(), 301);
         }
 
         if (url.pathname === '/api/community') return community(request, env);

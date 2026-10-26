@@ -10,6 +10,7 @@ Die offizielle Website für die Devils Rock Trails in Hennweiler, Rheinland-Pfal
 - Schadensmeldung mit Foto-Upload über einen Cloudflare Worker
 - WhatsApp-Zugang mit Cloudflare Turnstile und serverseitiger Prüfung
 - Open-Graph-Vorschau, `sitemap.xml`, `robots.txt`, 404-Seite
+- Kurzlinks als 301-Weiterleitung im Worker (`REDIRECTS` in `worker/src/index.js`), z. B. `/ctf2026` → `/ctf2027`
 
 ## 🛠️ Lokale Entwicklung
 
@@ -123,6 +124,7 @@ devilsrock.de/
 ├── 404.html                      # Fehlerseite (Cloudflare)
 ├── community/index.html          # Captcha → /api/community
 ├── crew/index.html               # /crew – Mitglied werden
+├── ctf2027/index.html            # /ctf2027 – CTF 2027 (Kurzlink /ctf2026 leitet per Worker weiter)
 ├── datenschutz/index.html        # /datenschutz
 ├── nutzungsbestimmungen/index.html
 ├── schaden-melden/index.html     # Formular → Worker

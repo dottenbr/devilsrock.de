@@ -431,6 +431,10 @@
     flex-shrink: 0;
 }
 
+.ctf-teaser {
+    margin: 0 0 3.5rem;
+}
+
 /* Crew page */
 .crew-tagline {
     font-size: 1.25rem;
@@ -515,6 +519,78 @@
 }
 
 .crew-flyer a:hover {
+    text-decoration: underline;
+}
+
+/* CTF page */
+.ctf-logo {
+    display: block;
+    width: min(100%, 420px);
+    height: auto;
+    margin-bottom: 1.75rem;
+}
+
+.ctf-intro > p:not(.crew-tagline),
+.ctf-text p,
+.ctf-contacts {
+    color: var(--light-text);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.ctf-text p:last-child {
+    margin-bottom: 0;
+}
+
+.ctf-text h3 {
+    margin: 1.75rem 0 0.5rem;
+    font-size: 1.1rem;
+    color: var(--mustard-color);
+}
+
+.ctf-text h2 + h3 {
+    margin-top: 0.5rem;
+}
+
+.ctf-page .trail-grid,
+.ctf-page .tour-grid {
+    margin: 0 0 2rem;
+}
+
+.ctf-page .trail-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+    gap: 1.25rem;
+}
+
+.ctf-page .trail-card {
+    padding: 1.75rem 1.25rem;
+}
+
+.ctf-page .card-icon {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+}
+
+.ctf-page .tour-card h3 {
+    font-size: 1.4rem;
+}
+
+.ctf-page .tour-meta {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+}
+
+.ctf-contacts {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.ctf-contacts a {
+    text-decoration: none;
+}
+
+.ctf-contacts a:hover {
     text-decoration: underline;
 }
 
