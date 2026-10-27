@@ -10,6 +10,7 @@ Die offizielle Website für die Devils Rock Trails in Hennweiler, Rheinland-Pfal
 - Schadensmeldung mit Foto-Upload über einen Cloudflare Worker
 - WhatsApp-Zugang mit Cloudflare Turnstile und serverseitiger Prüfung
 - Open-Graph-Vorschau, `sitemap.xml`, `robots.txt`, 404-Seite
+- Passwortschutz für `/ctf2027` (HTTP Basic Auth im Worker, siehe unten)
 - Kurzlinks als 301-Weiterleitung im Worker (`REDIRECTS` in `worker/src/index.js`), z. B. `/ctf2026` → `/ctf2027`
 
 ## 🛠️ Lokale Entwicklung
@@ -115,6 +116,13 @@ Alle Website-Links führen nach `/community/`. Nur diese Seite lädt Cloudflare 
 - API-Antworten und Weiterleitung sind nicht cachebar; der Einladungslink wird nicht geloggt.
 - `npm test` prüft unter anderem Tokenfehler, Wiederverwendung, falschen Hostnamen/Aktion, Rate Limit und erfolgreiche Weiterleitung.
 - Ein einmal freigegebener WhatsApp-Link kann weitergegeben werden. Das Captcha schützt den Zugang über die Website, nicht den direkten Beitritt mit bereits bekanntem Link.
+
+## 🔒 CTF-Seite mit Passwort
+
+Alles unter `/ctf2027` (Seite, `ausschreibung.pdf`, `sponsoren/`) ist per HTTP Basic Auth geschützt, bis die CTF öffentlich angekündigt wird. Der Benutzername ist beliebig, das Passwort steht im Cloudflare-Secret `CTF_PASSWORD`. Ohne gesetztes Secret bleibt die Seite gesperrt. Die Seite ist `noindex` und steht nicht in der `sitemap.xml`.
+
+- Passwort ändern: `wrangler secret put CTF_PASSWORD --config worker/wrangler.jsonc`
+- Öffentlich schalten: `PROTECTED` in `worker/src/index.js` leeren, `/ctf2027` aus der `noindex`-Bedingung in `scripts/build.mjs` entfernen, `npm run build` und deployen.
 
 ## 📁 Struktur
 

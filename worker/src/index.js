@@ -17,6 +17,9 @@ const LIMITS = { name: 100, contact: 200, location: 300, description: 5000 };
 const PAGE_URL = 'https://www.devilsrock.de/schaden-melden/';
 // Short links that point to a page under a different path
 const REDIRECTS = { '/ctf2026': '/ctf2027' };
+// Paths shared only with a password (HTTP Basic Auth, any user name, secret CTF_PASSWORD).
+// Everything below the prefix is covered, including the PDF and sponsor logos.
+const PROTECTED = ['/ctf2027'];
 
 export default {
     async fetch(request, env) {
@@ -31,6 +34,25 @@ export default {
         if (redirect) {
             url.pathname = redirect;
             return Response.redirect(url.toString(), 301);
+        }
+
+        const path = url.pathname.toLowerCase();
+        if (PROTECTED.some(prefix => path === prefix || path.startsWith(prefix + '/'))) {
+            if (!authorized(request, env.CTF_PASSWORD)) {
+                return new Response('Diese Seite ist noch nicht öffentlich. Bitte Passwort eingeben.', {
+                    status: 401,
+                    headers: {
+                        'WWW-Authenticate': 'Basic realm="Devils Rock Trails CTF 2027", charset="UTF-8"',
+                        'Content-Type': 'text/plain; charset=utf-8',
+                        'Cache-Control': 'no-store',
+                    },
+                });
+            }
+            const asset = await env.ASSETS.fetch(request);
+            const response = new Response(asset.body, asset);
+            response.headers.set('Cache-Control', 'private, no-store');
+            response.headers.set('X-Robots-Tag', 'noindex');
+            return response;
         }
 
         if (url.pathname === '/api/community') return community(request, env);
@@ -167,6 +189,24 @@ ${skipped.length ? row('Nicht angehängt', skipped.join(', ')) : ''}
 <h3 style="margin:16px 0 8px">Beschreibung</h3>
 <p style="white-space:pre-wrap;margin:0">${escapeHtml(report.description)}</p>
 </body></html>`;
+}
+
+// Fails closed: without a configured password nothing is shown
+function authorized(request, password) {
+    const header = request.headers.get('Authorization') || '';
+    if (!password || !header.startsWith('Basic ')) return false;
+    let decoded;
+    try {
+        const binary = atob(header.slice(6).trim());
+        decoded = new TextDecoder().decode(Uint8Array.from(binary, c => c.charCodeAt(0)));
+    } catch {
+        return false;
+    }
+    const given = new TextEncoder().encode(decoded.slice(decoded.indexOf(':') + 1));
+    const expected = new TextEncoder().encode(password);
+    let diff = given.length ^ expected.length;
+    for (let i = 0; i < expected.length; i++) diff |= expected[i] ^ (given[i] ?? 0);
+    return diff === 0;
 }
 
 function json(body, status = 200, headers = {}) {

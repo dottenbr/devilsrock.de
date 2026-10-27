@@ -590,6 +590,59 @@
     text-decoration: underline;
 }
 
+.sponsor-lead {
+    max-width: 720px;
+    margin: 0 auto 2rem;
+    text-align: center;
+    color: var(--light-text);
+    line-height: 1.8;
+}
+
+.sponsor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.sponsor-card {
+    display: flex;
+    flex-direction: column;
+    background: rgba(107, 179, 191, 0.05);
+    border: 1px solid rgba(107, 179, 191, 0.15);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.sponsor-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    padding: 1.5rem;
+    background: #ffffff;
+}
+
+.sponsor-logo img {
+    max-width: min(100%, 220px);
+    max-height: 100%;
+    width: auto;
+    height: auto;
+}
+
+.sponsor-card h3 {
+    margin: 1.25rem 1.5rem 0.5rem;
+    font-size: 1.1rem;
+    color: var(--mustard-color);
+}
+
+.sponsor-card p {
+    margin: 0 1.5rem 1.5rem;
+    color: var(--light-text);
+    line-height: 1.7;
+}
+
 /* Unified layout for all standalone subpages */
 .subpage {
     min-height: 100vh;
