@@ -15,7 +15,7 @@ Die offizielle Website für die Devils Rock Trails in Hennweiler, Rheinland-Pfal
 
 ## 🛠️ Lokale Entwicklung
 
-Voraussetzung: Node.js 22.23.4 oder neuer (CI nutzt Node 24).
+Voraussetzung: Node.js 24 (siehe `.nvmrc`, mindestens 22.23.4). Wrangler ist als Projektabhängigkeit fest auf eine Version gepinnt; `npm run deploy` und `npm run preview` nutzen diese Version.
 
 ```bash
 npm install        # einmalig
@@ -63,7 +63,9 @@ npm run build      # astro build + scripts/verify-dist.mjs
 npm test           # Worker-Tests
 ```
 
-`scripts/verify-dist.mjs` lässt den Build fehlschlagen, wenn eine Seite fehlt, ein interner Link oder ein Bild ins Leere zeigt, `sitemap.xml` nicht zu den Seiten passt, Sponsor-Dateien, versteckte Dateien oder die private Mailadresse in `dist/` landen. Die GitHub Action führt alle drei Schritte aus.
+`scripts/verify-dist.mjs` lässt den Build fehlschlagen, wenn eine Seite fehlt, ein interner Link oder ein Bild ins Leere zeigt, `sitemap.xml` nicht zu den Seiten passt, Sponsor-Dateien, versteckte Dateien oder die private Mailadresse in `dist/` landen. Die GitHub Action führt alle drei Schritte aus und prüft zusätzlich die Worker-Konfiguration mit `wrangler deploy --dry-run` (ohne zu veröffentlichen). Dependabot schlägt einmal im Monat gebündelte Updates für npm und GitHub Actions vor; Font Awesome 7 ist ausgenommen, weil sich dort Icon-Namen ändern.
+
+npm 11 führt Install-Skripte nur aus, wenn sie in `allowScripts` (package.json) freigegeben sind. Erlaubt sind `esbuild` und `workerd` (prüfen ihre Binärdateien), abgelehnt `@fortawesome/fontawesome-free` (nur Hinweistext) und `fsevents`.
 
 ## 🚴 Trail-Status
 
