@@ -5,6 +5,6 @@ const output = new URL('dist/', root);
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 for (const path of ['index.html', '404.html', 'assets', 'css', 'js', 'crew', 'ctf2027', 'community', 'datenschutz', 'nutzungsbestimmungen', 'schaden-melden', 'spenden', 'pages', 'status.json', 'robots.txt', 'sitemap.xml', 'site.webmanifest']) {
-    await cp(new URL(path, root), new URL(path, output), { recursive: true, filter: source => !source.split('/').pop().startsWith('.') });
+    await cp(new URL(path, root), new URL(path, output), { recursive: true, filter: source => !source.split('/').pop().startsWith('.') && !source.endsWith('/ctf2027/sponsoren') });
 }
 console.log('Static website packaged in dist/');

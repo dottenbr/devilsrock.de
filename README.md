@@ -10,7 +10,7 @@ Die offizielle Website für die Devils Rock Trails in Hennweiler, Rheinland-Pfal
 - Schadensmeldung mit Foto-Upload über einen Cloudflare Worker
 - WhatsApp-Zugang mit Cloudflare Turnstile und serverseitiger Prüfung
 - Open-Graph-Vorschau, `sitemap.xml`, `robots.txt`, 404-Seite
-- Passwortschutz für `/ctf2027` (HTTP Basic Auth im Worker, siehe unten)
+- Öffentliche CTF-Seite unter `/ctf2027` mit Ausschreibung, ohne unbestätigte Sponsoren
 - Kurzlinks als 301-Weiterleitung im Worker (`REDIRECTS` in `worker/src/index.js`), z. B. `/ctf2026` → `/ctf2027`
 
 ## 🛠️ Lokale Entwicklung
@@ -117,12 +117,11 @@ Alle Website-Links führen nach `/community/`. Nur diese Seite lädt Cloudflare 
 - `npm test` prüft unter anderem Tokenfehler, Wiederverwendung, falschen Hostnamen/Aktion, Rate Limit und erfolgreiche Weiterleitung.
 - Ein einmal freigegebener WhatsApp-Link kann weitergegeben werden. Das Captcha schützt den Zugang über die Website, nicht den direkten Beitritt mit bereits bekanntem Link.
 
-## 🔒 CTF-Seite mit Passwort
+## 🚴 Öffentliche CTF-Seite
 
-Alles unter `/ctf2027` (Seite, `ausschreibung.pdf`, `sponsoren/`) ist per HTTP Basic Auth geschützt, bis die CTF öffentlich angekündigt wird. Der Benutzername ist beliebig, das Passwort steht im Cloudflare-Secret `CTF_PASSWORD`. Ohne gesetztes Secret bleibt die Seite gesperrt. Die Seite ist `noindex` und steht nicht in der `sitemap.xml`.
+Seit dem 10.11.2026 ist `/ctf2027` samt Ausschreibung öffentlich, über die Navigation erreichbar und in der Sitemap enthalten. Unbestätigte Sponsoren, ihre Logos und der geplante Bike-Service werden nicht veröffentlicht. Das Packaging schließt `ctf2027/sponsoren` aus; Dateien bleiben lokal für spätere bestätigte Zusagen erhalten.
 
-- Passwort ändern: `wrangler secret put CTF_PASSWORD --config worker/wrangler.jsonc`
-- Öffentlich schalten: `PROTECTED` in `worker/src/index.js` leeren, `/ctf2027` aus der `noindex`-Bedingung in `scripts/build.mjs` entfernen, `npm run build` und deployen.
+`PROTECTED` in `worker/src/index.js` ist leer. Das vorhandene Secret `CTF_PASSWORD` wird für die öffentliche CTF-Seite nicht mehr verwendet.
 
 ## 📁 Struktur
 

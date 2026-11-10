@@ -170,8 +170,7 @@ async function main() {
         let html = original;
         const path = urlPath(file);
         const isRedirect = /http-equiv="refresh" content="0;/.test(html);
-        // /ctf2027 is password protected until the CTF is announced publicly
-        const noindex = path === '/404.html' || path === '/ctf2027';
+        const noindex = path === '/404.html';
 
         if (html.includes('<!-- @head -->')) html = fill(html, 'head', renderHead(pageMeta(html, file), noindex));
         if (html.includes('<!-- @nav -->')) html = fill(html, 'nav', renderNav(nav, path));

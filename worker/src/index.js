@@ -19,7 +19,7 @@ const PAGE_URL = 'https://www.devilsrock.de/schaden-melden/';
 const REDIRECTS = { '/ctf2026': '/ctf2027' };
 // Paths shared only with a password (HTTP Basic Auth, any user name, secret CTF_PASSWORD).
 // Everything below the prefix is covered, including the PDF and sponsor logos.
-const PROTECTED = ['/ctf2027'];
+const PROTECTED = [];
 
 export default {
     async fetch(request, env) {
