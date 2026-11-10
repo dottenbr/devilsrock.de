@@ -4,59 +4,66 @@ Die offizielle Website für die Devils Rock Trails in Hennweiler, Rheinland-Pfal
 
 ## 🚀 Features
 
-- Responsive Design für alle Geräte, Burger-Menü unter 1100px
-- Statische Seiten auf Cloudflare Workers (Schriften und Icons lokal, kein Tracking)
-- Trail-Status nach Saison, manuell überschreibbar über `status.json`
-- Schadensmeldung mit Foto-Upload über einen Cloudflare Worker
+- Astro (statisch), ausgeliefert von Cloudflare Workers. Schriften, Icons und Bilder lokal, kein Tracking
+- Responsive, Burger-Menü unter 960px, Hauptnavigation mit vier Punkten plus „Schaden melden“
+- Trail-Status nach Saison, manuell überschreibbar über `public/status.json`
+- Schadensmeldung mit Foto-Upload über den Cloudflare Worker
 - WhatsApp-Zugang mit Cloudflare Turnstile und serverseitiger Prüfung
 - Open-Graph-Vorschau, `sitemap.xml`, `robots.txt`, 404-Seite
-- Öffentliche CTF-Seite unter `/ctf2027` mit Ausschreibung, ohne unbestätigte Sponsoren
-- Kurzlinks als 301-Weiterleitung im Worker (`REDIRECTS` in `worker/src/index.js`), z. B. `/ctf2026` → `/ctf2027`
+- Öffentliche CTF-Seite unter `/ctf2027/` mit Ausschreibung, ohne unbestätigte Sponsoren
+- Kurzlinks und alte URLs als 301-Weiterleitung im Worker (`REDIRECTS` in `worker/src/index.js`), z. B. `/ctf2026` → `/ctf2027/`, `/pages/design.html` → `/design/`
 
 ## 🛠️ Lokale Entwicklung
 
+Voraussetzung: Node.js 22.23.4 oder neuer (CI nutzt Node 24).
+
 ```bash
-npm install        # einmalig, lädt Font Awesome für die Icon-Sprite
-npm run serve      # http://localhost:8000
+npm install        # einmalig
+npm run dev        # Astro-Dev-Server mit Live-Reload, http://localhost:4321
+npm run preview    # Build + echter Worker lokal (wrangler dev), inkl. /api/*
 ```
 
-Die Seite muss über einen HTTP-Server am Domain-Root laufen (alle Pfade sind absolut, z. B. `/css/base.css`).
+`npm run dev` zeigt nur die Seiten. Formulare und `/api/*` funktionieren erst mit `npm run preview`.
 
-## 🧱 Build: Navigation, Footer und Head
+## 🧱 Aufbau
 
-Navigation, Footer und der gemeinsame `<head>`-Block werden **nicht** per JavaScript geladen, sondern von `scripts/build.mjs` direkt in jede Seite geschrieben. Cloudflare Workers liefert die Dateien als Static Assets aus.
-
-1. `components/nav.html` oder `components/footer.html` bearbeiten (oder eine Seite)
-2. `npm run build`
-3. `npm run check && npm test`
-4. `npm run deploy` veröffentlicht die gesamte Website inklusive Worker
-5. Geänderte Dateien committen und nach GitHub pushen (Quellcode und CI)
-
-In den Seiten markieren Kommentare die generierten Bereiche – dazwischen nichts von Hand ändern:
-
-```html
-<!-- @head --> … <!-- /@head -->
-<!-- @nav --> … <!-- /@nav -->
-<!-- @footer --> … <!-- /@footer -->
+```text
+src/
+├── layouts/Base.astro        # <head>, Navigation, Footer für jede Seite
+├── components/               # Nav, Footer, PageHeader, TrailStatus, Icon, Komoot
+├── data/site.ts              # Links, Navigation, Routen (GPX/Komoot), Kernteam
+├── pages/                    # eine Datei pro Seite, URL = Dateiname mit Slash
+│   ├── index.astro           # /
+│   ├── crew.astro            # /crew/
+│   ├── ctf2027.astro         # /ctf2027/
+│   ├── community.astro       # /community/ (Turnstile → /api/community)
+│   ├── schaden-melden.astro  # /schaden-melden/ (Formular → /api/schaden-melden)
+│   ├── spenden.astro         # /spenden/ (leitet zu PayPal weiter)
+│   ├── datenschutz.astro, nutzungsbestimmungen.astro, design.astro, 404.astro
+│   └── sitemap.xml.ts        # Liste aller indexierbaren Seiten
+├── styles/global.css         # Farben, Schrift, Buttons, Karten, Formulare
+└── assets/                   # Bilder, die Astro optimiert (Hero, Team)
+public/                       # wird 1:1 veröffentlicht (PDFs, GPX, Logos, Fonts, status.json …)
+drafts/                       # NICHT veröffentlicht, z. B. ctf2027-sponsoren/
+scripts/verify-dist.mjs       # Prüfung nach jedem Build
+worker/                       # Cloudflare Worker und Tests
 ```
 
-Der `@head`-Block erzeugt Favicons, Stylesheets und Open-Graph-Tags aus `<title>`, `<meta name="description">` und `<link rel="canonical">` der Seite. Der Build aktualisiert außerdem `sitemap.xml` (alle Seiten mit Canonical-URL) und die Icon-Sprite.
+- **Texte ändern:** direkt in `src/pages/*.astro`. Links, Routen und Team stehen in `src/data/site.ts`.
+- **Neue Seite:** `src/pages/name.astro` anlegen (z. B. `crew.astro` kopieren), in `src/pages/sitemap.xml.ts` eintragen, bei Bedarf in `mainNav` (`src/data/site.ts`) oder im Footer verlinken.
+- **Icons:** `<Icon name="bicycle" />` mit einem Namen von [fontawesome.com/search](https://fontawesome.com/search?o=r&m=free) (Font Awesome 6 Free). Das SVG wird beim Build eingebettet.
+- **Bilder:** Fotos nach `src/assets/` legen und mit `<Picture>` aus `astro:assets` einbinden, dann erzeugt der Build AVIF/WebP in passenden Größen. Dateien, die unter fester URL erreichbar sein müssen (PDF, GPX, Logos, `og-image.jpg`), gehören nach `public/`.
+- **Interne Links** immer mit Slash am Ende (`/crew/`), sonst leitet Cloudflare erst um.
 
-Die GitHub Action `.github/workflows/check.yml` führt `npm run check` aus und schlägt fehl, wenn ein Build vergessen wurde.
+### Build und Prüfungen
 
-### Neue Seite anlegen
-
-`crew/index.html` kopieren, Titel, Beschreibung, Canonical und Inhalt anpassen, `npm run build` ausführen. Soll sie in die Navigation, den Link in `components/nav.html` ergänzen.
-
-### Icons
-
-Icons sind Font Awesome 6 Free als SVG-Sprite (`assets/icons/icons.svg`):
-
-```html
-<svg class="icon" aria-hidden="true"><use href="/assets/icons/icons.svg#bicycle"></use></svg>
+```bash
+npm run check      # TypeScript/Astro-Prüfung
+npm run build      # astro build + scripts/verify-dist.mjs
+npm test           # Worker-Tests
 ```
 
-Den Namen von [fontawesome.com/search](https://fontawesome.com/search?o=r&m=free) verwenden und `npm run build` ausführen. Der Build nimmt nur Icons auf, deren vollständige Referenz (`icons.svg#name`) wörtlich in einer HTML- oder JS-Datei steht.
+`scripts/verify-dist.mjs` lässt den Build fehlschlagen, wenn eine Seite fehlt, ein interner Link oder ein Bild ins Leere zeigt, `sitemap.xml` nicht zu den Seiten passt, Sponsor-Dateien, versteckte Dateien oder die private Mailadresse in `dist/` landen. Die GitHub Action führt alle drei Schritte aus.
 
 ## 🚴 Trail-Status
 
@@ -65,7 +72,7 @@ Ohne Eingriff richtet sich der Status nach der Saison:
 - **Geöffnet**: 1. April – 31. Oktober
 - **Geschlossen**: 1. November – 31. März
 
-Für kurzfristige Sperrungen oder Freigaben `status.json` bearbeiten (geht auch direkt im GitHub-Webinterface, ohne Build):
+Für kurzfristige Sperrungen oder Freigaben `public/status.json` bearbeiten und veröffentlichen (`npm run deploy`):
 
 ```json
 {
@@ -79,11 +86,11 @@ Für kurzfristige Sperrungen oder Freigaben `status.json` bearbeiten (geht auch 
 - `message`: optionaler Text, sonst Standardtext
 - `updated`: optionales Datum, wird als „Stand: …“ angezeigt
 
-Nach dem Commit dauert es durch Caching bis zu ca. 10 Minuten, bis alle Besucher den neuen Status sehen. Zurück zur Saison-Logik: `"mode": "auto"`.
+Nach dem Deploy dauert es durch Caching bis zu ca. 10 Minuten, bis alle Besucher den neuen Status sehen. Zurück zur Saison-Logik: `"mode": "auto"`.
 
 ## 📮 Schadensmeldung (Cloudflare Worker)
 
-Das Formular auf `/schaden-melden` sendet an `https://www.devilsrock.de/api/schaden-melden`. Diese Route und die statische Website bedient der Worker `devilsrock-forms` in `worker/`. Der Worker schickt die Meldung inkl. bis zu 3 Fotos per Cloudflare Email Sending an `REPORT_TO` und speichert nichts.
+Das Formular auf `/schaden-melden/` sendet an `https://www.devilsrock.de/api/schaden-melden`. Diese Route und die statische Website bedient der Worker `devilsrock-forms` in `worker/`. Der Worker schickt die Meldung inkl. bis zu 3 Fotos per Cloudflare Email Sending an `REPORT_TO` und speichert nichts.
 
 - Absender: `trails@send.devilsrock.de`. Die Subdomain `send.devilsrock.de` ist für Email Sending eingerichtet. Der Empfang auf der Hauptdomain läuft seit dem 19.10.2026 über Cloudflare Email Routing; die bisherigen iCloud-MX/SPF-Einträge wurden ersetzt. Weiterleitungen benötigen bestätigte Zieladressen. Die Weiterleitungen für `dom@`, `julian@` und `flo@` sind eingerichtet; Flos Zieladresse wurde am 21.10.2026 bestätigt und seine Regel aktiviert. Der Catch-all ist deaktiviert.
 - Empfänger und Absender stehen als `vars` in `worker/wrangler.jsonc`.
@@ -92,9 +99,8 @@ Das Formular auf `/schaden-melden` sendet an `https://www.devilsrock.de/api/scha
 - Ohne JavaScript funktioniert das Formular auch: der Worker leitet zurück auf `/schaden-melden/#gesendet` bzw. `#fehler`.
 
 ```bash
-cd worker
-wrangler dev       # lokal testen, E-Mails werden nur simuliert
-cd .. && npm run deploy  # gesamte Website veröffentlichen
+npm run preview    # Build + Worker lokal, E-Mails werden nur simuliert
+npm run deploy     # gesamte Website veröffentlichen
 wrangler tail      # Live-Logs
 ```
 
@@ -104,7 +110,7 @@ Einmalige Einrichtung (erledigt am 13.10.2026): `wrangler email sending enable s
 
 Die Website wird vollständig durch Cloudflare Workers Static Assets ausgeliefert. `www.devilsrock.de` und `devilsrock.de` sind Custom Domains des Workers; die Hauptdomain leitet auf `www` weiter. GitHub ist nur Quellcode-Repository und führt die CI-Prüfungen aus. Ein Push allein veröffentlicht keine Website; zum Deploy `npm run deploy` mit angemeldetem Wrangler ausführen.
 
-`scripts/package-site.mjs` kopiert nur ausdrücklich freigegebene Website-Dateien nach `dist/`. Repository-Dateien, Worker-Quellcode, Tests und Secrets werden niemals als Assets veröffentlicht. `worker/wrangler.jsonc` enthält die Deployment-Konfiguration. Der Worker behält seinen vorhandenen Namen `devilsrock-forms`, damit die E-Mail-Bindung und Secrets erhalten bleiben.
+`npm run deploy` baut die Seite (`astro build` nach `dist/`), prüft sie mit `scripts/verify-dist.mjs`, führt die Worker-Tests aus und veröffentlicht dann mit Wrangler. In `dist/` landen nur die gebauten Seiten und der Inhalt von `public/`. Worker-Quellcode, Tests, `drafts/` und Secrets werden nie als Assets veröffentlicht. `worker/wrangler.jsonc` enthält die Deployment-Konfiguration. Der Worker behält seinen vorhandenen Namen `devilsrock-forms`, damit die E-Mail-Bindung und Secrets erhalten bleiben.
 
 ## 🛡️ WhatsApp-Community
 
@@ -119,39 +125,9 @@ Alle Website-Links führen nach `/community/`. Nur diese Seite lädt Cloudflare 
 
 ## 🚴 Öffentliche CTF-Seite
 
-Seit dem 10.11.2026 ist `/ctf2027` samt Ausschreibung öffentlich, über die Navigation erreichbar und in der Sitemap enthalten. Unbestätigte Sponsoren, ihre Logos und der geplante Bike-Service werden nicht veröffentlicht. Das Packaging schließt `ctf2027/sponsoren` aus; Dateien bleiben lokal für spätere bestätigte Zusagen erhalten.
+Seit dem 10.11.2026 ist `/ctf2027/` samt Ausschreibung öffentlich, über die Navigation erreichbar und in der Sitemap enthalten. Unbestätigte Sponsoren, ihre Logos und der geplante Bike-Service werden nicht veröffentlicht. Die Logos liegen in `drafts/ctf2027-sponsoren/` (außerhalb von `public/`) für spätere bestätigte Zusagen; `scripts/verify-dist.mjs` verhindert, dass sie versehentlich veröffentlicht werden.
 
 `PROTECTED` in `worker/src/index.js` ist leer. Das vorhandene Secret `CTF_PASSWORD` wird für die öffentliche CTF-Seite nicht mehr verwendet.
-
-## 📁 Struktur
-
-```text
-devilsrock.de/
-├── index.html                    # Startseite
-├── 404.html                      # Fehlerseite (Cloudflare)
-├── community/index.html          # Captcha → /api/community
-├── crew/index.html               # /crew – Mitglied werden
-├── ctf2027/index.html            # /ctf2027 – CTF 2027 (Kurzlink /ctf2026 leitet per Worker weiter)
-├── datenschutz/index.html        # /datenschutz
-├── nutzungsbestimmungen/index.html
-├── schaden-melden/index.html     # Formular → Worker
-├── spenden/index.html            # Weiterleitung zu PayPal
-├── pages/design.html             # Design Guidelines
-├── pages/nutzungsbestimmungen.html  # alte URL, leitet weiter
-├── status.json                   # Trail-Status-Override
-├── sitemap.xml, robots.txt, site.webmanifest
-├── components/                   # Quellen für @nav / @footer
-├── css/                          # fonts, base, components, layout, pages
-├── js/
-│   ├── site.js                   # Burger-Menü, Navbar, Footer-Jahr
-│   ├── animations.js             # Scroll-Animationen
-│   ├── trail-status.js           # Trail-Status (nur Startseite)
-│   └── damage-form.js            # Schadensmeldung
-├── scripts/build.mjs             # statischer Build (s. o.)
-├── worker/                       # Cloudflare Worker und Sicherheitstests
-├── dist/                         # generierte, veröffentlichbare Dateien (ignoriert)
-└── assets/                       # docs, fonts, gpx, icons, images, logo, team
-```
 
 ## 🔗 Links
 

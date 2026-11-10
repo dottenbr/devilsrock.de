@@ -15,8 +15,16 @@ const MAX_PHOTOS = 3;
 const PHOTO_BUDGET_BYTES = 3.3 * 1024 * 1024;
 const LIMITS = { name: 100, contact: 200, location: 300, description: 5000 };
 const PAGE_URL = 'https://www.devilsrock.de/schaden-melden/';
-// Short links that point to a page under a different path
-const REDIRECTS = { '/ctf2026': '/ctf2027' };
+// Short links and old URLs that point to a page under a different path.
+// Keys are lower case without trailing slash; targets end with a slash because
+// every page is served as /name/ (see astro.config.mjs).
+const REDIRECTS = {
+    '/ctf2026': '/ctf2027/',
+    '/pages/design.html': '/design/',
+    '/pages/design': '/design/',
+    '/pages/nutzungsbestimmungen.html': '/nutzungsbestimmungen/',
+    '/pages/nutzungsbestimmungen': '/nutzungsbestimmungen/',
+};
 // Paths shared only with a password (HTTP Basic Auth, any user name, secret CTF_PASSWORD).
 // Everything below the prefix is covered, including the PDF and sponsor logos.
 const PROTECTED = [];

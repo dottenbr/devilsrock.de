@@ -1,0 +1,68 @@
+---
+// Header band for subpages: trail photo, dark overlay, title and subtitle.
+import { Picture } from 'astro:assets';
+import trail from '../assets/trail-bild.jpg';
+
+interface Props {
+    title: string;
+    subtitle?: string;
+    eyebrow?: string;
+}
+
+const { title, subtitle, eyebrow } = Astro.props;
+---
+<header class="page-header">
+    <Picture src={trail} alt="" widths={[640, 1280, 1920]} sizes="100vw" formats={["avif", "webp"]} quality={70} class="page-header-bg" loading="eager" />
+    <div class="container page-header-inner">
+        {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+        <h1>{title}</h1>
+        {subtitle && <p>{subtitle}</p>}
+        <slot />
+    </div>
+</header>
+
+<style>
+    .page-header {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        padding: calc(var(--nav-h) + clamp(2.5rem, 6vw, 4.5rem)) 0 clamp(2.5rem, 5vw, 4rem);
+        background: var(--bg-deep);
+    }
+
+    .page-header::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+            linear-gradient(180deg, rgba(0, 46, 58, 0.55) 0%, rgba(0, 57, 71, 0.92) 75%, var(--bg) 100%),
+            linear-gradient(90deg, rgba(0, 46, 58, 0.85) 0%, rgba(0, 46, 58, 0.2) 100%);
+    }
+
+    .page-header :global(.page-header-bg),
+    .page-header :global(.page-header-bg img) {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 60% 40%;
+    }
+
+    .page-header-inner {
+        max-width: calc(860px + 2 * var(--gutter));
+        margin-left: max(0px, calc((100% - var(--container) - 2 * var(--gutter)) / 2));
+    }
+
+    h1 {
+        margin-bottom: 0.3em;
+    }
+
+    p {
+        max-width: 60ch;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+    }
+</style>

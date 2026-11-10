@@ -1,0 +1,44 @@
+---
+// Inline Font Awesome 6 Free icon, read from node_modules at build time.
+// Use the icon name from https://fontawesome.com/search?o=r&m=free
+// Font Awesome Free by @fontawesome, https://fontawesome.com, icons CC BY 4.0.
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+interface Props {
+    name: string;
+    class?: string;
+    /** Accessible name. Without it the icon is decorative (aria-hidden). */
+    label?: string;
+}
+
+const { name, class: className, label } = Astro.props;
+const root = join(process.cwd(), 'node_modules/@fortawesome/fontawesome-free/svgs');
+
+let source: string | undefined;
+for (const style of ['solid', 'brands', 'regular']) {
+    try {
+        source = readFileSync(join(root, style, `${name}.svg`), 'utf8');
+        break;
+    } catch {
+        // try the next style
+    }
+}
+if (!source) throw new Error(`Unknown icon "${name}" (Font Awesome 6 Free name expected)`);
+
+const viewBox = source.match(/viewBox="([^"]+)"/)?.[1];
+const body = source
+    .replace(/^<svg[^>]*>/, '')
+    .replace(/<\/svg>\s*$/, '')
+    .replace(/<!--[\s\S]*?-->/g, '');
+---
+<svg
+    class:list={['icon', className]}
+    viewBox={viewBox}
+    fill="currentColor"
+    aria-hidden={label ? undefined : 'true'}
+    role={label ? 'img' : undefined}
+    aria-label={label}
+    focusable="false"
+    set:html={body}
+/>

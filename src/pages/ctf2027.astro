@@ -1,0 +1,212 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+import { team } from '../data/site';
+
+const facts = [
+    { icon: 'calendar-days', label: 'Termin', value: 'Ostermontag, 29. März 2027' },
+    { icon: 'clock', label: 'Anmeldung und Start', value: '08:00 bis 10:00 Uhr. Anmeldung ausschließlich vor Ort, danach individueller Start.' },
+    { icon: 'flag-checkered', label: 'Zielschluss', value: '15:30 Uhr' },
+    { icon: 'location-dot', label: 'Start, Ziel und Parken', value: 'Sportplatz Hennweiler, 55619 Hennweiler' },
+    { icon: 'euro-sign', label: 'Startgeld', value: '7,50 € je Person, unabhängig von der Tour. Unter 18 kostenlos. Barzahlung vor Ort.' },
+];
+---
+<Base title="CTF 2027" description="Country-Tourenfahrt der Devils Rock Trails am Ostermontag, 29. März 2027 in Hennweiler: zwei MTB-Touren mit ca. 26 und 46 km, Anmeldung vor Ort, Startgeld 7,50 €." mainClass="ctf">
+    <PageHeader eyebrow="Country-Tourenfahrt" title="CTF 2027" subtitle="Ostermontag, 29. März 2027 in Hennweiler. Zwei MTB-Touren, ohne Zeitnahme, in eurem eigenen Tempo.">
+        <div class="btn-row header-actions">
+            <a href="/ctf2027/ausschreibung.pdf" target="_blank" rel="noopener" class="btn btn-accent">
+                <Icon name="file-pdf" />
+                Ausschreibung (PDF)
+            </a>
+            <a href="#kontakt" class="btn btn-ghost">
+                <Icon name="envelope" />
+                Kontakt
+            </a>
+        </div>
+    </PageHeader>
+
+    <section class="section">
+        <div class="container">
+            <div class="ctf-intro">
+                <img src="/assets/logo/ctf/drt-ctf-2027-hoerner.png" alt="Devils Rock Trails CTF 2027 Logo mit roten Hörnern" width="1200" height="474" class="ctf-logo">
+                <div>
+                    <h2>Gemeinsam auf die Trails!</h2>
+                    <p>Nach den geführten Touren der vergangenen Jahre feiern die Devils Rock Trails 2027 ihre CTF-Premiere. Die CTF soll in den kommenden Jahren jeweils am Ostermontag zu einem festen Termin im regionalen Radsportkalender werden.</p>
+                    <p>Die Radsportgruppe Devils Rock Trails des FC Viktoria 09 Hennweiler e.&nbsp;V. lädt zur MTB-Tourenfahrt ein. Ihr wählt eine von zwei Touren (ca. 26 oder 46 km) und fahrt sie in eurem eigenen Tempo. Ohne Zeitnahme, Rangliste oder GC-/BDR-Wertung.</p>
+                </div>
+            </div>
+
+            <h2 class="block-title">Auf einen Blick</h2>
+            <dl class="grid facts" style="--min: 200px">
+                {facts.map(fact => (
+                    <div class="card fact">
+                        <span class="card-icon"><Icon name={fact.icon} /></span>
+                        <dt>{fact.label}</dt>
+                        <dd>{fact.value}</dd>
+                    </div>
+                ))}
+            </dl>
+
+            <h2 class="block-title">Zwei Touren zur Wahl</h2>
+            <div class="grid tours" style="--min: 260px">
+                <article class="card tour">
+                    <h3>Kurze Tour</h3>
+                    <p class="tour-stats"><span><strong>ca. 26</strong> km</span><span><strong>ca. 640</strong> Hm</span></p>
+                </article>
+                <article class="card tour">
+                    <h3>Lange Tour</h3>
+                    <p class="tour-stats"><span><strong>ca. 46</strong> km</span><span><strong>ca. 1.060</strong> Hm</span></p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--deep">
+        <div class="container details">
+            <div class="prose">
+                <h2>Strecke und Anforderungen</h2>
+                <p>Beide Touren sind mit Richtungspfeilen auf dem Boden markiert. GPX-Tracks werden vor Ort zur Verfügung gestellt. Die Teilnahme ist mit und ohne GPS-Gerät möglich. Streckenlängen und Höhenmeter sind Näherungswerte; die endgültige Streckenführung bleibt vorbehalten.</p>
+                <p>MTB-Erfahrung und sichere Fahrtechnik im Gelände sind erforderlich. Schwierige Passagen können umfahren werden. Bei Bedarf absteigen und schieben.</p>
+
+                <h2>Verpflegung und Aufenthalt</h2>
+                <p>Im Startgeld enthalten sind Riegel, Obst und isotonische Getränke am Start und an der Verpflegungsstation am Weiher in Bruschied sowie die Nutzung der Duschen am Sportplatz Hennweiler. Für ausreichend Getränke und Essen entsprechend dem eigenen Bedarf ist jede Fahrerin und jeder Fahrer selbst verantwortlich. Am Sportplatz Hennweiler gibt es Grillgut, Getränke sowie Kaffee und Kuchen gegen separate Bezahlung.</p>
+                <p>Toiletten stehen am Sportplatz Hennweiler, an der Schmidtburg und am Weiher in Bruschied zur Verfügung. Bike-Wash und Pannenhilfe auf der Strecke werden nicht angeboten.</p>
+
+                <h2>Teilnahme und Hinweise</h2>
+                <h3>Ausrüstung und Voraussetzungen</h3>
+                <p>Es besteht Helmpflicht. Erforderlich sind ein verkehrssicheres, technisch einwandfreies Mountainbike und eine den Bedingungen angepasste Ausrüstung. E-MTBs/Pedelecs mit Motorunterstützung bis 25 km/h sind zugelassen; S-Pedelecs sind ausgeschlossen. Wählt die Tour passend zu eurer Kondition und Fahrtechnik.</p>
+                <p>Minderjährige benötigen die Zustimmung ihrer Sorgeberechtigten. Kinder unter 14 Jahren nehmen nur in Begleitung einer erwachsenen Aufsichtsperson teil. Die Begleitung ersetzt nicht die Prüfung, ob die gewählte Strecke für das Kind geeignet ist.</p>
+
+                <h3>Eigenverantwortung und Pannen</h3>
+                <p>Die Teilnahme erfolgt eigenverantwortlich. Prüft vor dem Start Fahrrad, Bremsen und Reifen und nehmt Getränke, Verpflegung sowie geeignetes Werkzeug und Ersatzmaterial mit. Für die Behebung von Pannen und eine gegebenenfalls notwendige eigene Rückfahrt seid ihr selbst verantwortlich. Plant eure Fahrt so, dass ihr spätestens um 15:30 Uhr im Ziel seid.</p>
+
+                <h3>Verkehr, Rücksicht und Natur</h3>
+                <p>Die CTF ist keine Rennveranstaltung. Rechnet jederzeit mit anderen Verkehrsteilnehmern und Wegenutzern; die Strecke ist nicht durchgehend für euch gesperrt. Die Straßenverkehrsordnung gilt. Fahrt vorausschauend, quert Straßen besonders vorsichtig und beachtet Verkehrszeichen sowie die Hinweise der eingesetzten Helfer. Die Teilnahme verschafft keine Vorfahrt.</p>
+                <p>Bleibt auf der markierten Veranstaltungsroute, nehmt keine Abkürzungen und fahrt auf Sicht. Reduziert bei Begegnungen mit Wanderern, Reitern und anderen Radfahrenden euer Tempo und haltet bei Bedarf an. Nehmt Rücksicht auf Tiere und nehmt euren Abfall mit bzw. nutzt die vorgesehenen Sammelstellen. Veranstaltungsmarkierungen begründen keine dauerhafte Freigabe einer Strecke.</p>
+
+                <h3>Unfälle, Änderungen und Haftung</h3>
+                <p>Leistet bei Unfällen Hilfe und verständigt bei einem Notfall den Rettungsdienst über 112. Informiert anschließend die Organisation vor Ort. Bei gefährlichen Wetter- oder Wegeverhältnissen sowie aufgrund behördlicher Vorgaben können Strecken geändert, verkürzt oder die Veranstaltung abgesagt werden. Die Durchführung steht unter dem Vorbehalt der erforderlichen Genehmigungen. Die gesetzliche Haftung bleibt unberührt.</p>
+
+                <h3>Anmeldung und Datenschutz</h3>
+                <p>Die Anmeldung erfolgt am Veranstaltungstag vor Ort. Hinweise zur Verarbeitung der dabei erhobenen personenbezogenen Daten erhaltet ihr an der Anmeldung. Mit der Teilnahme ist keine pauschale Einwilligung zur Veröffentlichung von Foto- oder Videoaufnahmen verbunden.</p>
+            </div>
+
+            <aside class="card contact" id="kontakt">
+                <h2>Veranstalter und Kontakt</h2>
+                <p><strong>FC Viktoria 09 Hennweiler e.&nbsp;V.</strong><br>Radsportgruppe Devils Rock Trails</p>
+                <ul>
+                    {team.map(person => (
+                        <li>{person.name}<br><a href={`mailto:${person.email}`}>{person.email}</a></li>
+                    ))}
+                </ul>
+                <a href="/ctf2027/ausschreibung.pdf" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+                    <Icon name="file-pdf" />
+                    Ausschreibung (PDF)
+                </a>
+            </aside>
+        </div>
+    </section>
+</Base>
+
+<style>
+    .header-actions {
+        margin-top: 1.75rem;
+    }
+
+    .ctf-intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+        gap: clamp(1.5rem, 5vw, 4rem);
+        align-items: center;
+        margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .ctf-logo {
+        width: 100%;
+        max-width: 440px;
+    }
+
+    .ctf-intro p {
+        color: var(--muted);
+        font-size: 1.125rem;
+    }
+
+    .block-title {
+        margin-bottom: 1.25rem;
+        font-size: 1.5rem;
+    }
+
+    .facts {
+        margin: 0 0 clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .fact dt {
+        margin-bottom: 0.25rem;
+        color: var(--mustard);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .fact dd {
+        margin: 0;
+        font-weight: 500;
+    }
+
+    .tour h3 {
+        font-size: 1.4rem;
+        font-weight: 900;
+    }
+
+    .tour-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1.75rem;
+        margin: 0;
+        color: var(--blue);
+        font-weight: 700;
+    }
+
+    .tour-stats strong {
+        color: var(--text);
+        font-size: 1.9rem;
+        font-weight: 900;
+    }
+
+    .details {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: clamp(2rem, 5vw, 4rem);
+        align-items: start;
+    }
+
+    .contact {
+        position: sticky;
+        top: calc(var(--nav-h) + 1.5rem);
+    }
+
+    .contact h2 {
+        font-size: 1.25rem;
+    }
+
+    .contact ul {
+        display: grid;
+        gap: 0.75rem;
+        margin: 1rem 0 1.5rem;
+        padding: 0;
+        list-style: none;
+    }
+
+    @media (max-width: 900px) {
+        .ctf-intro,
+        .details {
+            grid-template-columns: 1fr;
+        }
+
+        .contact {
+            position: static;
+        }
+    }
+</style>

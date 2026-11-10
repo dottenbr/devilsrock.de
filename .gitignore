@@ -69,3 +69,6 @@ build/
 # Cloudflare Wrangler
 .wrangler/
 .dev.vars
+
+# Astro
+.astro/

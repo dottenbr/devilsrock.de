@@ -1,0 +1,211 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+
+const logoGroups = [
+    {
+        title: 'Logos',
+        text: 'Unsere Logos gibt es als SVG und PNG. Bitte verwende sie nur nach Absprache mit dem Devils Rock Trails Team.',
+        logos: [
+            { file: 'logo-komplett/drt-logo', name: 'Komplettes Logo', note: 'Hauptlogo mit Grafik und Text' },
+            { file: 'logo-komplett/drt-logo-schwarzer-hintergrund', name: 'Logo für dunkle Hintergründe', note: 'Mit schwarzem Hintergrund', dark: true },
+            { file: 'logo-name/drt-logo-name', name: 'Logo mit Name', note: 'Horizontaler Schriftzug' },
+            { file: 'logo-name/drt-logo-name-weiss', name: 'Logo mit Name (weiß)', note: 'Für dunkle Hintergründe', dark: true },
+            { file: 'logo-name/drt-logo-name-rot-schwarz', name: 'Logo mit Name (rot-schwarz)', note: 'Variante mit Akzentfarbe' },
+        ],
+    },
+    {
+        title: '„Ride Wild“ Logos',
+        text: 'Varianten für besondere Anlässe und Aktionen.',
+        logos: [
+            { file: 'ride-wild/drt-ride-wild', name: 'Ride Wild', note: 'Standard' },
+            { file: 'ride-wild/drt-ride-wild-weiss', name: 'Ride Wild (weiß)', note: 'Für dunkle Hintergründe', dark: true },
+            { file: 'ride-wild/drt-ride-wild-schwarz', name: 'Ride Wild (schwarz)', note: 'Für helle Hintergründe' },
+        ],
+    },
+];
+
+const colors = [
+    { name: 'Bright Blue', hex: '#6bb3bf', use: 'Buttons, Icons, Links' },
+    { name: 'Dark Blue', hex: '#003947', use: 'Hintergründe, Navigation' },
+    { name: 'Light Blue', hex: '#00687b', use: 'Flächen, Akzente' },
+    { name: 'Mustard', hex: '#d58d47', use: 'Highlights, Rollen, Hinweise' },
+];
+
+const weights = [
+    { weight: 900, use: 'Logo-Text, Überschriften' },
+    { weight: 700, use: 'Zwischenüberschriften, Buttons' },
+    { weight: 500, use: 'Navigation, Hervorhebungen' },
+    { weight: 400, use: 'Fließtext' },
+];
+---
+<Base title="Design Guidelines" description="Logos, Farben und Typografie der Devils Rock Trails.">
+    <PageHeader eyebrow="Für Partner und Presse" title="Design Guidelines" subtitle="Logos zum Herunterladen, Farben und Schrift." />
+
+    <section class="section">
+        <div class="container stack">
+            {logoGroups.map(group => (
+                <div>
+                    <h2>{group.title}</h2>
+                    <p class="muted">{group.text}</p>
+                    <ul class="grid logos" style="--min: 240px">
+                        {group.logos.map(logo => (
+                            <li class="card logo">
+                                <div class:list={['logo-preview', { 'is-dark': logo.dark }]}>
+                                    <img src={`/assets/logo/${logo.file}.svg`} alt={logo.name} loading="lazy">
+                                </div>
+                                <h3>{logo.name}</h3>
+                                <p>{logo.note}</p>
+                                <div class="btn-row">
+                                    <a href={`/assets/logo/${logo.file}.svg`} download class="btn btn-primary btn-sm"><Icon name="download" /> SVG</a>
+                                    <a href={`/assets/logo/${logo.file}.png`} download class="btn btn-ghost btn-sm"><Icon name="download" /> PNG</a>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
+        </div>
+    </section>
+
+    <section class="section section--deep">
+        <div class="container">
+            <h2>Farben</h2>
+            <ul class="grid colors" style="--min: 200px">
+                {colors.map(color => (
+                    <li class="card color">
+                        <span class="swatch" style={`background:${color.hex}`}></span>
+                        <h3>{color.name}</h3>
+                        <code>{color.hex}</code>
+                        <p>{color.use}</p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>Typografie</h2>
+            <p class="muted">Wir verwenden <strong>Roboto</strong> für alle digitalen Medien. Die Schrift ist auf dieser Website lokal eingebunden.</p>
+            <ul class="weights">
+                {weights.map(item => (
+                    <li>
+                        <span style={`font-weight:${item.weight}`}>Roboto {item.weight}</span>
+                        <span class="muted">{item.use}</span>
+                    </li>
+                ))}
+            </ul>
+
+            <div class="grid rules" style="--min: 280px">
+                <div class="card">
+                    <h3><Icon name="circle-check" class="ok" /> Erlaubt</h3>
+                    <ul>
+                        <li>Verwendung nach Absprache mit dem Team</li>
+                        <li>Proportionales Skalieren</li>
+                        <li>Originalfarben</li>
+                        <li>Platzierung auf kontrastreichem Hintergrund</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><Icon name="circle-xmark" class="no" /> Nicht erlaubt</h3>
+                    <ul>
+                        <li>Verzerren oder Strecken</li>
+                        <li>Farben ändern</li>
+                        <li>Effekte oder Schatten hinzufügen</li>
+                        <li>Verwendung ohne Genehmigung</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</Base>
+
+<style>
+    .muted {
+        max-width: 70ch;
+        color: var(--muted);
+    }
+
+    .logos,
+    .colors {
+        margin: 1.5rem 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .logo-preview {
+        display: grid;
+        place-items: center;
+        height: 160px;
+        margin-bottom: 1.25rem;
+        padding: 1.25rem;
+        border-radius: var(--radius-sm);
+        background: #f4f7f8;
+    }
+
+    .logo-preview.is-dark {
+        background: #000;
+    }
+
+    .logo-preview img {
+        max-height: 100%;
+        width: auto;
+    }
+
+    .swatch {
+        display: block;
+        height: 88px;
+        margin-bottom: 1rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .color h3 {
+        margin-bottom: 0.25rem;
+    }
+
+    code {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--blue);
+        font-size: 0.95rem;
+    }
+
+    .weights {
+        display: grid;
+        gap: 0.25rem;
+        margin: 1.5rem 0 2.5rem;
+        padding: 0;
+        list-style: none;
+    }
+
+    .weights li {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.5rem 2rem;
+        padding: 0.9rem 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .weights li > span:first-child {
+        font-size: 1.4rem;
+    }
+
+    .rules ul {
+        margin: 0;
+        padding-left: 1.2rem;
+        color: var(--muted);
+    }
+
+    .rules h3 {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .rules :global(.ok) { color: var(--open); }
+    .rules :global(.no) { color: var(--closed); }
+</style>

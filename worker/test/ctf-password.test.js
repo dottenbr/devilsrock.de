@@ -21,5 +21,5 @@ test('published CTF page and PDF are public without a password secret', async ()
 test('legacy CTF short link points to the public event', async () => {
     const response = await worker.fetch(get('/ctf2026'), env);
     assert.equal(response.status, 301);
-    assert.equal(response.headers.get('Location'), 'https://www.devilsrock.de/ctf2027');
+    assert.equal(response.headers.get('Location'), 'https://www.devilsrock.de/ctf2027/');
 });

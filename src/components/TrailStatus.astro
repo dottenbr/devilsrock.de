@@ -1,0 +1,177 @@
+---
+// Trail status band. Without JavaScript it shows the season. With JavaScript it
+// shows open/closed for today and applies the override from /status.json:
+//   { "mode": "closed", "message": "Sturmschäden, bis auf Weiteres gesperrt.", "updated": "2026-10-13" }
+// "mode" is "auto" (season), "open" or "closed"; "message" and "updated" are optional.
+import { links } from '../data/site';
+import Icon from './Icon.astro';
+---
+<section id="status" class="status" data-status aria-labelledby="status-title">
+    <div class="container status-inner">
+        <span class="status-icon">
+            <Icon name="bicycle" class="when-open" />
+            <Icon name="ban" class="when-closed" />
+        </span>
+        <div class="status-text">
+            <h2 id="status-title"><span data-status-title>Trail-Status</span></h2>
+            <p data-status-message aria-live="polite">Saison vom 1. April bis 31. Oktober. Bei Nässe und Unwetter bleiben die Trails auch in der Saison zu.</p>
+            <p class="status-updated" data-status-updated hidden></p>
+        </div>
+        <a class="btn btn-ghost btn-sm" href={links.facebook} target="_blank" rel="noopener">
+            <Icon name="facebook" />
+            Updates auf Facebook
+        </a>
+    </div>
+</section>
+
+<script>
+    const section = document.querySelector<HTMLElement>('[data-status]');
+
+    const SEASON = {
+        open: {
+            title: 'Die Trails sind offen',
+            message: 'Saison ist vom 1. April bis 31. Oktober. Kurzfristige Sperrungen, etwa nach Regen oder Sturm, posten wir auf Facebook. Schau vor der Fahrt kurz rein.',
+        },
+        closed: {
+            title: 'Winterpause',
+            message: 'Vom 1. November bis 31. März sind die Trails geschlossen. Wann es wieder losgeht, steht rechtzeitig auf Facebook.',
+        },
+    };
+    const OVERRIDE = {
+        open: { title: 'Die Trails sind offen', message: 'Viel Spaß, und fahrt vorsichtig.' },
+        closed: { title: 'Die Trails sind gesperrt', message: 'Bitte halte dich an die Sperrung.' },
+    };
+
+    function render(state: 'open' | 'closed', title: string, message: string, updated?: string) {
+        if (!section) return;
+        section.dataset.state = state;
+        section.querySelector('[data-status-title]')!.textContent = title;
+        section.querySelector('[data-status-message]')!.textContent = message;
+        const stamp = section.querySelector<HTMLElement>('[data-status-updated]')!;
+        stamp.hidden = !updated;
+        stamp.textContent = updated ? `Stand: ${updated}` : '';
+        document.querySelectorAll<HTMLElement>('[data-status-pill]').forEach(pill => {
+            pill.dataset.state = state;
+            pill.querySelector('[data-status-pill-text]')!.textContent = state === 'open' ? 'Trails offen' : 'Trails geschlossen';
+        });
+    }
+
+    async function init() {
+        const month = new Date().getMonth() + 1;
+        const season = month >= 11 || month <= 3 ? 'closed' : 'open';
+        render(season, SEASON[season].title, SEASON[season].message);
+
+        try {
+            const response = await fetch(`/status.json?t=${Date.now()}`, { signal: AbortSignal.timeout(4000) });
+            if (!response.ok) return;
+            const status = await response.json();
+            if (status.mode !== 'open' && status.mode !== 'closed') return;
+            const mode = status.mode as 'open' | 'closed';
+            const updated = status.updated
+                ? new Date(status.updated).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })
+                : undefined;
+            render(mode, OVERRIDE[mode].title, status.message || OVERRIDE[mode].message, updated);
+        } catch {
+            // keep the seasonal status if status.json is unreachable
+        }
+    }
+
+    init();
+</script>
+
+<style>
+    .status {
+        --state: var(--blue);
+        position: relative;
+        background: var(--bg-deep);
+        border-block: 1px solid var(--line);
+    }
+
+    .status::before {
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 6px;
+        background: var(--state);
+    }
+
+    .status[data-state='open'] { --state: var(--open); }
+    .status[data-state='closed'] { --state: var(--closed); }
+
+    .status-inner {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem 1.5rem;
+        padding-block: 1.5rem;
+    }
+
+    .status-icon {
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: color-mix(in srgb, var(--state) 16%, transparent);
+        color: var(--state);
+        font-size: 1.4rem;
+    }
+
+    .status-icon :global(.icon) {
+        width: 1.1em;
+        height: 1.1em;
+        vertical-align: 0;
+    }
+
+    .status-icon :global(.when-closed),
+    .status[data-state='closed'] .status-icon :global(.when-open) {
+        display: none;
+    }
+
+    .status[data-state='closed'] .status-icon :global(.when-closed) {
+        display: block;
+    }
+
+    .status-text {
+        flex: 1;
+    }
+
+    h2 {
+        margin: 0 0 0.2rem;
+        font-size: 1.2rem;
+        letter-spacing: 0;
+    }
+
+    p {
+        max-width: 75ch;
+        margin: 0;
+        color: var(--muted);
+    }
+
+    .status-updated {
+        margin-top: 0.25rem;
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 720px) {
+        .status-inner {
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .status-text {
+            flex-basis: calc(100% - 52px - 1.5rem);
+        }
+
+        .status .btn {
+            margin-left: calc(52px + 1.5rem);
+        }
+    }
+
+    @media (max-width: 420px) {
+        .status .btn {
+            margin-left: 0;
+            width: 100%;
+        }
+    }
+</style>
