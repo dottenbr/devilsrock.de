@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+    /** Page title without the site name ("Crew"). Omit on the homepage. */
+    title?: string;
+    description: string;
+    noindex?: boolean;
+    /** Extra class on <main>, e.g. for page specific styles */
+    mainClass?: string;
+}
+
+const { title, description, noindex = false, mainClass } = Astro.props;
+const fullTitle = title ? `${title} - Devils Rock Trails` : 'Devils Rock Trails - Mountainbike Trails in Hennweiler';
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('/assets/images/og-image.jpg', Astro.site).href;
+---
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{fullTitle}</title>
+    <meta name="description" content={description}>
+    {noindex ? <meta name="robots" content="noindex"> : <link rel="canonical" href={canonical}>}
+    <meta name="theme-color" content="#003947">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="Devils Rock Trails">
+    <meta property="og:title" content={fullTitle}>
+    <meta property="og:description" content={description}>
+    {!noindex && <meta property="og:url" content={canonical}>}
+    <meta property="og:image" content={ogImage}>
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Devils Rock Trails Logo vor einem Mountainbiker im Wald">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/assets/icons/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" href="/assets/icons/icon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="preload" href="/assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/roboto-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <slot name="head" />
+</head>
+<body>
+    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+    <Nav />
+    <main id="inhalt" class={mainClass}>
+        <slot />
+    </main>
+    <Footer />
+</body>
+</html>

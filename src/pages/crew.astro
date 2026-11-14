@@ -1,0 +1,189 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+import { links } from '../data/site';
+
+const benefits = [
+    { icon: 'shirt', title: 'Vereinsklamotten', text: 'Trikot und Shorts im Vereinsdesign bekommst du als Mitglied zu besseren Konditionen.' },
+    { icon: 'percent', title: '10 % bei Fahrrad Rith', text: 'Auf Teile und Zubehör bei Fahrrad Rith in Stromberg. Damit unterstützt du gleich noch den Laden vor Ort.' },
+    { icon: 'mountain', title: 'Bikepark-Ausfahrten', text: 'Wir fahren gemeinsam in den Bikepark. Ob Flowtrail oder schwere Abfahrt, jeder fährt, was er sich zutraut.' },
+    { icon: 'campground', title: 'Trailscamps', text: 'Bei unseren Trailscamps sind wir ein paar Tage zusammen unterwegs und fahren Trails, die die meisten von uns noch nicht kennen.' },
+    { icon: 'graduation-cap', title: 'Fahrtechnikkurs', text: 'Einmal im Jahr gibt es einen Fahrtechnikkurs für Mitglieder, egal ob du gerade anfängst oder schon länger fährst.' },
+];
+---
+<Base title="Crew" description="Mitglied werden bei den Devils Rock Trails: Vereinsklamotten, 10 % beim Bikeshop, Bikepark-Ausfahrten, Trailscamps und ein jährlicher Fahrtechnikkurs.">
+    <PageHeader eyebrow="Mitglied werden" title="Wir bauen die Trails selbst." subtitle="Und fahren sie natürlich auch. Komm in die Crew und hilf mit, dass das so bleibt.">
+        <div class="btn-row header-actions">
+            <a href="#mitglied-werden" class="btn btn-accent">
+                <Icon name="user-plus" />
+                So wirst du Mitglied
+            </a>
+        </div>
+    </PageHeader>
+
+    <section class="section">
+        <div class="container crew-intro">
+            <div class="prose">
+                <h2>Wer wir sind</h2>
+                <p>Die Devils Rock Trails sind die Radsportabteilung des FC Viktoria Hennweiler. Die Strecken am Lützelsoon-Kamm haben wir 2022 ehrenamtlich gebaut, und seitdem halten wir sie auch selbst in Schuss. Wenn nach einem Sturm Bäume quer liegen oder ein neuer Abschnitt dazukommt, wird gemeinsam gebuddelt.</p>
+                <p>Dazwischen wird natürlich gefahren: im Sommer mittwochs abends, im Winter sonntags vormittags. Jeder Beitrag und jede helfende Hand halten die Trails am Leben, und zusammen sorgen wir dafür, dass Mountainbiken hier legal möglich bleibt.</p>
+            </div>
+            <aside class="card youth">
+                <span class="card-icon"><Icon name="child" /></span>
+                <h3>Kinder- und Jugendtraining</h3>
+                <p>In den Ferien gibt es meistens ein Training für Kinder und Jugendliche, im Rahmen des Ferienprogramms der VG Kirner Land. Ansprechpartner ist unser Jugendtrainer Florian Bauer: <a href="mailto:flo@devilsrock.de">flo@devilsrock.de</a></p>
+            </aside>
+        </div>
+    </section>
+
+    <section class="section section--deep">
+        <div class="container">
+            <div class="section-head">
+                <span class="eyebrow">Vorteile</span>
+                <h2>Was du als Mitglied bekommst</h2>
+            </div>
+            <ul class="benefits">
+                {benefits.map(item => (
+                    <li class="card">
+                        <span class="card-icon"><Icon name={item.icon} /></span>
+                        <h3>{item.title}</h3>
+                        <p>{item.text}</p>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+
+    <section id="mitglied-werden" class="section">
+        <div class="container join">
+            <div>
+                <span class="eyebrow">In drei Schritten</span>
+                <h2>So wirst du Mitglied</h2>
+                <p class="join-lead">Mitglied wirst du über die Beitrittserklärung des FC Viktoria Hennweiler.</p>
+                <ol class="steps">
+                    <li>
+                        <strong>Beitrittserklärung herunterladen</strong>
+                        <span>Das PDF gibt es über den Button hier unten.</span>
+                    </li>
+                    <li>
+                        <strong>Ausfüllen</strong>
+                        <span>Bitte alle Felder vollständig ausfüllen.</span>
+                    </li>
+                    <li>
+                        <strong>Abschicken</strong>
+                        <span>Per E-Mail an <a href={links.membershipMail}>fcv09h@web.de</a>.</span>
+                    </li>
+                </ol>
+                <div class="btn-row">
+                    <a href={links.membershipForm} target="_blank" rel="noopener" class="btn btn-primary">
+                        <Icon name="file-arrow-down" />
+                        Beitrittserklärung (PDF)
+                    </a>
+                    <a href={links.membershipMail} class="btn btn-ghost">
+                        <Icon name="envelope" />
+                        Per E-Mail senden
+                    </a>
+                </div>
+            </div>
+            <aside class="card flyer">
+                <span class="card-icon"><Icon name="file-pdf" /></span>
+                <h3>Alles auf einen Blick</h3>
+                <p>Alle Infos zur Mitgliedschaft gibt es auch als Flyer zum Weitergeben.</p>
+                <a href="/assets/docs/drt-crew-flyer.pdf" target="_blank" rel="noopener">Flyer herunterladen (PDF)</a>
+            </aside>
+        </div>
+    </section>
+</Base>
+
+<style>
+    .header-actions {
+        margin-top: 1.75rem;
+    }
+
+    .crew-intro,
+    .join {
+        display: grid;
+        grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+        gap: clamp(2rem, 5vw, 4rem);
+        align-items: start;
+    }
+
+    .youth,
+    .flyer {
+        align-self: center;
+    }
+
+    .benefits {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: clamp(1rem, 2.5vw, 1.5rem);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .benefits li {
+        flex: 1 1 300px;
+        max-width: calc((100% - 2 * 1.5rem) / 3);
+    }
+
+    .join-lead {
+        color: var(--muted);
+    }
+
+    .steps {
+        display: grid;
+        gap: 1rem;
+        margin: 1.5rem 0 2rem;
+        padding: 0;
+        list-style: none;
+        counter-reset: step;
+    }
+
+    .steps li {
+        position: relative;
+        display: grid;
+        padding-left: 3.25rem;
+        counter-increment: step;
+    }
+
+    .steps li::before {
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: grid;
+        place-items: center;
+        width: 2.2rem;
+        height: 2.2rem;
+        border-radius: 50%;
+        background: var(--blue);
+        color: var(--dark);
+        font-weight: 900;
+    }
+
+    .steps span {
+        color: var(--muted);
+    }
+
+    @media (max-width: 1000px) {
+        .benefits li {
+            max-width: calc((100% - 1.5rem) / 2);
+        }
+    }
+
+    @media (max-width: 860px) {
+        .crew-intro,
+        .join {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .benefits li {
+            max-width: none;
+        }
+    }
+</style>

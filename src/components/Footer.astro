@@ -1,0 +1,195 @@
+---
+import { links } from '../data/site';
+import Icon from './Icon.astro';
+import Komoot from './Komoot.astro';
+
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <img src="/assets/logo/logo-komplett/drt-logo-schwarzer-hintergrund.svg" alt="Devils Rock Trails" width="120" height="102" loading="lazy">
+                <p>2022 ehrenamtlich gebaut und seitdem kostenlos für alle offen. Wir betreiben die Trails in Abstimmung mit Gemeinde, Forstamt und Naturschutzbehörde.</p>
+                <ul class="footer-social" aria-label="Devils Rock Trails im Netz">
+                    <li><a href={links.facebook} target="_blank" rel="noopener"><Icon name="facebook" label="Facebook" /></a></li>
+                    <li><a href={links.instagram} target="_blank" rel="noopener"><Icon name="instagram" label="Instagram" /></a></li>
+                    <li><a href={links.community}><Icon name="whatsapp" label="WhatsApp-Community" /></a></li>
+                    <li><a href={links.komootCollection} target="_blank" rel="noopener" aria-label="Komoot"><Komoot /></a></li>
+                </ul>
+            </div>
+
+            <nav class="footer-col" aria-labelledby="footer-trails">
+                <h2 id="footer-trails">Trails</h2>
+                <ul>
+                    <li><a href="/#trail">Routen und GPX</a></li>
+                    <li><a href="/#status">Trail-Status</a></li>
+                    <li><a href="/nutzungsbestimmungen/">Nutzungsbestimmungen</a></li>
+                    <li><a href="/schaden-melden/">Schaden melden</a></li>
+                </ul>
+            </nav>
+
+            <nav class="footer-col" aria-labelledby="footer-join">
+                <h2 id="footer-join">Mitmachen</h2>
+                <ul>
+                    <li><a href="/community/">WhatsApp-Community</a></li>
+                    <li><a href="/crew/">Mitglied werden</a></li>
+                    <li><a href="/ctf2027/">CTF 2027</a></li>
+                    <li><a href="/spenden/">Spenden</a></li>
+                </ul>
+            </nav>
+
+            <nav class="footer-col" aria-labelledby="footer-club">
+                <h2 id="footer-club">Verein und Region</h2>
+                <ul>
+                    <li><a href="/#team">Kontakt</a></li>
+                    <li><a href={links.club} target="_blank" rel="noopener">FC Viktoria Hennweiler</a></li>
+                    <li><a href={links.village} target="_blank" rel="noopener">Ortsgemeinde Hennweiler</a></li>
+                    <li><a href={links.vg} target="_blank" rel="noopener">VG Kirner Land</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; <span data-year>{year}</span> Devils Rock Trails · Radsportabteilung des FC Viktoria 09 Hennweiler e.&nbsp;V.</p>
+            <ul class="footer-legal">
+                <li><a href={links.impressum} target="_blank" rel="noopener">Impressum</a></li>
+                <li><a href="/datenschutz/">Datenschutz</a></li>
+                <li><a href="/design/">Design</a></li>
+                <li><a href={links.github} target="_blank" rel="noopener"><Icon name="github" /> GitHub</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const year = document.querySelector('[data-year]');
+    if (year) year.textContent = String(new Date().getFullYear());
+</script>
+
+<style>
+    .site-footer {
+        background: #000;
+        color: var(--muted);
+        padding-block: clamp(3rem, 6vw, 4.5rem) 2rem;
+        font-size: 0.95rem;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+        gap: 2.5rem;
+    }
+
+    .footer-brand img {
+        width: 110px;
+        height: auto;
+        margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+        max-width: 34ch;
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 0.5rem;
+        list-style: none;
+        margin: 1.25rem 0 0;
+        padding: 0;
+    }
+
+    .footer-social a {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: rgba(107, 179, 191, 0.1);
+        color: var(--text);
+        font-size: 1.1rem;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .footer-social a:hover {
+        background: var(--blue);
+        color: var(--bg);
+    }
+
+    .footer-social .icon {
+        width: 1.1em;
+        height: 1.1em;
+        vertical-align: 0;
+    }
+
+    .footer-col h2 {
+        margin: 0 0 1rem;
+        color: var(--text);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .footer-col ul,
+    .footer-legal {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .footer-col li + li {
+        margin-top: 0.55rem;
+    }
+
+    .site-footer a {
+        color: var(--muted);
+        text-decoration: none;
+    }
+
+    .site-footer a:hover {
+        color: var(--text);
+    }
+
+    .footer-bottom {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1rem 2rem;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.875rem;
+    }
+
+    .footer-bottom p {
+        margin: 0;
+    }
+
+    .footer-legal {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+        .footer-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .footer-brand {
+            grid-column: 1 / -1;
+        }
+    }
+
+    @media (max-width: 560px) {
+        .footer-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2rem 1.5rem;
+        }
+
+        .footer-col:last-child {
+            grid-column: 1 / -1;
+        }
+    }
+</style>

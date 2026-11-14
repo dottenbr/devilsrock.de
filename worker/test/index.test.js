@@ -43,9 +43,22 @@ function post(form, headers = {}) {
     });
 }
 
-test('unknown path returns 404', async () => {
-    const res = await worker.fetch(new Request('https://www.devilsrock.de/other'), makeEnv());
+test('unknown API path returns 404', async () => {
+    const res = await worker.fetch(new Request('https://www.devilsrock.de/api/other'), makeEnv());
     assert.equal(res.status, 404);
+    assert.equal((await res.json()).ok, false);
+});
+
+test('non-API paths are served from the static assets', async () => {
+    const requested = [];
+    const env = {
+        ...makeEnv(),
+        ASSETS: { fetch: async request => { requested.push(new URL(request.url).pathname); return new Response('page'); } },
+    };
+    const res = await worker.fetch(new Request('https://www.devilsrock.de/other/'), env);
+    assert.equal(await res.text(), 'page');
+    assert.deepEqual(requested, ['/other/']);
+    assert.equal(env.sent.length, 0);
 });
 
 test('non-POST returns 405 with Allow header', async () => {

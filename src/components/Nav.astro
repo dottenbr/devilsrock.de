@@ -1,0 +1,268 @@
+---
+import { mainNav } from '../data/site';
+import Icon from './Icon.astro';
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => !href.includes('#') && path.startsWith(href);
+---
+<header class="site-header" data-header>
+    <nav class="nav container" aria-label="Hauptnavigation">
+        <a class="nav-logo" href="/" aria-label="Devils Rock Trails, zur Startseite">
+            <img src="/assets/logo/logo-name/drt-logo-name-weiss.svg" alt="" width="150" height="40">
+        </a>
+
+        <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menü öffnen" data-nav-toggle>
+            <span></span><span></span><span></span>
+        </button>
+
+        <div class="nav-menu" id="nav-menu" data-nav-menu>
+            <ul class="nav-links">
+                {mainNav.map(item => (
+                    <li><a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a></li>
+                ))}
+            </ul>
+            <ul class="nav-secondary">
+                <li><a href="/nutzungsbestimmungen/">Nutzungsbestimmungen</a></li>
+                <li><a href="/spenden/">Spenden</a></li>
+                <li><a href="/#team">Kontakt</a></li>
+            </ul>
+            <a class="btn btn-accent btn-sm nav-cta" href="/schaden-melden/" aria-current={isCurrent('/schaden-melden/') ? 'page' : undefined}>
+                <Icon name="triangle-exclamation" />
+                Schaden melden
+            </a>
+        </div>
+    </nav>
+</header>
+
+<script>
+    const header = document.querySelector<HTMLElement>('[data-header]');
+    const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+    const menu = document.querySelector<HTMLElement>('[data-nav-menu]');
+
+    if (header && toggle && menu) {
+        const setOpen = (open: boolean) => {
+            header.classList.toggle('is-open', open);
+            toggle.setAttribute('aria-expanded', String(open));
+            toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+        };
+
+        toggle.addEventListener('click', () => setOpen(!header.classList.contains('is-open')));
+        menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
+        document.addEventListener('click', event => {
+            if (header.classList.contains('is-open') && !(event.target as Element).closest('[data-header]')) setOpen(false);
+        });
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && header.classList.contains('is-open')) {
+                setOpen(false);
+                toggle.focus();
+            }
+        });
+        // Close the panel when the window grows past the burger breakpoint
+        matchMedia('(min-width: 961px)').addEventListener('change', event => {
+            if (event.matches) setOpen(false);
+        });
+
+        const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 40);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    }
+</script>
+
+<style>
+    .site-header {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 100;
+        background: rgba(0, 57, 71, 0.72);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(107, 179, 191, 0.12);
+        transition: background-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .site-header.is-scrolled,
+    .site-header.is-open {
+        background: rgba(0, 46, 58, 0.96);
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .nav {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        height: var(--nav-h);
+    }
+
+    .nav-logo {
+        display: flex;
+        flex-shrink: 0;
+        margin-right: auto;
+    }
+
+    .nav-logo img {
+        height: 38px;
+        width: auto;
+    }
+
+    .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .nav-links,
+    .nav-secondary {
+        display: flex;
+        gap: 1.75rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-secondary {
+        display: none;
+    }
+
+    .nav-links a,
+    .nav-secondary a {
+        position: relative;
+        color: var(--text);
+        font-weight: 500;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -6px;
+        height: 2px;
+        background: var(--blue);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a[aria-current='page'] {
+        color: var(--blue);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a[aria-current='page']::after {
+        transform: scaleX(1);
+    }
+
+    .nav-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 44px;
+        height: 44px;
+        margin-right: -10px;
+        padding: 0;
+        background: none;
+        border: 0;
+        border-radius: 8px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-toggle span {
+        width: 24px;
+        height: 2.5px;
+        border-radius: 2px;
+        background: var(--text);
+        transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+
+    .is-open .nav-toggle span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .is-open .nav-toggle span:nth-child(2) { opacity: 0; }
+    .is-open .nav-toggle span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    @media (max-width: 960px) {
+        .nav-toggle {
+            display: flex;
+        }
+
+        .nav-logo img {
+            height: 32px;
+        }
+
+        .nav-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0;
+            max-height: calc(100dvh - var(--nav-h));
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            padding: 0.5rem var(--gutter) 1.5rem;
+            background: var(--bg-deep);
+            border-top: 1px solid rgba(107, 179, 191, 0.12);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-8px);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+        }
+
+        .is-open .nav-menu {
+            visibility: visible;
+            opacity: 1;
+            transform: none;
+            pointer-events: auto;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-links,
+        .nav-secondary {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .nav-links a,
+        .nav-secondary a {
+            display: block;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid rgba(107, 179, 191, 0.12);
+        }
+
+        .nav-links a {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .nav-links a::after {
+            display: none;
+        }
+
+        .nav-secondary {
+            margin-top: 0.75rem;
+        }
+
+        .nav-secondary a {
+            color: var(--muted);
+            font-size: 0.98rem;
+        }
+
+        .nav-secondary li:last-child a {
+            border-bottom: 0;
+        }
+
+        .nav-cta {
+            justify-content: center;
+            margin-top: 1rem;
+            padding-block: 0.85rem;
+        }
+    }
+</style>

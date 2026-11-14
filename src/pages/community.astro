@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base title="WhatsApp-Community" description="Tritt der WhatsApp-Community der Devils Rock Trails bei: Community Rides, Bauteam, Bike-Flohmarkt und spontane Runden.">
+    <PageHeader eyebrow="WhatsApp-Community" title="Ab in die Community" subtitle="Gemeinsam biken, verabreden und auf dem Laufenden bleiben." />
+
+    <section class="section">
+        <div class="container">
+            <div class="card gate">
+                <h2>Ein kurzer Check, dann geht’s los</h2>
+                <p>Damit unsere WhatsApp-Gruppen von Bots verschont bleiben, prüfen wir kurz deinen Zugang.</p>
+                <form id="community-form" action="/api/community" method="post">
+                    <div id="community-captcha"></div>
+                    <p id="community-status" role="status" aria-live="polite">Bitte aktiviere JavaScript für die Sicherheitsprüfung.</p>
+                    <button type="submit" class="btn btn-primary" disabled>
+                        <Icon name="whatsapp" />
+                        Weiter zu WhatsApp
+                    </button>
+                </form>
+                <p class="privacy">Für die Prüfung verwenden wir Cloudflare Turnstile. Mehr dazu im <a href="/datenschutz/#turnstile">Datenschutz</a>.</p>
+            </div>
+        </div>
+    </section>
+</Base>
+
+<script>
+    // Loads Cloudflare Turnstile only on this page. The Worker verifies the token
+    // (POST /api/community) and only then redirects to the WhatsApp invite.
+    export {};
+
+    declare global {
+        interface Window {
+            communityReady?: () => Promise<void>;
+            turnstile?: { render: (target: string, options: Record<string, unknown>) => void };
+        }
+    }
+
+    const form = document.querySelector<HTMLFormElement>('#community-form')!;
+    const button = form.querySelector('button')!;
+    const status = document.querySelector<HTMLElement>('#community-status')!;
+    const messages: Record<string, string> = {
+        '#fehler': 'Die Prüfung ist fehlgeschlagen oder abgelaufen. Bitte versuche es erneut.',
+        '#limit': 'Zu viele Versuche. Bitte warte eine Minute und lade die Seite erneut.',
+    };
+    status.textContent = messages[location.hash] || 'Die Sicherheitsprüfung wird geladen …';
+
+    function disable(message: string) {
+        button.disabled = true;
+        status.textContent = message;
+    }
+
+    window.communityReady = async () => {
+        try {
+            const response = await fetch('/api/community', { cache: 'no-store' });
+            if (!response.ok) throw new Error('unavailable');
+            const { sitekey } = await response.json();
+            window.turnstile!.render('#community-captcha', {
+                sitekey,
+                action: 'community',
+                language: 'de',
+                size: window.innerWidth < 400 ? 'compact' : 'flexible',
+                callback: () => {
+                    button.disabled = false;
+                    status.textContent = 'Prüfung erfolgreich. Du kannst jetzt zu WhatsApp wechseln.';
+                },
+                'expired-callback': () => disable('Die Prüfung ist abgelaufen. Bitte bestätige sie erneut.'),
+                'error-callback': () => {
+                    disable('Die Prüfung konnte nicht geladen werden. Bitte lade die Seite erneut.');
+                    return true;
+                },
+            });
+        } catch {
+            disable('Die Community ist gerade nicht erreichbar. Bitte lade die Seite später erneut.');
+        }
+    };
+
+    form.addEventListener('submit', () => disable('WhatsApp wird geöffnet …'));
+    window.addEventListener('pageshow', event => {
+        if (event.persisted) location.reload();
+    });
+
+    const script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=communityReady&render=explicit';
+    script.async = true;
+    script.onerror = () => disable('Die Sicherheitsprüfung konnte nicht geladen werden. Bitte prüfe deine Verbindung und lade die Seite erneut.');
+    document.head.append(script);
+</script>
+
+<style>
+    .gate {
+        max-width: 640px;
+    }
+
+    #community-captcha {
+        min-height: 65px;
+        margin-block: 1.5rem;
+    }
+
+    #community-status {
+        min-height: 3em;
+    }
+
+    .gate button:disabled {
+        cursor: wait;
+    }
+
+    .privacy {
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+    }
+</style>

@@ -1,0 +1,616 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Komoot from '../components/Komoot.astro';
+import TrailStatus from '../components/TrailStatus.astro';
+import { links, team, tours } from '../data/site';
+import trail from '../assets/trail-bild.jpg';
+import julian from '../assets/team/julian-fritz.jpg';
+import florian from '../assets/team/florian-bauer.jpg';
+import dominik from '../assets/team/dominik-ottenbreit.jpg';
+
+const photos = { 'julian-fritz': julian, 'florian-bauer': florian, 'dominik-ottenbreit': dominik };
+
+const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'SportsActivityLocation',
+    name: 'Devils Rock Trails',
+    description: 'Mountainbike-Trails am Lützelsoon-Kamm bei Hennweiler und Bruschied, rund 11 km und 250 Hm, geöffnet vom 1. April bis 31. Oktober.',
+    url: 'https://www.devilsrock.de/',
+    image: 'https://www.devilsrock.de/assets/images/og-image.jpg',
+    logo: 'https://www.devilsrock.de/assets/icons/icon-512.png',
+    isAccessibleForFree: true,
+    address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Hennweiler',
+        postalCode: '55619',
+        addressRegion: 'Rheinland-Pfalz',
+        addressCountry: 'DE',
+    },
+    parentOrganization: { '@type': 'SportsClub', name: 'FC Viktoria 09 Hennweiler e.V.', url: 'https://fchennweiler.de/' },
+    sameAs: [links.facebook, links.instagram, links.komootCollection],
+};
+
+const rules = [
+    { icon: 'helmet-safety', text: 'Helm ist Pflicht, Protektoren empfehlen wir. Du fährst auf eigene Gefahr.' },
+    { icon: 'signs-post', text: 'Fahr nur auf den beschilderten Abschnitten und beachte gesperrte Waldbereiche.' },
+    { icon: 'person-walking', text: 'Die reinen Bike-Abschnitte sind für Fußgänger gesperrt. Kommt dir trotzdem jemand entgegen: langsam fahren und Platz lassen.' },
+    { icon: 'leaf', text: 'Nimm Rücksicht auf andere und auf die Natur, so wie es die DIMB Trail Rules beschreiben.' },
+];
+---
+<Base description="Die Devils Rock Trails in Hennweiler und Bruschied: zwei verbundene Mountainbike-Trails am Lützelsoon-Kamm, rund 11 km und 250 Hm, mit Komoot-Routen und GPX-Downloads.">
+    <script type="application/ld+json" slot="head" set:html={JSON.stringify(structuredData)} />
+
+    <section class="hero">
+        <Picture src={trail} alt="" widths={[640, 960, 1280, 1920]} sizes="100vw" formats={["avif", "webp"]} quality={70} class="hero-bg" loading="eager" fetchpriority="high" />
+        <div class="container hero-inner">
+            <h1 class="hero-logo">
+                <img src="/assets/logo/logo-komplett/drt-logo-schwarzer-hintergrund.svg" alt="Devils Rock Trails" width="400" height="340" fetchpriority="high">
+            </h1>
+            <p class="hero-lead">Mountainbike-Trails am Lützelsoon-Kamm. Downhill ab Hennweiler, XC ab Bruschied, zusammen rund 11&nbsp;km und 250&nbsp;Höhenmeter.</p>
+            <a class="status-pill" href="#status" data-status-pill>
+                <span class="status-dot" aria-hidden="true"></span>
+                <span data-status-pill-text>Saison April bis Oktober</span>
+            </a>
+            <div class="btn-row hero-actions">
+                <a href="#trail" class="btn btn-primary">
+                    <Icon name="route" />
+                    Routen und GPX
+                </a>
+                <a href={links.komootCollection} target="_blank" rel="noopener" class="btn btn-ghost">
+                    <Komoot />
+                    Komoot Collection
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <TrailStatus />
+
+    <section id="trail" class="section">
+        <div class="container">
+            <div class="intro">
+                <div class="section-head intro-text">
+                    <span class="eyebrow">Die Trails</span>
+                    <h2>Über die Trails</h2>
+                    <p>Die Devils Rock Trails liegen am Lützelsoon-Kamm zwischen Hennweiler und Bruschied. Es gibt zwei Strecken: den Downhill-Trail ab Hennweiler und den XC-Trail ab Bruschied.</p>
+                    <p>Beide treffen sich an der unteren Teufelsfelshütte. Du kannst sie also als Acht fahren und so kombinieren, wie Zeit und Beine es hergeben. Mit den Zubringern über Forst- und Waldwege kommst du auf rund 11&nbsp;km und 250&nbsp;Höhenmeter.</p>
+                </div>
+                <dl class="facts card">
+                    <div><dt>Trails</dt><dd>2</dd></div>
+                    <div><dt>Strecke</dt><dd>11<small> km</small></dd></div>
+                    <div><dt>Höhenmeter</dt><dd>250<small> Hm</small></dd></div>
+                    <div><dt>Saison</dt><dd>Apr<small> bis </small>Okt</dd></div>
+                </dl>
+            </div>
+
+            <h3 class="sub-heading">Routen zum Nachfahren</h3>
+            <div class="grid tours" style="--min: 260px">
+                {tours.map(tour => (
+                    <article class="card tour">
+                        <h4>{tour.name}</h4>
+                        <p class="tour-start">{tour.start}</p>
+                        <p class="tour-stats">
+                            <span><strong>{tour.km}</strong> km</span>
+                            <span><strong>{tour.hm}</strong> Hm</span>
+                        </p>
+                        <div class="btn-row">
+                            <a href={tour.komoot} target="_blank" rel="noopener" class="btn btn-primary btn-sm">
+                                <Komoot />
+                                Komoot
+                            </a>
+                            <a href={encodeURI(tour.gpx)} download class="btn btn-ghost btn-sm">
+                                <Icon name="download" />
+                                GPX
+                            </a>
+                        </div>
+                    </article>
+                ))}
+            </div>
+
+            <h3 class="sub-heading">Gut zu wissen</h3>
+            <div class="grid info" style="--min: 260px">
+                <div class="card">
+                    <span class="card-icon"><Icon name="square-parking" /></span>
+                    <h3>Anfahrt und Parken</h3>
+                    <p>Los geht es an den Parkplätzen in Hennweiler und Bruschied. Von dort führen ausgeschilderte Forstwege zu den Trails.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon"><Icon name="signal" /></span>
+                    <h3>Schwierigkeit</h3>
+                    <p>Du solltest sicher auf dem Bike sein. Rot markierte Abschnitte sind technisch, die blau markierten deutlich einfacher.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon"><Icon name="cloud-rain" /></span>
+                    <h3>Saison und Sperrungen</h3>
+                    <p>Offen vom 1. April bis 31. Oktober. Bei Nässe oder Unwetter bleiben die Trails zu, auch mitten in der Saison.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="community" class="section section--deep">
+        <div class="container">
+            <div class="section-head">
+                <span class="eyebrow">Community</span>
+                <h2>Zusammen fahren</h2>
+                <p>Wer nicht allein fahren will, findet bei uns schnell Anschluss. Gäste sind bei den Community Rides immer willkommen.</p>
+            </div>
+
+            <div class="community">
+                <div class="card rides">
+                    <span class="card-icon"><Icon name="people-group" /></span>
+                    <h3>Community Rides</h3>
+                    <dl class="ride-times">
+                        <div><dt>Sommer</dt><dd>Mittwochabend</dd></div>
+                        <div><dt>Winter</dt><dd>Sonntagvormittag</dd></div>
+                    </dl>
+                    <p>Treffpunkt und Uhrzeit sagen wir jeweils in der WhatsApp-Community an.</p>
+                    <a href={links.community} class="btn btn-primary">
+                        <Icon name="whatsapp" />
+                        WhatsApp-Community beitreten
+                    </a>
+                </div>
+
+                <ul class="channels">
+                    <li class="card channel">
+                        <span class="card-icon"><Icon name="whatsapp" /></span>
+                        <div>
+                            <h3><a href={links.community}>WhatsApp-Community</a></h3>
+                            <p>Mehrere Gruppen: das Bauteam, ein Bike-Flohmarkt und „Bock zu Biken“ für spontane Runden.</p>
+                        </div>
+                    </li>
+                    <li class="card channel">
+                        <span class="card-icon"><Icon name="facebook" /></span>
+                        <div>
+                            <h3><a href={links.facebook} target="_blank" rel="noopener">Facebook</a></h3>
+                            <p>Hier posten wir Sperrungen, Termine und Neuigkeiten von den Trails.</p>
+                        </div>
+                    </li>
+                    <li class="card channel">
+                        <span class="card-icon"><Icon name="instagram" /></span>
+                        <div>
+                            <h3><a href={links.instagram} target="_blank" rel="noopener">Instagram</a></h3>
+                            <p>@devils_rock_trail_hennweiler</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="crew-teaser">
+                <div>
+                    <h3>Werde Teil der Crew</h3>
+                    <p>Die Trails gibt es, weil Leute ihre Freizeit reinstecken. Als Mitglied hilfst du dabei und bekommst Vereinsklamotten, 10&nbsp;% beim Bikeshop, Bikepark-Ausfahrten und einiges mehr.</p>
+                </div>
+                <a href="/crew/" class="btn btn-accent">
+                    <Icon name="user-plus" />
+                    Mitglied werden
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="regeln" class="section">
+        <div class="container">
+            <div class="section-head">
+                <span class="eyebrow">Sicherheit</span>
+                <h2>Regeln auf dem Trail</h2>
+            </div>
+            <ul class="grid rules" style="--min: 240px">
+                {rules.map(rule => (
+                    <li class="rule">
+                        <span class="card-icon"><Icon name={rule.icon} /></span>
+                        <p>{rule.text}</p>
+                    </li>
+                ))}
+            </ul>
+            <a href="/nutzungsbestimmungen/" class="btn btn-ghost rules-link">
+                <Icon name="file-lines" />
+                Alle Nutzungsbestimmungen
+            </a>
+        </div>
+    </section>
+
+    <section id="team" class="section section--deep">
+        <div class="container">
+            <div class="section-head">
+                <span class="eyebrow">Kontakt</span>
+                <h2>Kernteam</h2>
+                <p>Wir drei kümmern uns um die Organisation. Gebaut und gepflegt werden die Trails von vielen Helferinnen und Helfern.</p>
+            </div>
+            <ul class="grid team" style="--min: 240px">
+                {team.map(person => (
+                    <li class="card member">
+                        <Picture src={photos[person.photo]} alt="" width={96} height={96} densities={[1, 2]} formats={['avif', 'webp']} class="member-photo" />
+                        <div>
+                            <h3>{person.name}</h3>
+                            <p class="member-role">{person.role}</p>
+                            <a href={`mailto:${person.email}`}>{person.email}</a>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+</Base>
+
+<style>
+    /* Hero */
+    .hero {
+        position: relative;
+        isolation: isolate;
+        display: flex;
+        align-items: center;
+        min-height: min(100svh, 920px);
+        padding: calc(var(--nav-h) + 2.5rem) 0 3.5rem;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .hero::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+            radial-gradient(ellipse at center, rgba(0, 57, 71, 0.35) 0%, rgba(0, 57, 71, 0.7) 75%),
+            linear-gradient(180deg, rgba(0, 46, 58, 0.3) 0%, rgba(0, 46, 58, 0.15) 60%, var(--bg-deep) 100%);
+    }
+
+    .hero :global(.hero-bg),
+    .hero :global(.hero-bg img) {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 62% 40%;
+    }
+
+    .hero-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-logo {
+        margin: 0 0 1.5rem;
+    }
+
+    .hero-logo img {
+        width: min(380px, 70vw);
+        filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.35));
+    }
+
+    .hero-lead {
+        max-width: 44ch;
+        margin-bottom: 1.5rem;
+        font-size: clamp(1.125rem, 2.6vw, 1.4rem);
+        font-weight: 500;
+        line-height: 1.45;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+    }
+
+    .status-pill {
+        --state: var(--blue);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        margin-bottom: 1.75rem;
+        padding: 0.4rem 0.95rem;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 999px;
+        background: rgba(0, 30, 38, 0.55);
+        color: var(--text);
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        backdrop-filter: blur(6px);
+    }
+
+    .status-pill[data-state='open'] { --state: var(--open); }
+    .status-pill[data-state='closed'] { --state: var(--closed); }
+
+    .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--state);
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--state) 25%, transparent);
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    @media (max-width: 560px) {
+        .hero-actions {
+            flex-direction: column;
+            align-items: stretch;
+            width: 100%;
+            max-width: 340px;
+        }
+    }
+
+    /* Trails */
+    .intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+        gap: clamp(2rem, 5vw, 4rem);
+        align-items: center;
+        margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .intro-text {
+        margin-bottom: 0;
+    }
+
+    .intro-text p {
+        color: var(--muted);
+        font-size: 1.0625rem;
+    }
+
+    .facts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin: 0;
+    }
+
+    .facts dt {
+        color: var(--muted);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .facts dd {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 2.6rem);
+        font-weight: 900;
+        line-height: 1.1;
+    }
+
+    .facts small {
+        color: var(--blue);
+        font-size: 0.5em;
+        font-weight: 700;
+    }
+
+    .sub-heading {
+        margin: 0 0 1.25rem;
+        font-size: 1.35rem;
+        font-weight: 900;
+    }
+
+    .tours {
+        margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .tour h4 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    .tour-start {
+        margin: 0.15rem 0 1rem;
+    }
+
+    .tour-stats {
+        display: flex;
+        gap: 1.5rem;
+        margin-bottom: 1.25rem;
+        color: var(--blue);
+        font-weight: 700;
+    }
+
+    .tour-stats strong {
+        color: var(--text);
+        font-size: 2rem;
+        font-weight: 900;
+    }
+
+    /* Community */
+    .community {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+        gap: clamp(1rem, 2.5vw, 1.5rem);
+    }
+
+    .rides {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background: linear-gradient(160deg, rgba(0, 104, 123, 0.55), rgba(0, 104, 123, 0.2));
+    }
+
+    .rides .btn {
+        margin-top: auto;
+    }
+
+    .ride-times {
+        display: grid;
+        gap: 0.5rem;
+        width: 100%;
+        margin: 0.5rem 0 1rem;
+    }
+
+    .ride-times div {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.7rem 1rem;
+        border-radius: var(--radius-sm);
+        background: rgba(0, 0, 0, 0.18);
+    }
+
+    .ride-times dt {
+        color: var(--muted);
+    }
+
+    .ride-times dd {
+        margin: 0;
+        font-weight: 700;
+    }
+
+    .rides > p {
+        margin-bottom: 1.5rem;
+    }
+
+    .channels {
+        display: grid;
+        gap: inherit;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .channel {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        position: relative;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .channel:hover {
+        border-color: rgba(107, 179, 191, 0.45);
+        background: var(--surface-strong);
+    }
+
+    .channel .card-icon {
+        margin: 0;
+    }
+
+    .channel h3 {
+        margin-bottom: 0.2rem;
+        font-size: 1.1rem;
+    }
+
+    .channel h3 a {
+        color: var(--text);
+        text-decoration: none;
+    }
+
+    /* whole card clickable */
+    .channel h3 a::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+    }
+
+    .crew-teaser {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem 2.5rem;
+        margin-top: clamp(1.5rem, 3vw, 2.5rem);
+        padding: clamp(1.5rem, 3vw, 2.25rem);
+        border: 1px solid rgba(213, 141, 71, 0.45);
+        border-radius: var(--radius);
+        background: linear-gradient(120deg, rgba(213, 141, 71, 0.18), rgba(213, 141, 71, 0.04));
+    }
+
+    .crew-teaser h3 {
+        font-size: 1.4rem;
+        font-weight: 900;
+    }
+
+    .crew-teaser p {
+        max-width: 62ch;
+        color: var(--muted);
+    }
+
+    .crew-teaser .btn {
+        flex-shrink: 0;
+    }
+
+    /* Rules */
+    .rules {
+        margin: 0 0 2rem;
+        padding: 0;
+        list-style: none;
+    }
+
+    .rule {
+        padding-top: 1.25rem;
+        border-top: 2px solid var(--line);
+    }
+
+    .rule p {
+        color: var(--muted);
+    }
+
+    /* Team */
+    .team {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .member {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+    }
+
+    .member :global(.member-photo) {
+        width: 96px;
+        height: 96px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        border: 3px solid var(--blue);
+        object-fit: cover;
+    }
+
+    .member h3 {
+        margin-bottom: 0.1rem;
+    }
+
+    .member-role {
+        margin-bottom: 0.35rem;
+        color: var(--mustard);
+        font-weight: 700;
+        font-size: 0.95rem;
+    }
+
+    .member a {
+        font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+        .intro,
+        .community {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 720px) {
+        .crew-teaser {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .info .card {
+            display: grid;
+            grid-template-columns: 48px minmax(0, 1fr);
+            column-gap: 1rem;
+        }
+
+        .info .card-icon {
+            grid-row: span 2;
+            margin: 0;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .facts dd {
+            font-size: 1.75rem;
+        }
+    }
+</style>

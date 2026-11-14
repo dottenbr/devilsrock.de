@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+import { links } from '../data/site';
+---
+<Base title="Spenden" description="Unterstütze die Devils Rock Trails mit einer Spende über PayPal.">
+    <meta slot="head" http-equiv="refresh" content={`4; url=${links.paypal}`}>
+    <PageHeader eyebrow="Unterstützen" title="Spenden" subtitle="Danke, dass du die Trails unterstützt." />
+
+    <section class="section">
+        <div class="container">
+            <div class="card donate">
+                <p>Du wirst in wenigen Sekunden zu PayPal weitergeleitet.</p>
+                <p>Mit deiner Spende hilfst du, die Devils Rock Trails zu erhalten und weiter auszubauen.</p>
+                <a href={links.paypal} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    <Icon name="paypal" />
+                    Jetzt bei PayPal spenden
+                </a>
+            </div>
+        </div>
+    </section>
+</Base>
+
+<style>
+    .donate {
+        max-width: 640px;
+    }
+
+    .donate .btn {
+        margin-top: 1.5rem;
+    }
+</style>

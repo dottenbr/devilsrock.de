@@ -1,0 +1,15 @@
+---
+// Komoot mark. Inherits the text colour through a CSS mask.
+---
+<span class="komoot-mark" aria-hidden="true"></span>
+
+<style>
+    .komoot-mark {
+        display: inline-block;
+        width: 1.15em;
+        height: 1.15em;
+        flex-shrink: 0;
+        background: currentColor;
+        mask: url('/assets/icons/komoot-logo.png') center / contain no-repeat;
+    }
+</style>
